@@ -136,9 +136,9 @@ export default function Home() {
             animate={{ opacity: 0.55 }}
             transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
           >
-            The backbone behind AI training, where human judgment supports Data
-            Operations as a stable system without tying opportunities to
-            location.
+            We’ve built a dual-sided platform where skilled professionals find
+            meaningful work and businesses find scalable, high-quality
+            operations.
           </motion.p>
 
           <motion.div
@@ -167,36 +167,37 @@ export default function Home() {
       </section>
 
       {/* Trusted Partners Section */}
-      <section className="relative py-20 px-6 bg-gradient-to-b from-white via-[#F5F8FF] to-white overflow-hidden">
-        <div className="absolute top-20 right-10 w-64 h-64 bg-purple-200 rounded-full opacity-[0.08] blur-[80px] pointer-events-none"></div>
-        <div className="absolute bottom-20 left-10 w-72 h-72 bg-blue-200 rounded-full opacity-[0.08] blur-[90px] pointer-events-none"></div>
+      {false && (
+        <section className="relative py-20 px-6 bg-gradient-to-b from-white via-[#F5F8FF] to-white overflow-hidden">
+          <div className="absolute top-20 right-10 w-64 h-64 bg-purple-200 rounded-full opacity-[0.08] blur-[80px] pointer-events-none"></div>
+          <div className="absolute bottom-20 left-10 w-72 h-72 bg-blue-200 rounded-full opacity-[0.08] blur-[90px] pointer-events-none"></div>
 
-        <motion.div
-          className="absolute top-32 left-[15%] w-16 h-16 border-2 border-purple-300 rounded-lg opacity-20 pointer-events-none"
-          animate={{ rotate: [0, 90, 0], y: [0, -20, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-32 right-[20%] w-12 h-12 border-2 border-blue-300 rounded-full opacity-20 pointer-events-none"
-          animate={{ y: [0, -25, 0], scale: [1, 1.1, 1] }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
+          <motion.div
+            className="absolute top-32 left-[15%] w-16 h-16 border-2 border-purple-300 rounded-lg opacity-20 pointer-events-none"
+            animate={{ rotate: [0, 90, 0], y: [0, -20, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-32 right-[20%] w-12 h-12 border-2 border-blue-300 rounded-full opacity-20 pointer-events-none"
+            animate={{ y: [0, -25, 0], scale: [1, 1.1, 1] }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
 
-        <div className="relative max-w-[1200px] mx-auto">
-          <div className="text-center mb-16">
-            <motion.div
-              className="inline-flex items-center justify-center mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              {/* <div className="bg-[#F0F6FF] border border-[#056FD4]/10 rounded-full px-6 py-2.5">
+          <div className="relative max-w-[1200px] mx-auto">
+            <div className="text-center mb-16">
+              <motion.div
+                className="inline-flex items-center justify-center mb-6"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                {/* <div className="bg-[#F0F6FF] border border-[#056FD4]/10 rounded-full px-6 py-2.5">
                 <p
                   className="text-sm tracking-[0.15em] text-[#056FD4] uppercase"
                   style={{ fontWeight: 600 }}
@@ -204,90 +205,91 @@ export default function Home() {
                   PROVEN AT SCALE
                 </p>
               </div> */}
-            </motion.div>
-            <motion.h2
-              className="text-[3rem] text-[#14212A] mb-5"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              style={{ fontWeight: 800 }}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <span>Teams building with</span>
-                <img src={logo} alt="Reboo8" className="h-10 w-auto" />
-              </div>
-            </motion.h2>
-            <motion.p
-              className="text-lg text-[#14212A]/75 max-w-[600px] mx-auto"
+              </motion.div>
+              <motion.h2
+                className="text-[3rem] text-[#14212A] mb-5"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                style={{ fontWeight: 800 }}
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <span>Teams building with</span>
+                  <img src={logo} alt="Reboo8" className="h-10 w-auto" />
+                </div>
+              </motion.h2>
+              <motion.p
+                className="text-lg text-[#14212A]/75 max-w-[600px] mx-auto"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                style={{ fontWeight: 500 }}
+              >
+                Forward-thinking organizations using Reboo8 to reimagine work
+              </motion.p>
+            </div>
+
+            <motion.div
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-12 gap-y-10 items-center"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              style={{ fontWeight: 500 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
             >
-              Forward-thinking organizations using Reboo8 to reimagine work
-            </motion.p>
+              <div className="flex justify-center">
+                <div
+                  className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
+                  style={{ fontWeight: 700 }}
+                >
+                  ACME
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div
+                  className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
+                  style={{ fontWeight: 700 }}
+                >
+                  VERTEX
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div
+                  className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
+                  style={{ fontWeight: 700 }}
+                >
+                  PRISM
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div
+                  className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
+                  style={{ fontWeight: 700 }}
+                >
+                  NEXUS
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div
+                  className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
+                  style={{ fontWeight: 700 }}
+                >
+                  APEX
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div
+                  className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
+                  style={{ fontWeight: 700 }}
+                >
+                  ZENITH
+                </div>
+              </div>
+            </motion.div>
           </div>
-
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-12 gap-y-10 items-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <div className="flex justify-center">
-              <div
-                className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
-                style={{ fontWeight: 700 }}
-              >
-                ACME
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div
-                className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
-                style={{ fontWeight: 700 }}
-              >
-                VERTEX
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div
-                className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
-                style={{ fontWeight: 700 }}
-              >
-                PRISM
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div
-                className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
-                style={{ fontWeight: 700 }}
-              >
-                NEXUS
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div
-                className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
-                style={{ fontWeight: 700 }}
-              >
-                APEX
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div
-                className="text-2xl tracking-wider text-[#14212A]/50 hover:text-[#056FD4] transition-colors cursor-pointer"
-                style={{ fontWeight: 700 }}
-              >
-                ZENITH
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* What is Reboo8 Section */}
       <section className="relative py-24 px-6 bg-white overflow-hidden">
@@ -800,9 +802,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              We’ve built a dual-sided platform where skilled professionals find
-              meaningful work and businesses find scalable, high-quality
-              operations.
+              The backbone behind AI training, where human judgment supports
+              Data Operations as a stable system without tying opportunities to
+              location.
             </motion.p>
           </div>
 
