@@ -542,7 +542,7 @@ export default function Contact() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-[#F8FAFC] to-white">
+      {/* <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-[#F8FAFC] to-white">
         <motion.div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -612,7 +612,7 @@ export default function Contact() {
             </motion.button>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       <Footer />
     </div>

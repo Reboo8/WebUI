@@ -1,5 +1,6 @@
 import { Header } from "../../layout/components/Header.jsx";
 import { Footer } from "../../layout/components/Footer.jsx";
+import logo from "@/assets/logo.svg";
 import {
   Workflow,
   Network,
@@ -109,7 +110,7 @@ export default function Home() {
             style={{ fontWeight: 800 }}
           >
             <span className="block text-[4rem] leading-[1.05] text-[#14212A]">
-              Scalable Data Operations through
+              Scaling Data Operations through
             </span>
             <span className="block text-[4rem] leading-[1.05] mt-2">
               <span className="text-[#14212A] bg-gradient-to-r from-[#056FD4] to-[#0456a8] bg-clip-text text-transparent">
@@ -195,14 +196,14 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="bg-[#F0F6FF] border border-[#056FD4]/10 rounded-full px-6 py-2.5">
+              {/* <div className="bg-[#F0F6FF] border border-[#056FD4]/10 rounded-full px-6 py-2.5">
                 <p
                   className="text-sm tracking-[0.15em] text-[#056FD4] uppercase"
                   style={{ fontWeight: 600 }}
                 >
-                  Trusted Worldwide
+                  PROVEN AT SCALE
                 </p>
-              </div>
+              </div> */}
             </motion.div>
             <motion.h2
               className="text-[3rem] text-[#14212A] mb-5"
@@ -212,7 +213,10 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               style={{ fontWeight: 800 }}
             >
-              Built for Teams Like Yours
+              <div className="flex items-center justify-center gap-2">
+                <span>Teams building with</span>
+                <img src={logo} alt="Reboo8" className="h-10 w-auto" />
+              </div>
             </motion.h2>
             <motion.p
               className="text-lg text-[#14212A]/75 max-w-[600px] mx-auto"
