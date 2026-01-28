@@ -364,10 +364,11 @@ export default function Home() {
               </h2>
 
               <p className="text-lg text-[#14212A]/70 leading-[1.8] mb-10">
-                Reboo8 isn't just a platform; it's a new operating system for
-                the global workforce. We combine the creativity and judgment of
-                expert human talent with the speed and scalability of advanced
-                AI, delivering results that neither could achieve alone.
+                Reboo8 is an ecosystem redefined for AI/ML Data Operations, 
+                enabling skilled professionals to access production-grade work 
+                without traditional employment or location constaints. Businesses
+                receive consistent, high-quality outcomes through a flexible
+                and scalable delivery model.
               </p>
 
               <button
@@ -632,7 +633,7 @@ export default function Home() {
                   className="text-sm tracking-[0.15em] text-[#056FD4] uppercase"
                   style={{ fontWeight: 600 }}
                 >
-                  Our Framework
+                  Operations We Support
                 </p>
               </div>
             </motion.div>
