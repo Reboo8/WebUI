@@ -311,7 +311,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#14212A]/40 to-transparent pointer-events-none"></div>
 
-                {/* Floating AI Element */}
+                {/* Floating AI Element by Rupal*/}
                 <div className="absolute center inset-0 flex items-center justify-center pointer-events-none">
                   <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center">
                     <div className="w-12 h-12 bg-[#056FD4] rounded-full opacity-80 animate-pulse"></div>
@@ -645,17 +645,18 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               style={{ fontWeight: 800 }}
             >
-              How We Help Work Flow Better
+              Core Services Enabling Reliable Execution
             </motion.h2>
             <motion.p
-              className="text-xl text-[#14212A] opacity-70 max-w-[700px] mx-auto leading-[1.6]"
+              className="text-xl text-[#14212A] opacity-70 max-w-[800px] mx-auto leading-[1.6]"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 0.7 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              A simple, scalable framework designed for people, powered by
-              intelligence.
+              A unified delivery layer that caters the core execution needs of
+              Businesses <br/>where human involvement remains essential to run, scale,
+              and maintain critical workflows.
             </motion.p>
           </div>
 
@@ -674,11 +675,11 @@ export default function Home() {
                 className="text-[1.75rem] text-[#14212A] mb-4"
                 style={{ fontWeight: 700 }}
               >
-                Intelligent Workflows
+                AI-Assisted Customer Operations
               </h3>
               <p className="text-[#14212A] opacity-70 leading-[1.7] text-[1.0625rem]">
-                Smart, adaptable processes powered by human judgment and
-                technical precision.
+                AI-enabled customer operations combining performance scoring, support
+                workflows, scheduling, and operational intelligence.
               </p>
             </motion.div>
 
@@ -696,11 +697,11 @@ export default function Home() {
                 className="text-[1.75rem] text-[#14212A] mb-4"
                 style={{ fontWeight: 700 }}
               >
-                Agility Network
+                AI/ML Workflow Training
               </h3>
               <p className="text-[#14212A] opacity-70 leading-[1.7] text-[1.0625rem]">
-                A flexible, diverse talent ecosystem ready for modern work
-                demands.
+                Model training workflows combining human judgement with automated
+                evaluation to improve accuracy, reliability, and real-world performance.
               </p>
             </motion.div>
 
@@ -718,10 +719,11 @@ export default function Home() {
                 className="text-[1.75rem] text-[#14212A] mb-4"
                 style={{ fontWeight: 700 }}
               >
-                Elastic Infrastructure
+                AI System Infrastructure
               </h3>
               <p className="text-[#14212A] opacity-70 leading-[1.7] text-[1.0625rem]">
-                Scalable systems that expand or contract workflow needs evolve.
+                End-to-end AI system execution, covering data annotation, model development,
+                validation, and continuous iterations in production.
               </p>
             </motion.div>
           </div>
