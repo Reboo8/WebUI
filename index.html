@@ -3,13 +3,96 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>reb∞8 — The Human-in-the-Loop Platform</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;600&display=swap"
-      rel="stylesheet"
+    <title>
+      reb∞8 — The Human-in-the-Loop Platform | Signal + Tag for AI Training Data
+    </title>
+    <meta
+      name="description"
+      content="reb∞8 is the Human-in-the-Loop platform for AI training data. Signal scores and manages the workforce. Tag produces and gates the output. Together — the infrastructure that manages the human layer in AI."
     />
-    <link rel="stylesheet" href="styles.css" />
+    <meta
+      name="keywords"
+      content="human-in-the-loop, HITL, AI training data, data labeling, annotation, RLHF, contributor scoring, AI workforce, data quality, machine learning, LLM training"
+    />
+    <meta name="author" content="reb∞8 Pvt Ltd" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#07090f" />
+    <link rel="canonical" href="https://reboo8.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://reboo8.com/" />
+    <meta
+      property="og:title"
+      content="reb∞8 — The platform that manages the human layer in AI"
+    />
+    <meta
+      property="og:description"
+      content="Signal scores and manages the workforce. Tag produces and gates the output. Together — the infrastructure that manages the human layer in AI."
+    />
+    <meta property="og:site_name" content="reb∞8" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://reboo8.com/" />
+    <meta
+      name="twitter:title"
+      content="reb∞8 — The Human-in-the-Loop Platform"
+    />
+    <meta
+      name="twitter:description"
+      content="Signal scores and manages the workforce. Tag produces and gates the output. Together — the infrastructure that manages the human layer in AI."
+    />
+
+    <!-- Favicon (inline SVG) -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2307090f'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-family='Georgia,serif' font-size='52' font-weight='800' fill='%2300c896'%3E%E2%88%9E%3C/text%3E%3C/svg%3E"
+    />
+
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "reb∞8",
+        "alternateName": "Reboo8",
+        "url": "https://reboo8.com/",
+        "description": "The Human-in-the-Loop Platform for AI training data. Signal scores and manages the workforce. Tag produces and gates the output.",
+        "email": "hello@reboo8.com",
+        "sameAs": []
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@600&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="preload" as="style" href="styles.min.css" />
+    <link
+      rel="stylesheet"
+      href="styles.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript><link rel="stylesheet" href="styles.min.css" /></noscript>
   </head>
   <body>
     <!-- ═══ ANNOUNCE STRIP ══════════════════════════════════════ -->
@@ -20,7 +103,7 @@
         >
         Signal + Tag — Now accepting pilot engagements</span
       >
-      <a href="javascript:void(0)" onclick="openM()">Apply now →</a>
+      <a href="#pilot" onclick="openM(); return false;">Apply now →</a>
     </div>
 
     <!-- ═══ NAV ════════════════════════════════════════════════ -->
@@ -38,7 +121,7 @@
       >
         <span></span>
       </button>
-      <ul class="nv-links">
+      <ul class="nv-links" id="nvLinks">
         <li>
           <button data-nav="about" onclick="navTo('about')">About</button>
         </li>
@@ -49,21 +132,16 @@
           <button data-nav="tag" onclick="navTo('tag')">Tag</button>
         </li>
         <li>
-          <button
-            onclick="window.location.href='https://reboo8-frontend-v2-396641227373.asia-northeast1.run.app/signup'"
-          >
-            Contribute
-          </button>
+          <button onclick="navTo('about')">Our story</button>
         </li>
-        <li>
-          <button class="nv-cta-mobile" onclick="openM()">
-            Start a Pilot →
-          </button>
+        <li class="nv-mobile-pilot">
+          <button onclick="openM()">Start a Pilot →</button>
         </li>
       </ul>
       <button class="nv-cta" onclick="openM()">Start a Pilot →</button>
     </nav>
 
+    <main id="main">
     <!-- ═══ HOME PAGE ══════════════════════════════════════════ -->
     <div id="pg-home" class="page on">
       <!-- ──────────────────────────────────────────────────────────
@@ -98,12 +176,15 @@
                 is built to do.
               </p>
               <div class="hero-btns">
-                <button class="bp" onclick="openM()">
-                  Start a pilot conversation →
+                <button class="bp" onclick="openM()">Start a pilot →</button>
+                <button
+                  class="bg-dk"
+                  onclick="window.location.href='https://reboo8-frontend-v2-396641227373.asia-northeast1.run.app/signup'"
+                >
+                  Contribute
                 </button>
-                <button class="bg-dk" onclick="go('about')">Our story</button>
               </div>
-              <div class="hstats" style="grid-template-columns: repeat(4, 1fr)">
+              <div class="hstats">
                 <div class="hs">
                   <div class="hs-n">5<span>K+</span></div>
                   <div class="hs-l">Pre-scored<br />contributors</div>
@@ -1552,6 +1633,7 @@
             </p>
           </div>
 
+          <div class="process-flow">
           <svg
             viewBox="0 0 1100 210"
             width="100%"
@@ -2082,6 +2164,7 @@
               Outcome Brief → First verified batch · 7 days
             </text>
           </svg>
+          </div>
         </div>
       </section>
 
@@ -3023,7 +3106,7 @@
                   onclick="openM()"
                   style="width: 100%; justify-content: center"
                 >
-                  Start a pilot conversation →
+                  Start a pilot →
                 </button>
               </div>
             </div>
@@ -5449,13 +5532,18 @@
         </p>
       </div>
     </div>
+    </main>
 
     <!-- ═══ FOOTER (V5) ════════════════════════════════════════════ -->
     <footer>
       <div class="w">
         <div class="ft-grid">
           <div class="ft-brand">
-            <a class="ft-logo" onclick="go('home')"
+            <a
+              class="ft-logo"
+              href="/"
+              onclick="go('home'); return false;"
+              aria-label="reb∞8 home"
               >reb<span class="ft-logo-inf">∞</span
               ><span class="ft-logo-dot">8</span></a
             >
