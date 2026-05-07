@@ -5,3 +5,7 @@ build/
 .vscode/
 .idea/
 dist/
+src/
+package-lock.json
+package.json
+vite.config.js
