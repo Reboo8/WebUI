@@ -120,3 +120,60 @@ document.addEventListener("keydown", (e) => {
     closeMobileNav();
   }
 });
+
+// ─── Sticky nav: activate after the hero scrolls past ─────
+let stickyTicking = false;
+function updateStickyNav() {
+  const visible = document.querySelector(".page.on");
+  const heroLike = visible && visible.querySelector(".hero, .depth-hero");
+  if (heroLike) {
+    const passed = heroLike.getBoundingClientRect().bottom < 0;
+    document.body.classList.toggle("nav-sticky", passed);
+  } else {
+    document.body.classList.add("nav-sticky");
+  }
+}
+window.addEventListener(
+  "scroll",
+  () => {
+    if (stickyTicking) return;
+    stickyTicking = true;
+    requestAnimationFrame(() => {
+      updateStickyNav();
+      stickyTicking = false;
+    });
+  },
+  { passive: true }
+);
+window.addEventListener("load", updateStickyNav);
+
+// ─── Count-up animation for hero stats ─────────────────────
+function animateCountUp(el, target, duration = 1600) {
+  const startTime = performance.now();
+  const tick = (now) => {
+    const t = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+    const value = Math.round(target * eased);
+    el.firstChild.nodeValue = String(value);
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+(function initStatsCountUp() {
+  const stats = document.getElementById("heroStats");
+  if (!stats || !("IntersectionObserver" in window)) return;
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll(".hs-n").forEach((el) => {
+          const target = parseInt(el.dataset.target, 10);
+          if (!isNaN(target)) animateCountUp(el, target);
+        });
+        obs.disconnect();
+      });
+    },
+    { threshold: 0.4 }
+  );
+  obs.observe(stats);
+})();
