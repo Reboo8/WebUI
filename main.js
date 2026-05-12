@@ -1,8 +1,6 @@
 // ─── Page (SPA) switching ──────────────────────────────────
 function go(p) {
-  document
-    .querySelectorAll(".page")
-    .forEach((x) => x.classList.remove("on"));
+  document.querySelectorAll(".page").forEach((x) => x.classList.remove("on"));
   const el = document.getElementById("pg-" + p);
   if (el) el.classList.add("on");
   window.scrollTo(0, 0);
@@ -16,9 +14,7 @@ function navTo(anchor) {
   const home = document.getElementById("pg-home");
   const onHome = home && home.classList.contains("on");
   if (!onHome) {
-    document
-      .querySelectorAll(".page")
-      .forEach((x) => x.classList.remove("on"));
+    document.querySelectorAll(".page").forEach((x) => x.classList.remove("on"));
     home.classList.add("on");
   }
   // Wait a tick so layout is in place before scrolling.
@@ -143,7 +139,7 @@ window.addEventListener(
       stickyTicking = false;
     });
   },
-  { passive: true }
+  { passive: true },
 );
 window.addEventListener("load", updateStickyNav);
 
@@ -173,7 +169,7 @@ function animateCountUp(el, target, duration = 1600) {
         obs.disconnect();
       });
     },
-    { threshold: 0.4 }
+    { threshold: 0.4 },
   );
   obs.observe(stats);
 })();
