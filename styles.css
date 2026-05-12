@@ -958,36 +958,25 @@ footer {
 }
 .ft-brand .ft-logo {
   font-family: var(--f-d);
-  font-size: 19px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--tx-hi);
   text-decoration: none;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.5px;
   display: inline-block;
   margin-bottom: 10px;
   cursor: pointer;
-}
-.ft-brand .ft-logo span {
-  color: var(--acc);
 }
 .ft-logo-inf {
   color: var(--teal);
   font-family: var(--f-d);
   font-size: 1.3em;
   font-weight: 700;
-  line-height: 1;
   vertical-align: -0.08em;
   margin: 0 -0.05em;
-  letter-spacing: 0;
 }
-.ft-brand .ft-logo .ft-logo-inf {
-  color: var(--teal);
-  font-size: 1.3em;
-  line-height: 1;
-  vertical-align: -0.06em;
-}
-.ft-brand .ft-logo .ft-logo-dot {
-  color: var(--acc);
+.ft-logo-dot {
+  color: var(--tx-hi);
   font-family: var(--f-d);
   font-weight: 800;
   vertical-align: -0.06em;
@@ -1077,9 +1066,6 @@ footer {
   display: none;
 }
 .page.on {
-  display: block;
-}
-#pg-home {
   display: block;
 }
 .depth-hero {

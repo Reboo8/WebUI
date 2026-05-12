@@ -2,6 +2,10 @@ FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY index.html /usr/share/nginx/html/index.html
+COPY privacy.html /usr/share/nginx/html/privacy.html
+COPY terms.html /usr/share/nginx/html/terms.html
+COPY dpa.html /usr/share/nginx/html/dpa.html
+COPY careers.html /usr/share/nginx/html/careers.html
 COPY styles.css /usr/share/nginx/html/styles.css
 COPY styles.min.css /usr/share/nginx/html/styles.min.css
 COPY main.js /usr/share/nginx/html/main.js

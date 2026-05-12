@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>
-      Reboo8 — The Human-in-the-Loop Platform | Score + Annotate for AI Training
+      Reboo8 — The Human-in-the-Loop Platform | Signal + Tag for AI Training
       Data
     </title>
     <meta
       name="description"
-      content="reb∞8 is the Human-in-the-Loop platform for AI training data. Score scores and manages the workforce. Annotate produces and gates the output. Together — the infrastructure that manages the human layer in AI."
+      content="reb∞8 is the Human-in-the-Loop platform for AI training data. Signal scores and manages the workforce. Tag produces and gates the output. Together — the infrastructure that manages the human layer in AI."
     />
     <meta
       name="keywords"
@@ -29,7 +29,7 @@
     />
     <meta
       property="og:description"
-      content="Score scores and manages the workforce. Annotate produces and gates the output. Together — the infrastructure that manages the human layer in AI."
+      content="Signal scores and manages the workforce. Tag produces and gates the output. Together — the infrastructure that manages the human layer in AI."
     />
     <meta property="og:site_name" content="reb∞8" />
     <meta property="og:locale" content="en_US" />
@@ -43,7 +43,7 @@
     />
     <meta
       name="twitter:description"
-      content="Score scores and manages the workforce. Annotate produces and gates the output. Together — the infrastructure that manages the human layer in AI."
+      content="Signal scores and manages the workforce. Tag produces and gates the output. Together — the infrastructure that manages the human layer in AI."
     />
 
     <!-- Favicon (inline SVG) -->
@@ -61,7 +61,7 @@
         "name": "reb∞8",
         "alternateName": "Reboo8",
         "url": "https://reboo8.com/",
-        "description": "The Human-in-the-Loop Platform for AI training data. Score scores and manages the workforce. Annotate produces and gates the output.",
+        "description": "The Human-in-the-Loop Platform for AI training data. Signal scores and manages the workforce. Tag produces and gates the output.",
         "email": "hello@reboo8.com",
         "sameAs": []
       }
@@ -99,7 +99,7 @@
     <!-- ═══ ANNOUNCE STRIP ══════════════════════════════════════ -->
     <div class="announce-strip">
       <span
-        ><span class="brand-name">Reboo8</span> (Score + Annotate) — Now
+        ><span class="brand-name">Reboo8</span> (Signal + Tag) — Now
         accepting pilot engagements</span
       >
       <a
@@ -129,22 +129,22 @@
       </button>
       <ul class="nv-links" id="nvLinks">
         <li>
-          <button data-nav="signal" onclick="navTo('signal')">Score</button>
+          <button onclick="go('about')">About Us</button>
         </li>
         <li>
-          <button data-nav="tag" onclick="navTo('tag')">Annotate</button>
+          <button data-nav="signal" onclick="go('signal')">Signal</button>
         </li>
         <li>
-          <button data-nav="community">Community</button>
+          <button data-nav="tag" onclick="go('tag')">Tag</button>
         </li>
         <li>
-          <button onclick="navTo('about')">About Us</button>
+          <button data-nav="community" onclick="go('network')">Community</button>
         </li>
         <li class="nv-mobile-pilot">
-          <button onclick="openM()">Contributor →</button>
+          <button onclick="window.location.href='https://contributor.reboo8.com/signup'">Contributor →</button>
         </li>
       </ul>
-      <button class="nv-cta" onclick="openM()">Contributor →</button>
+      <button class="nv-cta" onclick="window.location.href='https://contributor.reboo8.com/signup'">Contributor →</button>
     </nav>
 
     <main id="main">
@@ -171,27 +171,19 @@
                   >
                 </h1>
                 <p class="lead hero-lead">
-                  The model learns from data. The data comes from people.
-                  Scoring those people — understanding their quality before they
-                  start, and tracking what happens while they work — is what
-                  determines whether the data is worth training on. That's what
+                  Every AI model learns from human-labeled data.
                   <span class="reb8-mark"
                     >reb<span class="inf-sym">∞</span
                     ><span class="logo-8">8</span></span
                   >
-                  is built to do.
+                  scores the people producing that data — before they start, and
+                  throughout every task.
                 </p>
                 <div class="hero-btns">
-                  <button class="bp" onclick="openM()">Start a pilot →</button>
-                  <button
-                    class="bg-dk"
-                    onclick="
-                      window.location.href =
-                        'https://reboo8-frontend-v2-396641227373.asia-northeast1.run.app/signup'
-                    "
-                  >
-                    Contribute
+                  <button class="bp" onclick="openM()">
+                    Request a pilot →
                   </button>
+                  <button class="bg-dk" onclick="go('about')">Our story</button>
                 </div>
                 <div class="hstats" id="heroStats">
                   <div class="hs">
@@ -199,7 +191,7 @@
                     <div class="hs-l">Pre-scored contributors</div>
                   </div>
                   <div class="hs">
-                    <div class="hs-n" data-target="7">0<span>d</span></div>
+                    <div class="hs-n" data-target="14">0<span>d</span></div>
                     <div class="hs-l">Brief to first batch</div>
                   </div>
                   <div class="hs">
@@ -214,665 +206,589 @@
               </div>
 
               <!-- Right: Live contributor dashboard SVG -->
-              <div>
+              <div style="margin-top: -100px">
                 <svg
-                  viewBox="0 0 560 440"
+                  viewBox="0 0 580 580"
                   width="100%"
                   xmlns="http://www.w3.org/2000/svg"
-                  style="filter: drop-shadow(0 32px 80px rgba(0, 0, 0, 0.65))"
+                  style="filter: drop-shadow(0 24px 64px rgba(0, 0, 0, 0.6))"
                 >
                   <defs>
-                    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+                    <linearGradient id="hdr-g" x1="0" y1="0" x2="1" y2="0">
                       <stop offset="0%" stop-color="#00C896" />
                       <stop offset="100%" stop-color="#3ECF8E" />
                     </linearGradient>
-                    <linearGradient id="sg" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stop-color="#4A9EE8" />
-                      <stop offset="100%" stop-color="#6BACF0" />
-                    </linearGradient>
-                    <linearGradient id="rg" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stop-color="#E8622A" />
-                      <stop offset="100%" stop-color="#f07440" />
-                    </linearGradient>
+                    <clipPath id="card-clip">
+                      <rect width="580" height="580" rx="16" />
+                    </clipPath>
                   </defs>
 
-                  <!-- Card -->
+                  <!-- Card background -->
                   <rect
-                    width="560"
-                    height="440"
+                    width="580"
+                    height="580"
                     rx="16"
-                    fill="#0D1420"
-                    stroke="rgba(0,200,150,.2)"
-                    stroke-width="1.5"
+                    fill="#0D1830"
+                    clip-path="url(#card-clip)"
                   />
-                  <rect width="560" height="4" rx="2" fill="url(#tg)" />
+                  <!-- Top teal accent bar -->
+                  <rect width="580" height="4" rx="2" fill="url(#hdr-g)" />
 
-                  <!-- Header bar -->
+                  <!-- ── HEADER ── -->
                   <rect
                     x="0"
                     y="4"
-                    width="560"
-                    height="44"
-                    fill="rgba(255,255,255,.02)"
+                    width="580"
+                    height="46"
+                    fill="rgba(0,0,0,.15)"
                   />
                   <text
                     x="22"
-                    y="30"
+                    y="32"
                     font-family="JetBrains Mono"
-                    font-size="9.5"
-                    fill="rgba(0,200,150,.7)"
-                    letter-spacing="1"
-                  >
-                    REB∞8 SIGNAL · LIVE CONTRIBUTOR DASHBOARD
-                  </text>
-                  <!-- Live badge -->
-                  <rect
-                    x="464"
-                    y="14"
-                    width="74"
-                    height="22"
-                    rx="11"
-                    fill="rgba(62,207,142,.12)"
-                    stroke="rgba(62,207,142,.3)"
-                  />
-                  <circle cx="477" cy="25" r="3.5" fill="#3ECF8E" />
-                  <text
-                    x="485"
-                    y="29"
-                    font-family="JetBrains Mono"
-                    font-size="9"
-                    fill="#3ECF8E"
+                    font-size="11"
                     font-weight="600"
+                    fill="rgba(0,200,150,.85)"
+                    letter-spacing="1.2"
                   >
-                    LIVE
+                    reb∞8 SIGNAL · LIVE DASHBOARD
                   </text>
                   <rect
                     x="0"
-                    y="48"
-                    width="560"
+                    y="50"
+                    width="580"
                     height="1"
-                    fill="rgba(255,255,255,.06)"
+                    fill="rgba(255,255,255,.07)"
                   />
 
-                  <!-- Column headers -->
+                  <!-- ── TITLE ── -->
                   <text
                     x="22"
-                    y="68"
-                    font-family="JetBrains Mono"
-                    font-size="8"
-                    fill="rgba(232,234,240,.25)"
-                    letter-spacing=".5"
+                    y="82"
+                    font-family="Cormorant Garant"
+                    font-size="22"
+                    font-weight="700"
+                    fill="#E8EAF0"
                   >
-                    CONTRIBUTOR
-                  </text>
-                  <text
-                    x="230"
-                    y="68"
-                    font-family="JetBrains Mono"
-                    font-size="8"
-                    fill="rgba(232,234,240,.25)"
-                    letter-spacing=".5"
-                  >
-                    BADGE SCORE
-                  </text>
-                  <text
-                    x="370"
-                    y="68"
-                    font-family="JetBrains Mono"
-                    font-size="8"
-                    fill="rgba(232,234,240,.25)"
-                    letter-spacing=".5"
-                  >
-                    TREND
-                  </text>
-                  <text
-                    x="470"
-                    y="68"
-                    font-family="JetBrains Mono"
-                    font-size="8"
-                    fill="rgba(232,234,240,.25)"
-                    letter-spacing=".5"
-                  >
-                    STATUS
+                    Composite Quality Score — Active Pipeline
                   </text>
                   <rect
                     x="0"
-                    y="74"
-                    width="560"
+                    y="92"
+                    width="580"
                     height="1"
                     fill="rgba(255,255,255,.06)"
                   />
 
-                  <!-- ── CONTRIBUTOR 1 ── -->
+                  <!-- ══ CONTRIBUTOR ROW 1: Priya M. — 94/100 ══ -->
                   <rect
                     x="0"
-                    y="75"
-                    width="560"
-                    height="88"
-                    fill="rgba(0,200,150,.03)"
+                    y="93"
+                    width="580"
+                    height="72"
+                    fill="rgba(0,200,150,.04)"
                   />
-                  <!-- Avatar circle -->
+                  <!-- Avatar circle: teal -->
                   <circle
-                    cx="42"
-                    cy="119"
-                    r="20"
-                    fill="rgba(0,200,150,.1)"
-                    stroke="rgba(0,200,150,.25)"
+                    cx="52"
+                    cy="129"
+                    r="22"
+                    fill="rgba(0,200,150,.18)"
+                    stroke="rgba(0,200,150,.4)"
                     stroke-width="1.5"
                   />
                   <text
-                    x="42"
-                    y="125"
+                    x="52"
+                    y="135"
                     text-anchor="middle"
-                    font-family="Cormorant Garant"
+                    font-family="DM Sans"
                     font-size="16"
                     font-weight="700"
                     fill="#3ECF8E"
                   >
-                    01
+                    P
                   </text>
-                  <!-- Name and domain -->
+                  <!-- Name + role -->
                   <text
-                    x="72"
-                    y="108"
+                    x="86"
+                    y="118"
                     font-family="Cormorant Garant"
                     font-size="20"
                     font-weight="700"
                     fill="#E8EAF0"
                   >
-                    Contributor 1
+                    Priya M.
                   </text>
                   <text
-                    x="72"
-                    y="125"
+                    x="86"
+                    y="138"
                     font-family="JetBrains Mono"
-                    font-size="9"
-                    fill="rgba(232,234,240,.4)"
-                    letter-spacing=".3"
+                    font-size="10"
+                    fill="rgba(232,234,240,.42)"
+                    letter-spacing=".2"
                   >
-                    LLM / PREFERENCE RANKING
+                    Linguistic Annotator · Hindi / Tamil
                   </text>
-                  <text
-                    x="72"
-                    y="142"
-                    font-family="JetBrains Mono"
-                    font-size="8.5"
-                    fill="rgba(0,200,150,.5)"
-                  >
-                    847 tasks · IAA 91%
-                  </text>
-                  <!-- Score -->
-                  <text
-                    x="230"
+                  <!-- Score pill: teal -->
+                  <rect
+                    x="456"
                     y="112"
-                    font-family="Cormorant Garant"
-                    font-size="36"
-                    font-weight="800"
-                    fill="#E8EAF0"
-                  >
-                    94
-                  </text>
+                    width="102"
+                    height="34"
+                    rx="8"
+                    fill="rgba(0,200,150,.12)"
+                    stroke="rgba(0,200,150,.35)"
+                    stroke-width="1.5"
+                  />
+                  <circle cx="471" cy="129" r="5" fill="#3ECF8E" />
                   <text
-                    x="268"
-                    y="112"
-                    font-family="Cormorant Garant"
-                    font-size="20"
-                    fill="rgba(232,234,240,.3)"
-                  >
-                    /100
-                  </text>
-                  <rect
-                    x="230"
-                    y="120"
-                    width="120"
-                    height="6"
-                    rx="3"
-                    fill="rgba(255,255,255,.07)"
-                  />
-                  <rect
-                    x="230"
-                    y="120"
-                    width="113"
-                    height="6"
-                    rx="3"
-                    fill="url(#tg)"
-                  />
-                  <!-- Trend sparkline -->
-                  <polyline
-                    points="370,130 386,124 402,127 418,120 434,116 450,112"
-                    fill="none"
-                    stroke="#00C896"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <circle cx="450" cy="112" r="3.5" fill="#00C896" />
-                  <text
-                    x="370"
-                    y="148"
-                    font-family="JetBrains Mono"
-                    font-size="9"
-                    fill="#3ECF8E"
-                  >
-                    ↑ +3.2%
-                  </text>
-                  <!-- Status -->
-                  <rect
-                    x="462"
-                    y="108"
-                    width="80"
-                    height="22"
-                    rx="5"
-                    fill="rgba(0,200,150,.1)"
-                    stroke="rgba(0,200,150,.25)"
-                  />
-                  <text
-                    x="502"
-                    y="123"
+                    x="506"
+                    y="134"
                     text-anchor="middle"
                     font-family="JetBrains Mono"
-                    font-size="9"
-                    fill="#3ECF8E"
+                    font-size="14"
+                    font-weight="700"
+                    fill="#E8EAF0"
                   >
-                    ● ACTIVE
+                    94/100
                   </text>
                   <rect
                     x="0"
-                    y="163"
-                    width="560"
+                    y="165"
+                    width="580"
                     height="1"
                     fill="rgba(255,255,255,.05)"
                   />
 
-                  <!-- ── CONTRIBUTOR 2 ── -->
+                  <!-- ══ CONTRIBUTOR ROW 2: Rahul S. — 78/100 ══ -->
                   <rect
                     x="0"
-                    y="164"
-                    width="560"
-                    height="88"
+                    y="166"
+                    width="580"
+                    height="72"
                     fill="rgba(255,255,255,.01)"
                   />
+                  <!-- Avatar circle: gold -->
                   <circle
-                    cx="42"
-                    cy="208"
-                    r="20"
+                    cx="52"
+                    cy="202"
+                    r="22"
+                    fill="rgba(212,168,67,.15)"
+                    stroke="rgba(212,168,67,.35)"
+                    stroke-width="1.5"
+                  />
+                  <text
+                    x="52"
+                    y="208"
+                    text-anchor="middle"
+                    font-family="DM Sans"
+                    font-size="16"
+                    font-weight="700"
+                    fill="#D4A843"
+                  >
+                    R
+                  </text>
+                  <!-- Name + role -->
+                  <text
+                    x="86"
+                    y="191"
+                    font-family="Cormorant Garant"
+                    font-size="20"
+                    font-weight="700"
+                    fill="#E8EAF0"
+                  >
+                    Rahul S.
+                  </text>
+                  <text
+                    x="86"
+                    y="211"
+                    font-family="JetBrains Mono"
+                    font-size="10"
+                    fill="rgba(232,234,240,.42)"
+                    letter-spacing=".2"
+                  >
+                    Data Ops Specialist · RLHF
+                  </text>
+                  <!-- Score pill: gold -->
+                  <rect
+                    x="456"
+                    y="185"
+                    width="102"
+                    height="34"
+                    rx="8"
+                    fill="rgba(212,168,67,.1)"
+                    stroke="rgba(212,168,67,.32)"
+                    stroke-width="1.5"
+                  />
+                  <circle cx="471" cy="202" r="5" fill="#D4A843" />
+                  <text
+                    x="506"
+                    y="207"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="14"
+                    font-weight="700"
+                    fill="#E8EAF0"
+                  >
+                    78/100
+                  </text>
+                  <rect
+                    x="0"
+                    y="238"
+                    width="580"
+                    height="1"
+                    fill="rgba(255,255,255,.05)"
+                  />
+
+                  <!-- ══ CONTRIBUTOR ROW 3: Ananya K. — 61/100 ══ -->
+                  <rect
+                    x="0"
+                    y="239"
+                    width="580"
+                    height="72"
+                    fill="rgba(255,255,255,.01)"
+                  />
+                  <!-- Avatar circle: muted -->
+                  <circle
+                    cx="52"
+                    cy="275"
+                    r="22"
                     fill="rgba(74,158,232,.1)"
                     stroke="rgba(74,158,232,.25)"
                     stroke-width="1.5"
                   />
                   <text
-                    x="42"
-                    y="214"
+                    x="52"
+                    y="281"
                     text-anchor="middle"
-                    font-family="JetBrains Mono"
-                    font-size="11"
-                    font-weight="600"
-                    fill="#4A9EE8"
-                  >
-                    02
-                  </text>
-                  <text
-                    x="72"
-                    y="197"
-                    font-family="Cormorant Garant"
-                    font-size="20"
+                    font-family="DM Sans"
+                    font-size="16"
                     font-weight="700"
-                    fill="#E8EAF0"
-                  >
-                    Contributor 2
-                  </text>
-                  <text
-                    x="72"
-                    y="214"
-                    font-family="JetBrains Mono"
-                    font-size="9"
-                    fill="rgba(232,234,240,.4)"
-                    letter-spacing=".3"
-                  >
-                    AUTONOMOUS VEHICLE ANNOTATION
-                  </text>
-                  <text
-                    x="72"
-                    y="231"
-                    font-family="JetBrains Mono"
-                    font-size="8.5"
-                    fill="rgba(74,158,232,.5)"
-                  >
-                    512 tasks · IAA 86%
-                  </text>
-                  <!-- Score -->
-                  <text
-                    x="230"
-                    y="201"
-                    font-family="Cormorant Garant"
-                    font-size="36"
-                    font-weight="800"
-                    fill="#E8EAF0"
-                  >
-                    82
-                  </text>
-                  <text
-                    x="268"
-                    y="201"
-                    font-family="Cormorant Garant"
-                    font-size="20"
-                    fill="rgba(232,234,240,.3)"
-                  >
-                    /100
-                  </text>
-                  <rect
-                    x="230"
-                    y="209"
-                    width="120"
-                    height="6"
-                    rx="3"
-                    fill="rgba(255,255,255,.07)"
-                  />
-                  <rect
-                    x="230"
-                    y="209"
-                    width="98"
-                    height="6"
-                    rx="3"
-                    fill="url(#sg)"
-                  />
-                  <!-- Trend sparkline -->
-                  <polyline
-                    points="370,122 386,120 402,122 418,119 434,121 450,120"
-                    fill="none"
-                    stroke="#4A9EE8"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <circle cx="450" cy="120" r="3.5" fill="#4A9EE8" />
-                  <text
-                    x="370"
-                    y="237"
-                    font-family="JetBrains Mono"
-                    font-size="9"
                     fill="rgba(74,158,232,.7)"
                   >
-                    → stable
+                    A
                   </text>
-                  <!-- Status -->
-                  <rect
-                    x="462"
-                    y="197"
-                    width="80"
-                    height="22"
-                    rx="5"
-                    fill="rgba(74,158,232,.08)"
-                    stroke="rgba(74,158,232,.2)"
-                  />
+                  <!-- Name + role -->
                   <text
-                    x="502"
-                    y="212"
-                    text-anchor="middle"
-                    font-family="JetBrains Mono"
-                    font-size="9"
-                    fill="#4A9EE8"
+                    x="86"
+                    y="264"
+                    font-family="Cormorant Garant"
+                    font-size="20"
+                    font-weight="700"
+                    fill="rgba(232,234,240,.65)"
                   >
-                    ● ACTIVE
+                    Ananya K.
                   </text>
+                  <text
+                    x="86"
+                    y="284"
+                    font-family="JetBrains Mono"
+                    font-size="10"
+                    fill="rgba(232,234,240,.38)"
+                    letter-spacing=".2"
+                  >
+                    Customer Service · Bengali
+                  </text>
+                  <!-- Score pill: muted -->
                   <rect
-                    x="0"
-                    y="252"
-                    width="560"
-                    height="1"
-                    fill="rgba(255,255,255,.05)"
-                  />
-
-                  <!-- ── CONTRIBUTOR 3 ── -->
-                  <rect
-                    x="0"
-                    y="253"
-                    width="560"
-                    height="88"
-                    fill="rgba(232,98,42,.02)"
-                  />
-                  <circle
-                    cx="42"
-                    cy="297"
-                    r="20"
-                    fill="rgba(232,98,42,.1)"
-                    stroke="rgba(232,98,42,.25)"
+                    x="456"
+                    y="258"
+                    width="102"
+                    height="34"
+                    rx="8"
+                    fill="rgba(74,158,232,.07)"
+                    stroke="rgba(74,158,232,.22)"
                     stroke-width="1.5"
                   />
+                  <circle cx="471" cy="275" r="5" fill="rgba(74,158,232,.6)" />
                   <text
-                    x="42"
-                    y="303"
+                    x="506"
+                    y="280"
                     text-anchor="middle"
                     font-family="JetBrains Mono"
-                    font-size="11"
-                    font-weight="600"
-                    fill="#E8622A"
-                  >
-                    03
-                  </text>
-                  <text
-                    x="72"
-                    y="286"
-                    font-family="Cormorant Garant"
-                    font-size="20"
+                    font-size="14"
                     font-weight="700"
-                    fill="rgba(232,234,240,.6)"
+                    fill="rgba(232,234,240,.55)"
                   >
-                    Contributor 3
-                  </text>
-                  <text
-                    x="72"
-                    y="303"
-                    font-family="JetBrains Mono"
-                    font-size="9"
-                    fill="rgba(232,234,240,.3)"
-                    letter-spacing=".3"
-                  >
-                    RLHF / CODE REASONING
-                  </text>
-                  <text
-                    x="72"
-                    y="320"
-                    font-family="JetBrains Mono"
-                    font-size="8.5"
-                    fill="rgba(232,98,42,.5)"
-                  >
-                    Auto-throttled · Day 11
-                  </text>
-                  <!-- Score (low) -->
-                  <text
-                    x="230"
-                    y="290"
-                    font-family="Cormorant Garant"
-                    font-size="36"
-                    font-weight="800"
-                    fill="rgba(232,234,240,.5)"
-                  >
-                    61
-                  </text>
-                  <text
-                    x="268"
-                    y="290"
-                    font-family="Cormorant Garant"
-                    font-size="20"
-                    fill="rgba(232,234,240,.2)"
-                  >
-                    /100
-                  </text>
-                  <rect
-                    x="230"
-                    y="298"
-                    width="120"
-                    height="6"
-                    rx="3"
-                    fill="rgba(255,255,255,.07)"
-                  />
-                  <rect
-                    x="230"
-                    y="298"
-                    width="73"
-                    height="6"
-                    rx="3"
-                    fill="rgba(232,98,42,.6)"
-                  />
-                  <!-- Trend sparkline (falling) -->
-                  <polyline
-                    points="370,108 386,112 402,116 418,122 434,128 450,134"
-                    fill="none"
-                    stroke="rgba(232,98,42,.7)"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <circle cx="450" cy="134" r="3.5" fill="#E8622A" />
-                  <text
-                    x="370"
-                    y="326"
-                    font-family="JetBrains Mono"
-                    font-size="9"
-                    fill="rgba(232,98,42,.7)"
-                  >
-                    ↓ -8.1%
-                  </text>
-                  <!-- Status: THROTTLED -->
-                  <rect
-                    x="454"
-                    y="284"
-                    width="94"
-                    height="22"
-                    rx="5"
-                    fill="rgba(232,98,42,.12)"
-                    stroke="rgba(232,98,42,.35)"
-                  />
-                  <text
-                    x="501"
-                    y="299"
-                    text-anchor="middle"
-                    font-family="JetBrains Mono"
-                    font-size="8.5"
-                    fill="#E8622A"
-                  >
-                    ⚠ THROTTLED
+                    61/100
                   </text>
                   <rect
                     x="0"
-                    y="341"
-                    width="560"
+                    y="311"
+                    width="580"
                     height="1"
                     fill="rgba(255,255,255,.05)"
                   />
 
-                  <!-- ── Bottom stats bar ── -->
+                  <!-- ══ STAGE CARDS GRID (2 rows × 3 cols) ══ -->
+                  <!-- Row 1 -->
+                  <!-- Card: Profile -->
                   <rect
-                    x="0"
-                    y="342"
-                    width="560"
-                    height="58"
-                    fill="rgba(0,0,0,.25)"
-                    rx="0"
+                    x="16"
+                    y="320"
+                    width="176"
+                    height="86"
+                    rx="8"
+                    fill="rgba(255,255,255,.04)"
+                    stroke="rgba(255,255,255,.07)"
+                    stroke-width="1"
                   />
-                  <rect
-                    x="0"
-                    y="342"
-                    width="560"
-                    height="58"
-                    fill="rgba(0,200,150,.03)"
-                  />
-                  <!-- 3 stats -->
+                  <text x="88" y="350" text-anchor="middle" font-size="22">
+                    🎯
+                  </text>
                   <text
-                    x="34"
-                    y="365"
+                    x="88"
+                    y="372"
+                    text-anchor="middle"
                     font-family="JetBrains Mono"
-                    font-size="8.5"
-                    fill="rgba(232,234,240,.3)"
+                    font-size="10"
+                    fill="rgba(232,234,240,.42)"
+                    letter-spacing=".5"
                   >
-                    ACTIVE CONTRIBUTORS
+                    Profile
                   </text>
                   <text
-                    x="34"
-                    y="385"
-                    font-family="Cormorant Garant"
-                    font-size="22"
-                    font-weight="700"
-                    fill="#E8EAF0"
-                  >
-                    12
-                  </text>
-                  <text
-                    x="190"
-                    y="365"
+                    x="88"
+                    y="392"
+                    text-anchor="middle"
                     font-family="JetBrains Mono"
-                    font-size="8.5"
-                    fill="rgba(232,234,240,.3)"
-                  >
-                    SCORES UPDATED
-                  </text>
-                  <text
-                    x="190"
-                    y="385"
-                    font-family="Cormorant Garant"
-                    font-size="22"
+                    font-size="12"
                     font-weight="700"
                     fill="#3ECF8E"
                   >
-                    Daily
-                  </text>
-                  <text
-                    x="345"
-                    y="365"
-                    font-family="JetBrains Mono"
-                    font-size="8.5"
-                    fill="rgba(232,234,240,.3)"
-                  >
-                    THROTTLED TODAY
-                  </text>
-                  <text
-                    x="345"
-                    y="385"
-                    font-family="Cormorant Garant"
-                    font-size="22"
-                    font-weight="700"
-                    fill="#E8622A"
-                  >
-                    1
-                  </text>
-                  <!-- Key message -->
-                  <text
-                    x="440"
-                    y="370"
-                    font-family="JetBrains Mono"
-                    font-size="8"
-                    fill="rgba(232,234,240,.2)"
-                  >
-                    Auto-throttle:
-                  </text>
-                  <text
-                    x="440"
-                    y="384"
-                    font-family="JetBrains Mono"
-                    font-size="8"
-                    fill="rgba(0,200,150,.4)"
-                  >
-                    no manual QA
+                    PASS
                   </text>
 
-                  <!-- Bottom caption -->
+                  <!-- Card: Eval -->
+                  <rect
+                    x="202"
+                    y="320"
+                    width="176"
+                    height="86"
+                    rx="8"
+                    fill="rgba(255,255,255,.04)"
+                    stroke="rgba(255,255,255,.07)"
+                    stroke-width="1"
+                  />
+                  <text x="290" y="350" text-anchor="middle" font-size="22">
+                    🧠
+                  </text>
+                  <text
+                    x="290"
+                    y="372"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="10"
+                    fill="rgba(232,234,240,.42)"
+                    letter-spacing=".5"
+                  >
+                    Eval
+                  </text>
+                  <text
+                    x="290"
+                    y="392"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#3ECF8E"
+                  >
+                    PASS
+                  </text>
+
+                  <!-- Card: Biometric -->
+                  <rect
+                    x="388"
+                    y="320"
+                    width="176"
+                    height="86"
+                    rx="8"
+                    fill="rgba(255,255,255,.04)"
+                    stroke="rgba(255,255,255,.07)"
+                    stroke-width="1"
+                  />
+                  <text x="476" y="350" text-anchor="middle" font-size="22">
+                    👁
+                  </text>
+                  <text
+                    x="476"
+                    y="372"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="10"
+                    fill="rgba(232,234,240,.42)"
+                    letter-spacing=".5"
+                  >
+                    Biometric
+                  </text>
+                  <text
+                    x="476"
+                    y="392"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#3ECF8E"
+                  >
+                    PASS
+                  </text>
+
+                  <!-- Row 2 -->
+                  <!-- Card: Interview -->
+                  <rect
+                    x="16"
+                    y="416"
+                    width="176"
+                    height="86"
+                    rx="8"
+                    fill="rgba(255,255,255,.04)"
+                    stroke="rgba(255,255,255,.07)"
+                    stroke-width="1"
+                  />
+                  <text x="88" y="446" text-anchor="middle" font-size="22">
+                    🎙
+                  </text>
+                  <text
+                    x="88"
+                    y="468"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="10"
+                    fill="rgba(232,234,240,.42)"
+                    letter-spacing=".5"
+                  >
+                    Interview
+                  </text>
+                  <text
+                    x="88"
+                    y="488"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#3ECF8E"
+                  >
+                    PASS
+                  </text>
+
+                  <!-- Card: D&S (LIVE — teal glow) -->
+                  <rect
+                    x="202"
+                    y="416"
+                    width="176"
+                    height="86"
+                    rx="8"
+                    fill="rgba(0,200,150,.05)"
+                    stroke="rgba(0,200,150,.25)"
+                    stroke-width="1.5"
+                  />
+                  <text x="290" y="446" text-anchor="middle" font-size="22">
+                    📊
+                  </text>
+                  <text
+                    x="290"
+                    y="468"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="10"
+                    fill="rgba(232,234,240,.42)"
+                    letter-spacing=".5"
+                  >
+                    D&amp;S
+                  </text>
+                  <text
+                    x="290"
+                    y="488"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#00C896"
+                  >
+                    LIVE
+                  </text>
+
+                  <!-- Card: Surge (READY — gold) -->
+                  <rect
+                    x="388"
+                    y="416"
+                    width="176"
+                    height="86"
+                    rx="8"
+                    fill="rgba(212,168,67,.04)"
+                    stroke="rgba(212,168,67,.2)"
+                    stroke-width="1"
+                  />
+                  <text x="476" y="446" text-anchor="middle" font-size="22">
+                    ⚡
+                  </text>
+                  <text
+                    x="476"
+                    y="468"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="10"
+                    fill="rgba(232,234,240,.42)"
+                    letter-spacing=".5"
+                  >
+                    Surge
+                  </text>
+                  <text
+                    x="476"
+                    y="488"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#D4A843"
+                  >
+                    READY
+                  </text>
+
+                  <!-- ══ FOOTER BAR ══ -->
                   <rect
                     x="0"
-                    y="400"
-                    width="560"
+                    y="508"
+                    width="580"
                     height="1"
-                    fill="rgba(255,255,255,.04)"
+                    fill="rgba(255,255,255,.06)"
+                  />
+                  <rect
+                    x="0"
+                    y="509"
+                    width="580"
+                    height="71"
+                    fill="rgba(0,0,0,.2)"
                   />
                   <text
                     x="22"
-                    y="420"
+                    y="551"
                     font-family="JetBrains Mono"
-                    font-size="7.5"
-                    fill="rgba(232,234,240,.16)"
+                    font-size="11"
+                    fill="rgba(232,234,240,.35)"
                   >
-                    Score drops → allocation drops automatically · Pipeline
-                    always receives quality-gated output
+                    Top 1 candidate queued for deployment
+                  </text>
+                  <!-- Deploy button -->
+                  <rect
+                    x="442"
+                    y="530"
+                    width="120"
+                    height="36"
+                    rx="8"
+                    fill="#00C896"
+                  />
+                  <text
+                    x="502"
+                    y="553"
+                    text-anchor="middle"
+                    font-family="JetBrains Mono"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#fff"
+                    letter-spacing=".5"
+                  >
+                    DEPLOY →
                   </text>
                 </svg>
               </div>
@@ -897,26 +813,21 @@
               "
             >
               <div>
-                <div class="ey">What we're building</div>
-                <h2 class="d">Two products.<br />One connected system.</h2>
+                <div class="pill pill-acc">
+                  <span class="pill-dot"></span>What we're building
+                </div>
+                <h2 class="d">One loop. Score first. <em>Annotate after.</em></h2>
                 <p class="lead" style="margin-bottom: 32px">
-                  When you run a post-training cycle, you define the benchmark.
-                  What's harder to control is whether the people producing the
-                  data actually meet it — and whether they hold that standard
-                  across the full engagement. That's what
-                  <span class="reb8-mark"
-                    >reb<span class="inf-sym">∞</span
-                    ><span class="logo-8">8</span></span
-                  >
-                  is built to manage.
+                  Signal evaluates contributors before deployment. Tag
+                  produces the output. Quality enforced at every step.
                 </p>
                 <div class="build-grid">
                   <div class="build-card bc-sig">
-                    <div class="bc-label sig">reb∞8 Score</div>
+                    <div class="bc-label sig">reb∞8 Signal</div>
                     <div class="bc-h">Scores and manages the workforce</div>
                     <p class="bc-d">
-                      6-engine evaluation. Scores before deployment. Tracks
-                      daily. Auto-throttles on accuracy drop.
+                      6-stage evaluation. Badge Score assigned at entry, updated
+                      daily on live accuracy. Drops → auto-throttle.
                     </p>
                     <button
                       class="bg-dk"
@@ -927,11 +838,11 @@
                     </button>
                   </div>
                   <div id="tag" class="build-card bc-tag">
-                    <div class="bc-label tag">reb∞8 Annotate</div>
+                    <div class="bc-label tag">reb∞8 Tag</div>
                     <div class="bc-h">Produces and gates the output</div>
                     <p class="bc-d">
-                      Labeling, annotation, moderation across every domain.
-                      Every contributor scored. Every batch gated.
+                      Labeling, annotation, moderation. Every contributor
+                      Score-evaluated first. Every batch gated before delivery.
                     </p>
                     <button
                       class="bg-dk"
@@ -1495,7 +1406,9 @@
         <section id="about" class="sec">
           <div class="w">
             <div style="text-align: center; margin-bottom: 52px">
-              <div class="ey ey-c">Why this matters</div>
+              <div class="pill pill-acc">
+                <span class="pill-dot"></span>How it breaks
+              </div>
               <h2 class="d" style="max-width: 700px; margin: 0 auto 16px">
                 Humans aren't unpredictable.<br /><em>They're unmeasured.</em>
               </h2>
@@ -1503,12 +1416,6 @@
                 The pipeline knows when the model fails. It doesn't know when
                 the human is about to.
               </p>
-            </div>
-
-            <!-- Intro strip (V5 style) -->
-            <div class="prob-eyebrow-bar">
-              <span></span>Four ways unmeasured humans break AI pipelines<span
-              ></span>
             </div>
 
             <!-- 4 pain cards -->
@@ -1559,79 +1466,6 @@
                 </p>
               </div>
             </div>
-
-            <!-- Callout -->
-            <div
-              style="
-                background: var(--ink3);
-                border: 1px solid var(--bd);
-                border-radius: var(--r2);
-                padding: 28px 32px;
-                margin-bottom: 36px;
-              "
-            >
-              <p
-                style="
-                  font-family: var(--f-d);
-                  font-size: 22px;
-                  font-weight: 700;
-                  color: var(--tx-hi);
-                  margin-bottom: 8px;
-                "
-              >
-                Every vendor solves one layer. Nobody connects them.
-              </p>
-              <p class="lead" style="max-width: 700px">
-                <span class="reb8-mark"
-                  >reb<span class="inf-sym">∞</span
-                  ><span class="logo-8">8</span></span
-                >
-                runs the whole loop — scoring, deployment, daily tracking,
-                output gating — as one connected system. So quality is managed
-                before it fails, not after you notice it did.
-              </p>
-            </div>
-
-            <!-- Before / After table -->
-            <div class="ba-wrap">
-              <div class="ba-header">
-                <div class="ba-label ba-label-a">Without reb∞8</div>
-                <div class="ba-label ba-label-b">With reb∞8</div>
-              </div>
-              <div class="ba-row">
-                <div class="ba-cell ba-bad">
-                  Workers vetted once, never re-evaluated
-                </div>
-                <div class="ba-cell ba-good">
-                  Dynamic Badge Score updated daily on live output
-                </div>
-              </div>
-              <div class="ba-row">
-                <div class="ba-cell ba-bad">
-                  Task allocation first-come, first-served
-                </div>
-                <div class="ba-cell ba-good">
-                  Score-controlled routing — top performers first
-                </div>
-              </div>
-              <div class="ba-row">
-                <div class="ba-cell ba-bad">
-                  Quality failures found post-training
-                </div>
-                <div class="ba-cell ba-good">
-                  Flagged before it enters your pipeline, not after it trains
-                  your model
-                </div>
-              </div>
-              <div class="ba-row">
-                <div class="ba-cell ba-bad">
-                  When output fails, no way to trace it
-                </div>
-                <div class="ba-cell ba-good">
-                  Every failure traceable to person, task, and session
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -1643,7 +1477,9 @@
         <section class="sec" style="background: var(--ink2)">
           <div class="w">
             <div style="text-align: center; margin-bottom: 60px">
-              <div class="ey ey-c">How we do it</div>
+              <div class="pill pill-acc">
+                <span class="pill-dot"></span>How it works
+              </div>
               <h2 class="d">Five steps. One continuous loop.</h2>
               <p class="lead" style="max-width: 480px; margin: 0 auto">
                 Nothing starts without a defined outcome. Nothing ships without
@@ -2080,7 +1916,7 @@
                   font-size="8.5"
                   fill="rgba(0,200,150,.5)"
                 >
-                  Annotate verified
+                  Tag verified
                 </text>
 
                 <line
@@ -2181,7 +2017,7 @@
                   font-size="8.5"
                   fill="#00C896"
                 >
-                  7 days from brief
+                  14 days from brief
                 </text>
 
                 <text
@@ -2193,7 +2029,7 @@
                   fill="rgba(232,234,240,.35)"
                   letter-spacing=".3"
                 >
-                  Outcome Brief → First verified batch · 7 days
+                  Outcome Brief → First verified batch · 14 days
                 </text>
               </svg>
             </div>
@@ -2209,13 +2045,14 @@
           <div class="w">
             <div class="pilot-split">
               <div>
-                <div class="pilot-tag"><span>The Offer</span></div>
+                <div class="pill pill-acc">
+                  <span class="pill-dot"></span>The Offer
+                </div>
                 <h2 class="d">The Scored Pilot</h2>
                 <p class="lead" style="margin-bottom: 4px">
                   4 weeks. Your task type. Your benchmark. Your quality
-                  threshold. At the end — a score report that no other vendor
-                  can produce, because no other vendor has the scoring system to
-                  build it.
+                  threshold. At the end — a score report on every contributor
+                  who worked your data.
                 </p>
                 <ul class="pilot-outcomes">
                   <li>
@@ -2223,15 +2060,14 @@
                     <div>
                       Every contributor scored on <em>your</em> task benchmark
                       before they start — built from your samples, not a generic
-                      test we reuse across clients
+                      test
                     </div>
                   </li>
                   <li>
                     <div class="pdot"></div>
                     <div>
-                      Badge Score updated daily on every contributor throughout
-                      the engagement — if it drops, their allocation drops
-                      before your pipeline sees the output
+                      Badge Score updated daily. If accuracy drops, allocation
+                      drops before your pipeline sees the output
                     </div>
                   </li>
                   <li>
@@ -2240,13 +2076,6 @@
                       Score report at the end — contributor distribution, IAA
                       trend, throttle events, every batch traced to the person
                       who produced it
-                    </div>
-                  </li>
-                  <li>
-                    <div class="pdot"></div>
-                    <div>
-                      4 weeks is enough to show you something your current
-                      vendor has never shown you
                     </div>
                   </li>
                 </ul>
@@ -2709,7 +2538,9 @@
             <div class="founder-split">
               <!-- Left: single insight pull quote -->
               <div>
-                <div class="ey">What this is built on</div>
+                <div class="pill pill-acc">
+                  <span class="pill-dot"></span>What this is built on
+                </div>
                 <blockquote
                   style="
                     border-left: 2px solid var(--teal);
@@ -2728,14 +2559,9 @@
                       margin-bottom: 16px;
                     "
                   >
-                    "Running data operations at scale teaches you to recognise
-                    quality drift early — before it reaches the output, before
-                    anyone has noticed. That pattern is what
-                    <span class="reb8-mark"
-                      >reb<span class="inf-sym">∞</span
-                      ><span class="logo-8">8</span></span
-                    >
-                    is built on."
+                    "Quality drift is recognisable. It follows the same pattern
+                    every time — quiet accumulation, then a visible failure.
+                    That pattern is what Signal was built to catch."
                   </p>
                   <cite
                     style="
@@ -2751,8 +2577,9 @@
                 </blockquote>
                 <p class="body-sm" style="margin-bottom: 28px">
                   The infrastructure behind reb∞8 — the scoring system, the
-                  contributor network, the 7-day deployment — came from building
-                  operations that had to work before any product existed.
+                  contributor network, the 14-day deployment — came from
+                  building operations that had to work before any product
+                  existed.
                 </p>
                 <button class="bg-dk" onclick="go('about')">
                   Read our story →
@@ -2778,7 +2605,7 @@
                 </div>
                 <div class="stat-box">
                   <div class="s-label">Speed</div>
-                  <div class="s-num">7<span class="s-unit">d</span></div>
+                  <div class="s-num">14<span class="s-unit">d</span></div>
                   <div class="s-desc">
                     From signed Outcome Brief to first quality-verified batch
                   </div>
@@ -2802,8 +2629,9 @@
 ──────────────────────────────────────────────────────────── -->
         <section class="sec-sm" style="background: var(--ink2)">
           <div class="w">
-            <div class="ey" style="margin-bottom: 28px">
-              What a 4-week pilot actually gives you
+            <div class="pill pill-acc">
+              <span class="pill-dot"></span>What a 4-week pilot actually gives
+              you
             </div>
             <div class="oc-grid">
               <div class="oc">
@@ -2849,15 +2677,15 @@
 ──────────────────────────────────────────────────────────── -->
         <div class="cta-sec">
           <div class="w">
-            <div class="ey ey-c" style="margin-bottom: 22px">
-              One conversation. One pilot.
+            <div class="pill pill-acc">
+              <span class="pill-dot"></span>Start with a pilot
             </div>
             <h2 class="cta-h">
-              Ready to see what scored<br />contributors actually look like?
+              Four weeks. Your data.<br />A full quality picture.
             </h2>
             <p class="cta-sub">
-              Tell us what you're annotating and what good looks like. We'll
-              scope the pilot and show you something your current vendor hasn't.
+              Tell us your task type and what good looks like. We'll scope a
+              4-week pilot and send a score report when it's done.
             </p>
             <button
               class="bp"
@@ -2883,11 +2711,11 @@
               ← Back to home
             </button>
             <div style="max-width: 680px">
-              <div class="ey">Our story</div>
+              <div class="pill pill-acc">
+                <span class="pill-dot"></span>Our story
+              </div>
               <h1 class="d">
-                Twenty years<br />watching the same<br /><em
-                  >problem play out.</em
-                >
+                Twenty years watching the same <em>problem play out.</em>
               </h1>
               <p class="lead" style="margin-top: 8px">
                 Before AI training data was a market, it was a workforce
@@ -2926,7 +2754,9 @@
           <div class="w">
             <div class="about-split">
               <div>
-                <div class="ey">How this started</div>
+                <div class="pill pill-acc">
+                  <span class="pill-dot"></span>How this started
+                </div>
                 <h2 class="d" style="font-size: clamp(24px, 2.8vw, 42px)">
                   A pattern that kept<br /><em>showing up.</em>
                 </h2>
@@ -2943,7 +2773,7 @@
                   Same missing layer.
                 </p>
                 <p class="body-sm">
-                  Score is what happens when that problem finally gets a
+                  Signal is what happens when that problem finally gets a
                   product.
                 </p>
                 <div class="mission-box">
@@ -2956,7 +2786,9 @@
                 </div>
               </div>
               <div>
-                <div class="ey">How we got here</div>
+                <div class="pill pill-acc">
+                  <span class="pill-dot"></span>How we got here
+                </div>
                 <div class="timeline">
                   <div class="tl-item">
                     <div class="tl-dot"><span>01</span></div>
@@ -2993,8 +2825,8 @@
                       </div>
                       <p class="tl-d">
                         5,000 contributors assessed. Infrastructure running.
-                        7-day deployment ready. None of it built for the pitch —
-                        built because the operation had to work before the
+                        14-day deployment ready. None of it built for the pitch
+                        — built because the operation had to work before the
                         product could.
                       </p>
                     </div>
@@ -3004,7 +2836,7 @@
                     <div>
                       <div class="tl-h">Bringing it to market</div>
                       <p class="tl-d">
-                        Score and Annotate. One loop. Score the contributor, verify
+                        Signal and Tag. One loop. Score the contributor, verify
                         the output. The training data problem finally has a
                         system built for it.
                       </p>
@@ -3029,7 +2861,9 @@
               "
             >
               <div>
-                <div class="ey">The founder</div>
+                <div class="pill pill-acc">
+                  <span class="pill-dot"></span>The founder
+                </div>
                 <div
                   style="
                     font-family: var(--f-d);
@@ -3060,7 +2894,7 @@
                   it.
                 </p>
                 <p class="body-sm">
-                  The 5,000 contributors, the 7-day deployment, the quality
+                  The 5,000 contributors, the 14-day deployment, the quality
                   reporting — none of that came from a spec. It came from
                   building operations where those things had to actually work.
                 </p>
@@ -3134,13 +2968,13 @@
                         >COMMUNITY</span
                       >
                       <a
-                        href="mailto:community@reboo8.com"
+                        href="mailto:support@reboo8.com"
                         style="
                           font-size: 14px;
                           color: var(--tx-mid);
                           text-decoration: none;
                         "
-                        >community@reboo8.com</a
+                        >support@reboo8.com</a
                       >
                     </div>
                   </div>
@@ -3149,7 +2983,7 @@
                     onclick="openM()"
                     style="width: 100%; justify-content: center"
                   >
-                    Start a pilot →
+                    Start a pilot conversation →
                   </button>
                 </div>
               </div>
@@ -3166,14 +3000,14 @@
             <button class="back-btn" onclick="go('home')">← Back</button>
             <div class="depth-split">
               <div>
-                <div class="ey">reb∞8 Score</div>
+                <div class="pill pill-acc">
+                  <span class="pill-dot"></span>reb∞8 Signal
+                </div>
                 <h1 class="d">
-                  The scoring engine.<br /><em
-                    >Not the tool.<br />The system.</em
-                  >
+                  The scoring engine. <em>Not the tool. The system.</em>
                 </h1>
                 <p class="lead" style="margin-bottom: 32px">
-                  Score evaluates contributors before they start and tracks
+                  Signal evaluates contributors before they start and tracks
                   their performance on every task. Every score is built on your
                   task type, your benchmark, your rubric — not a generic
                   assessment.
@@ -3427,7 +3261,9 @@
         </section>
         <section class="sec-sm">
           <div class="w">
-            <div class="ey">The three questions Score answers</div>
+            <div class="pill pill-acc">
+              <span class="pill-dot"></span>The three questions Signal answers
+            </div>
             <div class="engine-grid">
               <div class="eng">
                 <div class="eng-n">Before deployment</div>
@@ -3436,8 +3272,7 @@
                 </div>
                 <p class="eng-d">
                   Resume match, task benchmark, structured interview —
-                  calibrated to your rubric. Score determines who gets in. No
-                  exceptions made for volume or urgency.
+                  calibrated to your rubric. Score determines who gets in.
                 </p>
               </div>
               <div class="eng">
@@ -3458,8 +3293,8 @@
                 </div>
                 <p class="eng-d">
                   Score report at project close. Distribution by contributor,
-                  trend by week, throttle events logged. No other vendor gives
-                  you this — because no other vendor has Score.
+                  trend by week, throttle events logged. Traced to person,
+                  session, and batch.
                 </p>
               </div>
             </div>
@@ -3469,7 +3304,7 @@
         <div class="cta-sec" style="padding: 80px 0">
           <div class="w">
             <h2 class="cta-h" style="font-size: clamp(26px, 3vw, 44px)">
-              See Score running on your task type.
+              See Signal running on your task type.
             </h2>
             <p class="cta-sub">
               4-week pilot. Your benchmark. Score report included.
@@ -3487,16 +3322,16 @@
             <button class="back-btn" onclick="go('home')">← Back</button>
             <div class="depth-split">
               <div>
-                <div class="ey">reb∞8 Annotate</div>
+                <div class="pill pill-acc">
+                  <span class="pill-dot"></span>reb∞8 Tag
+                </div>
                 <h1 class="d">
-                  The output layer.<br /><em
-                    >Every batch verified<br />before it leaves.</em
-                  >
+                  The output layer. <em>Every batch verified before it leaves.</em>
                 </h1>
                 <p class="lead" style="margin-bottom: 32px">
                   Whatever your input modality — image, video, audio, text,
-                  sensor — Annotate produces the labeled output your model trains
-                  from. Every contributor scored by Score first. Quality
+                  sensor — Tag produces the labeled output your model trains
+                  from. Every contributor scored by Signal first. Quality
                   enforced throughout, not checked at the end.
                 </p>
                 <button class="bp" onclick="openM()">Start a pilot →</button>
@@ -3718,17 +3553,6 @@
                   >
                     QUALITY GATE — EVERY BATCH
                   </text>
-                  <text
-                    x="230"
-                    y="205"
-                    text-anchor="middle"
-                    font-family="DM Sans"
-                    font-size="13"
-                    fill="rgba(232,234,240,.5)"
-                  >
-                    IAA checked · Gold labels compared · Contributor score
-                    verified · Then delivered
-                  </text>
                 </svg>
               </div>
             </div>
@@ -3736,16 +3560,18 @@
         </section>
         <section class="sec-sm">
           <div class="w">
-            <div class="ey">What makes Annotate different</div>
+            <div class="pill pill-acc">
+              <span class="pill-dot"></span>What makes Tag different
+            </div>
             <div class="cap-grid">
               <div class="cap">
                 <div class="cap-ico">📊</div>
                 <div>
-                  <div class="cap-h">Every contributor Score-scored first</div>
+                  <div class="cap-h">Every contributor Signal-scored first</div>
                   <p class="cap-d">
-                    Before anyone touches a Annotate task, they've cleared a
-                    task-specific Score assessment. That's the structural
-                    difference between reb∞8 and every other annotation vendor.
+                    Before anyone touches a Tag task, they've cleared a
+                    task-specific Signal assessment. The quality loop starts
+                    before the first label is placed.
                   </p>
                 </div>
               </div>
@@ -3834,28 +3660,9 @@
             </button>
 
             <!-- Eyebrow pill -->
-            <div
-              style="
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                background: var(--teal-a);
-                border: 1px solid var(--teal-b);
-                border-radius: 100px;
-                padding: 6px 16px;
-                margin-bottom: 28px;
-              "
-            >
-              <span
-                style="
-                  font-family: var(--f-m);
-                  font-size: 10px;
-                  color: var(--teal);
-                  letter-spacing: 0.1em;
-                  text-transform: uppercase;
-                "
-                >Open Network · Now Accepting Contributors</span
-              >
+            <div class="pill pill-acc">
+              <span class="pill-dot"></span>Open Network · Now Accepting
+              Contributors
             </div>
 
             <div
@@ -3878,8 +3685,8 @@
                     margin-bottom: 26px;
                   "
                 >
-                  Your judgment<br />shapes how<br /><em
-                    style="color: var(--teal); font-style: italic"
+                  Your judgment shapes how
+                  <em style="color: var(--teal); font-style: italic"
                     >AI reasons.</em
                   >
                 </h1>
@@ -4317,22 +4124,8 @@
                 margin-bottom: 72px;
               "
             >
-              <div
-                class="ey ey-c"
-                style="
-                  font-family: var(--f-m);
-                  font-size: 10px;
-                  color: var(--teal);
-                  text-transform: uppercase;
-                  letter-spacing: 0.14em;
-                  margin-bottom: 22px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  gap: 10px;
-                "
-              >
-                Why this work matters
+              <div class="pill pill-acc">
+                <span class="pill-dot"></span>Why this work matters
               </div>
               <h2
                 style="
@@ -4597,22 +4390,8 @@
         >
           <div class="w">
             <div style="text-align: center; margin-bottom: 64px">
-              <div
-                class="ey ey-c"
-                style="
-                  font-family: var(--f-m);
-                  font-size: 10px;
-                  color: var(--teal);
-                  text-transform: uppercase;
-                  letter-spacing: 0.14em;
-                  margin-bottom: 20px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  gap: 10px;
-                "
-              >
-                How it works
+              <div class="pill pill-acc">
+                <span class="pill-dot"></span>How it works
               </div>
               <h2
                 style="
@@ -4756,7 +4535,7 @@
                       margin-bottom: 8px;
                     "
                   >
-                    Complete the Score assessment
+                    Complete the Signal assessment
                   </h3>
                   <p
                     style="
@@ -4917,30 +4696,8 @@
           "
         >
           <div class="w">
-            <div
-              class="ey"
-              style="
-                font-family: var(--f-m);
-                font-size: 10px;
-                color: var(--teal);
-                text-transform: uppercase;
-                letter-spacing: 0.14em;
-                margin-bottom: 32px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-              "
-            >
-              <span
-                style="
-                  width: 24px;
-                  height: 1px;
-                  background: var(--teal);
-                  opacity: 0.5;
-                  flex-shrink: 0;
-                "
-              ></span>
-              Work available across these domains
+            <div class="pill pill-acc">
+              <span class="pill-dot"></span>Work available across these domains
             </div>
             <div
               style="
@@ -5235,30 +4992,8 @@
               "
             >
               <div>
-                <div
-                  class="ey"
-                  style="
-                    font-family: var(--f-m);
-                    font-size: 10px;
-                    color: var(--teal);
-                    text-transform: uppercase;
-                    letter-spacing: 0.14em;
-                    margin-bottom: 20px;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                  "
-                >
-                  <span
-                    style="
-                      width: 24px;
-                      height: 1px;
-                      background: var(--teal);
-                      opacity: 0.5;
-                      flex-shrink: 0;
-                    "
-                  ></span>
-                  Who we are looking for
+                <div class="pill pill-acc">
+                  <span class="pill-dot"></span>Who we are looking for
                 </div>
                 <h2
                   style="
@@ -5474,22 +5209,8 @@
             "
           ></div>
           <div class="w" style="position: relative; z-index: 1">
-            <div
-              class="ey ey-c"
-              style="
-                font-family: var(--f-m);
-                font-size: 10px;
-                color: var(--teal);
-                text-transform: uppercase;
-                letter-spacing: 0.14em;
-                margin-bottom: 24px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-              "
-            >
-              Join the Open Network
+            <div class="pill pill-acc">
+              <span class="pill-dot"></span>Join the Open Network
             </div>
             <h2
               style="
@@ -5536,9 +5257,9 @@
               "
               >Or reach us at
               <a
-                href="mailto:community@reboo8.com"
+                href="mailto:support@reboo8.com"
                 style="color: var(--teal); text-decoration: none"
-                >community@reboo8.com</a
+                >support@reboo8.com</a
               ></span
             >
           </div>
@@ -5553,7 +5274,7 @@
           <div class="modal-h">Apply to join the Open Network</div>
           <p class="modal-sub">
             Tell us about yourself. We'll review your application and send you
-            the domain-specific Score assessment within 48 hours.
+            the domain-specific Signal assessment within 48 hours.
           </p>
           <div class="ff">
             <label>Full name</label
@@ -5621,7 +5342,7 @@
               ><span class="ft-logo-dot">8</span></a
             >
             <p>
-              The Human-in-the-Loop Platform. Score scores the workforce. Annotate
+              The Human-in-the-Loop Platform. Signal scores the workforce. Tag
               produces the output. Together — the infrastructure that manages
               the human layer in AI.
             </p>
@@ -5635,7 +5356,7 @@
                     >reb<span class="inf-sym">∞</span
                     ><span class="logo-8">8</span></span
                   >
-                  Score
+                  Signal
                 </button>
               </li>
               <li>
@@ -5644,7 +5365,7 @@
                     >reb<span class="inf-sym">∞</span
                     ><span class="logo-8">8</span></span
                   >
-                  Annotate
+                  Tag
                 </button>
               </li>
               <li><button onclick="openM()">Managed Services</button></li>
@@ -5664,26 +5385,23 @@
             <ul class="ft-links">
               <li><button onclick="go('about')">About</button></li>
               <li><a href="mailto:hello@reboo8.com">Contact</a></li>
-              <li><a href="mailto:community@reboo8.com">Open Labs</a></li>
+              <li><a href="mailto:support@reboo8.com">Open Labs</a></li>
               <li>
                 <button
-                  onclick="
-                    window.location.href =
-                      'https://reboo8-frontend-v2-396641227373.asia-northeast1.run.app/signup'
-                  "
+                  onclick="window.location.href='https://contributor.reboo8.com/signup'"
                 >
                   Join as Contributor
                 </button>
               </li>
-              <li><a href="#">Careers</a></li>
+              <li><a href="careers.html">Careers</a></li>
             </ul>
           </div>
           <div>
             <div class="ft-col-h">Legal</div>
             <ul class="ft-links">
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">Data Processing</a></li>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="terms.html">Terms of Service</a></li>
+              <li><a href="dpa.html">Data Processing</a></li>
             </ul>
           </div>
         </div>
@@ -5696,7 +5414,12 @@
             >. The Human-in-the-Loop Platform. India + Global.</span
           >
           <div class="ft-socials">
-            <a href="#">LinkedIn</a>
+            <a
+              href="https://www.linkedin.com/company/reboo8-ai/"
+              target="_blank"
+              rel="noopener"
+              >LinkedIn</a
+            >
             <a href="#">Twitter / X</a>
             <a href="mailto:hello@reboo8.com">hello@reboo8.com</a>
           </div>
@@ -5710,8 +5433,8 @@
         <button class="modal-close" onclick="closeM()">×</button>
         <div class="modal-h">Start a pilot conversation</div>
         <p class="modal-sub">
-          Tell us your task type and benchmark. We'll scope a 4-week Scored
-          Pilot and reply within 24 hours.
+          Tell us your task type and what good looks like. We'll be in touch
+          within 24 hours.
         </p>
         <div class="ff">
           <label>Name</label><input type="text" placeholder="Your name" />
