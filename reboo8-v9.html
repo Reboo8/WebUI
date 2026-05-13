@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>reb∞8 — The Human-in-the-Loop Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#07090F;--ink2:#0C1018;--ink3:#111826;--ink4:#13192A;--card:#13192A;
+  --tx-hi:#E8EAF0;--tx-mid:rgba(232,234,240,.55);--tx-lo:rgba(232,234,240,.32);--tx-dim:rgba(232,234,240,.18);
+  --teal:#00C896;--teal-a:rgba(0,200,150,.08);--teal-b:rgba(0,200,150,.2);
+  --acc:#E8622A;--acc-a:rgba(232,98,42,.08);--acc-b:rgba(232,98,42,.25);
+  --gold:#D4A843;--sig:#4A9EE8;--sig-a:rgba(74,158,232,.1);--sig-b:rgba(74,158,232,.25);
+  --tag:#3ECF8E;--tag-a:rgba(62,207,142,.1);--tag-b:rgba(62,207,142,.25);
+  --bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.12);
+  --f-d:'Cormorant Garant',Georgia,serif;--f-b:'DM Sans',sans-serif;--f-m:'JetBrains Mono',monospace;
+  --r:8px;--r2:12px;--r3:18px;--tr:.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--tx-hi);font-family:var(--f-b);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── BRAND MARKS ── */
+.inf-sym{font-family:var(--f-d);font-size:1.4em;font-weight:700;line-height:1;vertical-align:-.1em;display:inline-block;margin:0 -.05em}
+.reb8-mark{text-transform:none!important;letter-spacing:-.5px!important;font-family:var(--f-d)!important;font-weight:800!important}
+.logo-8{vertical-align:-.06em;display:inline-block}
+
+/* ── ANNOUNCE STRIP ── */
+.announce-strip{
+  background:linear-gradient(90deg,rgba(0,200,150,.13) 0%,rgba(212,168,67,.08) 100%);
+  border-bottom:1px solid rgba(0,200,150,.18);
+  padding:8px 24px;text-align:center;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+}
+.announce-strip span{font-family:var(--f-m);font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--teal)}
+.announce-strip a{font-family:var(--f-m);font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(212,168,67,.3);transition:border-color var(--tr)}
+.announce-strip a:hover{border-color:var(--gold)}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:200;
+  height:60px;display:flex;align-items:center;padding:0 52px;
+  background:rgba(7,9,15,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--bd);
+}
+.nv-logo{font-family:var(--f-d);font-size:22px;font-weight:800;color:var(--tx-hi);letter-spacing:-.5px;cursor:pointer;margin-right:auto;text-decoration:none}
+.nv-logo-inf{color:var(--teal);font-family:var(--f-d);font-size:1.3em;font-weight:700;vertical-align:-.08em;margin:0 -.05em}
+.nv-logo-dot{color:var(--acc);font-family:var(--f-d);font-weight:800;vertical-align:-.06em;display:inline-block}
+.nv-links{display:flex;align-items:center;gap:2px;list-style:none;margin-right:20px}
+.nv-links button{background:none;border:none;color:var(--tx-mid);font-family:var(--f-b);font-size:14px;padding:8px 16px;border-radius:var(--r);cursor:pointer;transition:color var(--tr)}
+.nv-links button:hover{color:var(--tx-hi)}
+.nv-cta{background:var(--acc);color:#E8EAF0;border:none;padding:9px 20px;border-radius:var(--r);font-family:var(--f-m);font-size:12px;font-weight:600;letter-spacing:.04em;cursor:pointer;transition:all var(--tr)}
+.nv-cta:hover{background:#d4561f}
+
+/* ── LAYOUT ── */
+.w{max-width:1180px;margin:0 auto;padding:0 52px;position:relative;z-index:1}
+.sec{padding:120px 0;position:relative;z-index:1}
+.sec-sm{padding:80px 0;position:relative;z-index:1}
+.sec-xs{padding:48px 0;position:relative;z-index:1}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--bd2) 25%,var(--bd2) 75%,transparent)}
+
+/* ── TYPOGRAPHY ── */
+.ey{font-family:var(--f-m);font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.14em;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.ey::before{content:'';width:24px;height:1px;background:var(--teal);opacity:.5;flex-shrink:0}
+.ey-c{justify-content:center}
+.ey-c::before{display:none}
+h1.d{font-family:var(--f-d);font-size:clamp(40px,4.8vw,72px);font-weight:700;line-height:1.05;letter-spacing:-2.5px;margin-bottom:26px}
+h2.d{font-family:var(--f-d);font-size:clamp(28px,3.5vw,54px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px}
+h3.d{font-family:var(--f-d);font-size:clamp(20px,2.2vw,34px);font-weight:700;line-height:1.2;letter-spacing:-.5px;margin-bottom:12px}
+em{font-style:italic;color:var(--teal)}
+.lead{font-size:clamp(15px,1.3vw,18px);color:var(--tx-mid);line-height:1.8}
+.body-sm{font-size:14px;color:var(--tx-mid);line-height:1.7}
+
+/* ── BUTTONS ── */
+.bp{display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#E8EAF0;border:none;padding:14px 28px;border-radius:var(--r);font-family:var(--f-m);font-size:13px;font-weight:600;letter-spacing:.04em;cursor:pointer;transition:all var(--tr)}
+.bp:hover{background:#d4561f;transform:translateY(-1px);box-shadow:0 10px 28px rgba(232,98,42,.35)}
+.bg-dk{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--tx-mid);border:1px solid var(--bd2);padding:13px 27px;border-radius:var(--r);font-family:var(--f-m);font-size:13px;cursor:pointer;transition:all var(--tr)}
+.bg-dk:hover{border-color:var(--teal);color:var(--teal)}
+
+/* ── HERO ── */
+.hero{
+  min-height:calc(100vh - 84px);
+  display:flex;align-items:center;
+  position:relative;z-index:1;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:72px 72px;pointer-events:none;
+}
+.hero-glow{
+  position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:1200px;height:700px;
+  background:radial-gradient(ellipse at 50% 30%,rgba(0,200,150,.07) 0%,rgba(0,200,150,.03) 35%,transparent 70%);
+  pointer-events:none;
+}
+.hero-inner{
+  display:grid;grid-template-columns:44fr 56fr;
+  gap:72px;align-items:center;width:100%;padding:80px 0;
+}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:100px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.04em;margin-bottom:24px}
+.pill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.pill-acc{background:var(--acc-a);border:1px solid var(--acc-b);color:var(--acc)}
+.pill-acc .pill-dot{background:var(--acc)}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.hstats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.hs{padding:18px 20px;border-right:1px solid var(--bd)}.hs:last-child{border-right:none}
+.hs-n{font-family:var(--f-d);font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--tx-hi);margin-bottom:3px}
+.hs-n span{color:var(--teal)}
+.hs-l{font-family:var(--f-m);font-size:10px;color:var(--tx-mid);text-transform:uppercase;letter-spacing:.07em;line-height:1.4}
+
+/* ── WHAT WE BUILD ── */
+.build-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.build-card{background:var(--ink3);border:1px solid var(--bd);border-radius:var(--r2);padding:26px;position:relative}
+.build-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r2) var(--r2) 0 0}
+.bc-sig::before{background:var(--sig)}.bc-tag::before{background:var(--tag)}
+.bc-label{font-family:var(--f-m);font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.bc-label.sig{color:var(--sig)}.bc-label.tag{color:var(--tag)}
+.bc-h{font-family:var(--f-d);font-size:20px;font-weight:700;color:var(--tx-hi);margin-bottom:9px}
+.bc-d{font-size:14px;color:var(--tx-mid);line-height:1.65;margin-bottom:16px}
+
+/* ── PROBLEM SECTION ── */
+.prob-eyebrow-bar{
+  font-family:var(--f-m);font-size:11px;color:rgba(232,234,240,.65);
+  text-transform:uppercase;letter-spacing:.1em;
+  margin-bottom:20px;display:flex;align-items:center;gap:10px;
+}
+.prob-eyebrow-bar span{width:20px;height:1px;background:var(--tx-lo);opacity:.5;flex-shrink:0}
+.pain-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;margin-bottom:40px}
+.pain-cell{background:var(--ink2);padding:28px 24px}
+.pc-n{font-family:var(--f-m);font-size:9px;color:var(--teal);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+.pc-ico{font-size:20px;margin-bottom:12px}
+.pc-t{font-family:var(--f-d);font-size:16px;font-weight:700;color:var(--tx-hi);line-height:1.25;margin-bottom:10px}
+.pc-d{font-size:13px;color:var(--tx-mid);line-height:1.65}
+
+/* ── BEFORE/AFTER ── */
+.ba-wrap{border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden}
+.ba-header{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd)}
+.ba-label{padding:12px 20px;font-family:var(--f-m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:var(--ink3)}
+.ba-label-a{color:rgba(232,98,42,.7)}.ba-label-b{color:var(--teal)}
+.ba-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd)}
+.ba-cell{padding:14px 20px;font-size:14px;color:var(--tx-mid);background:var(--ink2);line-height:1.5}
+.ba-bad{color:rgba(232,234,240,.45)}.ba-good{color:rgba(232,234,240,.7)}
+
+/* ── PILOT ── */
+.pilot-split{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.pilot-tag{display:inline-flex;align-items:center;gap:8px;background:var(--teal-a);border:1px solid var(--teal-b);border-radius:100px;padding:6px 16px;margin-bottom:22px}
+.pilot-tag span{font-family:var(--f-m);font-size:10px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase}
+.pilot-outcomes{list-style:none;margin-top:26px;display:flex;flex-direction:column;gap:14px}
+.pilot-outcomes li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--tx-mid);line-height:1.65}
+.pdot{width:6px;height:6px;border-radius:50%;background:var(--teal);margin-top:8px;flex-shrink:0}
+
+/* ── WIIFM ── */
+.wiifm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.wc{background:var(--ink2);border:1px solid var(--bd);border-radius:var(--r2);padding:30px}
+.wc:first-child{border-color:var(--teal-b);background:rgba(0,200,150,.03)}
+.wc-n{font-family:var(--f-m);font-size:9px;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.wc-h{font-family:var(--f-d);font-size:20px;font-weight:700;color:var(--tx-hi);margin-bottom:9px;line-height:1.2}
+.wc-d{font-size:14px;color:var(--tx-mid);line-height:1.7}
+
+/* ── FOUNDER ── */
+.founder-split{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.stat-box{background:var(--ink3);border:1px solid var(--bd);border-radius:var(--r2);padding:26px}
+.stat-box:first-child{border-color:var(--teal-b)}
+.s-num{font-family:var(--f-d);font-size:46px;font-weight:700;color:var(--tx-hi);line-height:1;margin-bottom:5px}
+.s-unit{color:var(--teal)}
+.s-label{font-family:var(--f-m);font-size:9px;color:var(--tx-lo);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.s-desc{font-size:13px;color:var(--tx-lo);line-height:1.55}
+.founder-bio{padding:26px;background:var(--ink3);border:1px solid var(--bd);border-radius:var(--r2);margin-top:22px}
+.founder-name{font-family:var(--f-d);font-size:24px;font-weight:700;color:var(--tx-hi);margin-bottom:4px}
+.founder-role{font-family:var(--f-m);font-size:9.5px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:13px}
+
+/* ── OUTCOMES ── */
+.oc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.oc{background:var(--ink2);border:1px solid var(--bd);border-radius:var(--r2);padding:30px}
+.oc:first-child{border-color:var(--teal-b);background:rgba(0,200,150,.03)}
+.oc-n{font-family:var(--f-m);font-size:9px;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.oc-h{font-family:var(--f-d);font-size:20px;font-weight:700;color:var(--tx-hi);margin-bottom:9px;line-height:1.2}
+.oc-d{font-size:14px;color:var(--tx-mid);line-height:1.7}
+
+/* ── CTA ── */
+.cta-sec{text-align:center;padding:140px 0;position:relative;z-index:1}
+.cta-sec::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(0,200,150,.07) 0%,transparent 70%);pointer-events:none}
+.cta-h{font-family:var(--f-d);font-size:clamp(30px,4vw,58px);font-weight:700;letter-spacing:-2px;margin-bottom:18px;line-height:1.1}
+.cta-sub{font-size:17px;color:var(--tx-mid);margin-bottom:44px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.75}
+.cta-em{font-family:var(--f-m);font-size:12px;color:var(--tx-lo);margin-top:18px;display:block}
+.cta-em a{color:var(--teal);text-decoration:none}.cta-em a:hover{text-decoration:underline}
+
+/* ── FOOTER (V5) ── */
+footer{border-top:1px solid var(--bd);padding:60px 0 0;position:relative;z-index:1}
+.ft-grid{
+  display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;
+  gap:40px;margin-bottom:40px;
+}
+.ft-brand .ft-logo{
+  font-family:var(--f-d);font-size:19px;font-weight:800;
+  color:var(--tx-hi);text-decoration:none;letter-spacing:-.2px;
+  display:inline-block;margin-bottom:10px;cursor:pointer;
+}
+.ft-brand .ft-logo span{color:var(--acc)}
+.ft-logo-inf{color:var(--teal);font-family:var(--f-d);font-size:1.3em;font-weight:700;line-height:1;vertical-align:-0.08em;margin:0 -0.05em;letter-spacing:0}
+.ft-brand .ft-logo .ft-logo-inf{color:var(--teal);font-size:1.3em;line-height:1;vertical-align:-0.06em}
+.ft-brand .ft-logo .ft-logo-dot{color:var(--acc);font-family:var(--f-d);font-weight:800;vertical-align:-.06em;display:inline-block}
+.ft-brand p{font-size:14.5px;color:var(--tx-mid);line-height:1.55;max-width:230px;margin-bottom:20px}
+.ft-col-h{font-family:var(--f-m);font-size:12px;color:var(--tx-mid);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.ft-links button,.ft-links a{
+  font-size:13px;color:var(--tx-mid);
+  text-decoration:none;background:none;border:none;
+  cursor:pointer;text-align:left;padding:0;
+  transition:color .2s;
+}
+.ft-links button:hover,.ft-links a:hover{color:var(--tx-hi)}
+.ft-bottom{
+  padding:24px 0;border-top:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.ft-copy{font-family:var(--f-m);font-size:12px;color:var(--tx-lo)}
+.ft-socials{display:flex;gap:18px}
+.ft-socials a{font-family:var(--f-m);font-size:12px;color:var(--tx-lo);text-decoration:none;transition:color .2s}
+.ft-socials a:hover{color:var(--tx-mid)}
+@media(max-width:960px){
+  .ft-grid{grid-template-columns:1fr 1fr}
+  footer{padding:40px 0 0}
+}
+@media(max-width:600px){.ft-grid{grid-template-columns:1fr}}
+
+/* ── DEPTH PAGES ── */
+.page{display:none}.page.on{display:block}
+.depth-hero{padding:100px 0 72px;border-bottom:1px solid var(--bd)}
+.back-btn{background:none;border:none;color:var(--tx-mid);font-family:var(--f-m);font-size:12px;cursor:pointer;margin-bottom:32px;display:flex;align-items:center;gap:6px;padding:0;transition:color var(--tr)}.back-btn:hover{color:var(--teal)}
+.depth-split{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.engine-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.eng{background:var(--ink3);border:1px solid var(--bd);border-radius:var(--r);padding:22px}
+.eng-n{font-family:var(--f-m);font-size:9px;color:var(--sig);letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px}
+.eng-h{font-family:var(--f-d);font-size:17px;font-weight:700;color:var(--tx-hi);margin-bottom:7px}
+.eng-d{font-size:13px;color:var(--tx-mid);line-height:1.65}
+.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:44px}
+.cap{background:var(--ink3);border:1px solid var(--bd);border-radius:var(--r);padding:22px;display:flex;gap:14px;align-items:flex-start}
+.cap-ico{font-size:20px;flex-shrink:0}
+.cap-h{font-family:var(--f-d);font-size:16px;font-weight:700;color:var(--tx-hi);margin-bottom:6px}
+.cap-d{font-size:13px;color:var(--tx-mid);line-height:1.65}
+
+/* ── ABOUT ── */
+.about-split{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.about-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:44px 0}
+.as{background:var(--ink3);border:1px solid var(--bd);border-radius:var(--r);padding:20px;text-align:center}
+.as-n{font-family:var(--f-d);font-size:36px;font-weight:700;color:var(--tx-hi);margin-bottom:4px}
+.as-n span{color:var(--teal)}.as-l{font-family:var(--f-m);font-size:8.5px;color:var(--tx-lo);text-transform:uppercase;letter-spacing:.1em}
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:36px}
+.tl-item{display:flex;gap:18px;padding-bottom:28px;position:relative}
+.tl-item:not(:last-child)::before{content:'';position:absolute;left:13px;top:30px;bottom:0;width:1px;background:var(--bd2)}
+.tl-dot{width:26px;height:26px;border-radius:50%;background:var(--ink4);border:1px solid var(--teal-b);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.tl-dot span{font-family:var(--f-m);font-size:8.5px;color:var(--teal)}
+.tl-h{font-family:var(--f-d);font-size:17px;font-weight:700;color:var(--tx-hi);margin-bottom:5px}
+.tl-d{font-size:14px;color:var(--tx-mid);line-height:1.65}
+.mission-box{background:var(--ink3);border:1px solid var(--teal-b);border-radius:var(--r2);padding:28px;margin-top:28px;position:relative}
+.mission-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal);border-radius:var(--r2) var(--r2) 0 0}
+.mission-label{font-family:var(--f-m);font-size:9px;color:var(--teal);text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px}
+.mission-text{font-family:var(--f-d);font-size:21px;font-weight:700;color:var(--tx-hi);line-height:1.4;font-style:italic}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:none;align-items:center;justify-content:center;padding:24px}
+.modal-overlay.open{display:flex}
+.modal-box{background:#0D1830;border:1px solid var(--bd2);border-radius:var(--r3);padding:44px;max-width:480px;width:100%;position:relative}
+.modal-close{position:absolute;top:18px;right:18px;background:none;border:none;color:var(--tx-lo);font-size:22px;cursor:pointer;line-height:1}.modal-close:hover{color:var(--tx-hi)}
+.modal-h{font-family:var(--f-d);font-size:28px;font-weight:700;margin-bottom:8px}
+.modal-sub{font-size:14px;color:var(--tx-mid);margin-bottom:24px;line-height:1.6}
+.ff{margin-bottom:13px}
+.ff label{display:block;font-family:var(--f-m);font-size:9.5px;color:var(--tx-lo);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.ff input,.ff select,.ff textarea{width:100%;background:var(--ink4);border:1px solid var(--bd2);border-radius:var(--r);padding:11px 14px;font-family:var(--f-b);font-size:14px;color:var(--tx-hi);outline:none;transition:border-color var(--tr)}
+.ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--teal)}
+.ff textarea{min-height:74px;resize:vertical}
+.ff select option{background:var(--ink4);color:var(--tx-hi)}
+.modal-note{font-family:var(--f-m);font-size:10px;color:var(--tx-dim);margin-top:10px;text-align:center}
+
+@media(max-width:960px){
+  .hero-inner,.founder-split,.about-split,.depth-split,.pilot-split{grid-template-columns:1fr;gap:48px}
+  .wiifm-grid,.oc-grid,.engine-grid,.build-grid,.pain-grid{grid-template-columns:1fr}
+  .cap-grid{grid-template-columns:1fr}
+  .stat-grid,.about-stats{grid-template-columns:1fr 1fr}
+  .hstats{grid-template-columns:1fr}
+  .w{padding:0 24px}
+  nav,footer{padding-left:24px;padding-right:24px}
+  footer{flex-direction:column;gap:20px;text-align:center}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══ ANNOUNCE STRIP ══════════════════════════════════════ -->
+<div class="announce-strip">
+  <span><span class="reb8-mark">reb<span class="inf-sym">∞</span><span class="logo-8">8</span></span> Signal + Tag — Now accepting pilot engagements</span>
+  <a href="javascript:void(0)" onclick="openM()">Apply now →</a>
+</div>
+
+<!-- ═══ NAV ════════════════════════════════════════════════ -->
+<nav>
+  <span class="nv-logo" onclick="go('home')">reb<span class="nv-logo-inf">∞</span><span class="nv-logo-dot">8</span></span>
+  <ul class="nv-links">
+    <li><button onclick="go('about')">About</button></li>
+    <li><button onclick="go('signal')">Signal</button></li>
+    <li><button onclick="go('tag')">Tag</button></li>
+    <li><button onclick="go('network')">Contribute</button></li>
+  </ul>
+  <button class="nv-cta" onclick="openM()">Request a pilot →</button>
+</nav>
+
+
+<!-- ═══ HOME PAGE ══════════════════════════════════════════ -->
+<div id="pg-home" class="page" style="display:block">
+
+<!-- ──────────────────────────────────────────────────────────
+  §1 — HERO: Who we are + what we exist to solve
+  Design: V5 layout (pill + H1 + stats + two CTAs)
+  Visual: Live contributor dashboard (3 scored contributors)
+──────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="w">
+    <div class="hero-inner">
+
+      <!-- Left -->
+      <div>
+        <div class="pill pill-acc"><span class="pill-dot"></span>Human-in-the-Loop Platform</div>
+        <h1 class="d">The platform that<br/>manages the<br/><em>human layer in AI.</em></h1>
+        <p class="lead" style="max-width:430px;margin-bottom:36px">Every AI model learns from human-labeled data. <span class="reb8-mark">reb<span class="inf-sym">∞</span><span class="logo-8">8</span></span> scores the people producing that data — before they start, and throughout every task.</p>
+        <div class="hero-btns">
+          <button class="bp" onclick="openM()">Request a pilot →</button>
+          <button class="bg-dk" onclick="go('about')">Our story</button>
+        </div>
+        <div class="hstats" style="grid-template-columns:repeat(4,1fr)">
+          <div class="hs">
+            <div class="hs-n">5<span>K+</span></div>
+            <div class="hs-l">Pre-scored<br/>contributors</div>
+          </div>
+          <div class="hs">
+            <div class="hs-n">14<span>d</span></div>
+            <div class="hs-l">Brief to<br/>first batch</div>
+          </div>
+          <div class="hs">
+            <div class="hs-n">30<span>+</span></div>
+            <div class="hs-l">Regional &amp; global<br/>languages</div>
+          </div>
+          <div class="hs">
+            <div class="hs-n">20<span>+</span></div>
+            <div class="hs-l">Years of workforce<br/>operations</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live contributor dashboard SVG -->
+      <div>
+        <svg viewBox="0 0 580 580" width="100%" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 24px 64px rgba(0,0,0,.6))">
+  <defs>
+    <linearGradient id="hdr-g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00C896"/>
+      <stop offset="100%" stop-color="#3ECF8E"/>
+    </linearGradient>
+    <clipPath id="card-clip"><rect width="580" height="580" rx="16"/></clipPath>
+  </defs>
+
+  <!-- Card background -->
+  <rect width="580" height="580" rx="16" fill="#0D1830" clip-path="url(#card-clip)"/>
+  <!-- Top teal accent bar -->
+  <rect width="580" height="4" rx="2" fill="url(#hdr-g)"/>
+
+  <!-- ── HEADER ── -->
+  <rect x="0" y="4" width="580" height="46" fill="rgba(0,0,0,.15)"/>
+  <text x="22" y="32" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="rgba(0,200,150,.85)" letter-spacing="1.2">reb∞8 SIGNAL  ·  LIVE DASHBOARD</text>
+  <rect x="0" y="50" width="580" height="1" fill="rgba(255,255,255,.07)"/>
+
+  <!-- ── TITLE ── -->
+  <text x="22" y="82" font-family="Cormorant Garant" font-size="22" font-weight="700" fill="#E8EAF0">Composite Quality Score — Active Pipeline</text>
+  <rect x="0" y="92" width="580" height="1" fill="rgba(255,255,255,.06)"/>
+
+  <!-- ══ CONTRIBUTOR ROW 1: Priya M. — 94/100 ══ -->
+  <rect x="0" y="93" width="580" height="72" fill="rgba(0,200,150,.04)"/>
+  <!-- Avatar circle: teal -->
+  <circle cx="52" cy="129" r="22" fill="rgba(0,200,150,.18)" stroke="rgba(0,200,150,.4)" stroke-width="1.5"/>
+  <text x="52" y="135" text-anchor="middle" font-family="DM Sans" font-size="16" font-weight="700" fill="#3ECF8E">P</text>
+  <!-- Name + role -->
+  <text x="86" y="118" font-family="Cormorant Garant" font-size="20" font-weight="700" fill="#E8EAF0">Priya M.</text>
+  <text x="86" y="138" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.42)" letter-spacing=".2">Linguistic Annotator  ·  Hindi / Tamil</text>
+  <!-- Score pill: teal -->
+  <rect x="456" y="112" width="102" height="34" rx="8" fill="rgba(0,200,150,.12)" stroke="rgba(0,200,150,.35)" stroke-width="1.5"/>
+  <circle cx="471" cy="129" r="5" fill="#3ECF8E"/>
+  <text x="506" y="134" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#E8EAF0">94/100</text>
+  <rect x="0" y="165" width="580" height="1" fill="rgba(255,255,255,.05)"/>
+
+  <!-- ══ CONTRIBUTOR ROW 2: Rahul S. — 78/100 ══ -->
+  <rect x="0" y="166" width="580" height="72" fill="rgba(255,255,255,.01)"/>
+  <!-- Avatar circle: gold -->
+  <circle cx="52" cy="202" r="22" fill="rgba(212,168,67,.15)" stroke="rgba(212,168,67,.35)" stroke-width="1.5"/>
+  <text x="52" y="208" text-anchor="middle" font-family="DM Sans" font-size="16" font-weight="700" fill="#D4A843">R</text>
+  <!-- Name + role -->
+  <text x="86" y="191" font-family="Cormorant Garant" font-size="20" font-weight="700" fill="#E8EAF0">Rahul S.</text>
+  <text x="86" y="211" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.42)" letter-spacing=".2">Data Ops Specialist  ·  RLHF</text>
+  <!-- Score pill: gold -->
+  <rect x="456" y="185" width="102" height="34" rx="8" fill="rgba(212,168,67,.1)" stroke="rgba(212,168,67,.32)" stroke-width="1.5"/>
+  <circle cx="471" cy="202" r="5" fill="#D4A843"/>
+  <text x="506" y="207" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#E8EAF0">78/100</text>
+  <rect x="0" y="238" width="580" height="1" fill="rgba(255,255,255,.05)"/>
+
+  <!-- ══ CONTRIBUTOR ROW 3: Ananya K. — 61/100 ══ -->
+  <rect x="0" y="239" width="580" height="72" fill="rgba(255,255,255,.01)"/>
+  <!-- Avatar circle: muted -->
+  <circle cx="52" cy="275" r="22" fill="rgba(74,158,232,.1)" stroke="rgba(74,158,232,.25)" stroke-width="1.5"/>
+  <text x="52" y="281" text-anchor="middle" font-family="DM Sans" font-size="16" font-weight="700" fill="rgba(74,158,232,.7)">A</text>
+  <!-- Name + role -->
+  <text x="86" y="264" font-family="Cormorant Garant" font-size="20" font-weight="700" fill="rgba(232,234,240,.65)">Ananya K.</text>
+  <text x="86" y="284" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.38)" letter-spacing=".2">Customer Service  ·  Bengali</text>
+  <!-- Score pill: muted -->
+  <rect x="456" y="258" width="102" height="34" rx="8" fill="rgba(74,158,232,.07)" stroke="rgba(74,158,232,.22)" stroke-width="1.5"/>
+  <circle cx="471" cy="275" r="5" fill="rgba(74,158,232,.6)"/>
+  <text x="506" y="280" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="rgba(232,234,240,.55)">61/100</text>
+  <rect x="0" y="311" width="580" height="1" fill="rgba(255,255,255,.05)"/>
+
+  <!-- ══ STAGE CARDS GRID (2 rows × 3 cols) ══ -->
+  <!-- Row 1 -->
+  <!-- Card: Profile -->
+  <rect x="16" y="320" width="176" height="86" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+  <text x="88" y="350" text-anchor="middle" font-size="22">🎯</text>
+  <text x="88" y="372" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.42)" letter-spacing=".5">Profile</text>
+  <text x="88" y="392" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#3ECF8E">PASS</text>
+
+  <!-- Card: Eval -->
+  <rect x="202" y="320" width="176" height="86" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+  <text x="290" y="350" text-anchor="middle" font-size="22">🧠</text>
+  <text x="290" y="372" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.42)" letter-spacing=".5">Eval</text>
+  <text x="290" y="392" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#3ECF8E">PASS</text>
+
+  <!-- Card: Biometric -->
+  <rect x="388" y="320" width="176" height="86" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+  <text x="476" y="350" text-anchor="middle" font-size="22">👁</text>
+  <text x="476" y="372" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.42)" letter-spacing=".5">Biometric</text>
+  <text x="476" y="392" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#3ECF8E">PASS</text>
+
+  <!-- Row 2 -->
+  <!-- Card: Interview -->
+  <rect x="16" y="416" width="176" height="86" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+  <text x="88" y="446" text-anchor="middle" font-size="22">🎙</text>
+  <text x="88" y="468" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.42)" letter-spacing=".5">Interview</text>
+  <text x="88" y="488" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#3ECF8E">PASS</text>
+
+  <!-- Card: D&S (LIVE — teal glow) -->
+  <rect x="202" y="416" width="176" height="86" rx="8" fill="rgba(0,200,150,.05)" stroke="rgba(0,200,150,.25)" stroke-width="1.5"/>
+  <text x="290" y="446" text-anchor="middle" font-size="22">📊</text>
+  <text x="290" y="468" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.42)" letter-spacing=".5">D&amp;S</text>
+  <text x="290" y="488" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#00C896">LIVE</text>
+
+  <!-- Card: Surge (READY — gold) -->
+  <rect x="388" y="416" width="176" height="86" rx="8" fill="rgba(212,168,67,.04)" stroke="rgba(212,168,67,.2)" stroke-width="1"/>
+  <text x="476" y="446" text-anchor="middle" font-size="22">⚡</text>
+  <text x="476" y="468" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.42)" letter-spacing=".5">Surge</text>
+  <text x="476" y="488" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#D4A843">READY</text>
+
+  <!-- ══ FOOTER BAR ══ -->
+  <rect x="0" y="508" width="580" height="1" fill="rgba(255,255,255,.06)"/>
+  <rect x="0" y="509" width="580" height="71" fill="rgba(0,0,0,.2)"/>
+  <text x="22" y="551" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.35)">Top 1 candidate queued for deployment</text>
+  <!-- Deploy button -->
+  <rect x="442" y="530" width="120" height="36" rx="8" fill="#00C896"/>
+  <text x="502" y="553" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#fff" letter-spacing=".5">DEPLOY →</text>
+</svg>
+      </div>
+
+    </div><!-- /hero-inner -->
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──────────────────────────────────────────────────────────
+  §2 — WHAT WE'RE BUILDING
+──────────────────────────────────────────────────────────── -->
+<section class="sec" style="background:var(--ink2)">
+  <div class="w">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+      <div>
+        <div class="ey">What we're building</div>
+        <h2 class="d">One loop.<br/>Score first.<br/><em>Annotate after.</em></h2>
+        <p class="lead" style="margin-bottom:32px">Score evaluates contributors before deployment. Annotate produces the output. Quality enforced at every step.</p>
+        <div class="build-grid">
+          <div class="build-card bc-sig">
+            <div class="bc-label sig">reb∞8 Signal</div>
+            <div class="bc-h">Scores and manages the workforce</div>
+            <p class="bc-d">6-stage evaluation. Badge Score assigned at entry, updated daily on live accuracy. Drops → auto-throttle.</p>
+            <button class="bg-dk" onclick="go('signal')" style="padding:9px 18px;font-size:12px">Learn more →</button>
+          </div>
+          <div class="build-card bc-tag">
+            <div class="bc-label tag">reb∞8 Tag</div>
+            <div class="bc-h">Produces and gates the output</div>
+            <p class="bc-d">Labeling, annotation, moderation. Every contributor Score-evaluated first. Every batch gated before delivery.</p>
+            <button class="bg-dk" onclick="go('tag')" style="padding:9px 18px;font-size:12px">Learn more →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- System infographic -->
+      <div>
+        <svg viewBox="0 0 480 430" width="100%" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 20px 50px rgba(0,0,0,.5))">
+          <defs>
+            <linearGradient id="sig-g" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4A9EE8" stop-opacity=".8"/><stop offset="100%" stop-color="#6BACF0" stop-opacity=".6"/></linearGradient>
+            <linearGradient id="tag-g" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00C896" stop-opacity=".8"/><stop offset="100%" stop-color="#3ECF8E" stop-opacity=".6"/></linearGradient>
+            <linearGradient id="infbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0E1628"/><stop offset="100%" stop-color="#0E1628"/></linearGradient>
+          </defs>
+          <rect width="480" height="430" rx="16" fill="url(#infbg)" stroke="rgba(0,200,150,.15)" stroke-width="1.5"/>
+
+          <!-- INPUT LAYER -->
+          <rect x="16" y="16" width="448" height="56" rx="10" fill="rgba(232,98,42,.07)" stroke="rgba(232,98,42,.22)" stroke-width="1"/>
+          <text x="240" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,98,42,.85)" letter-spacing="1">YOUR PROJECT</text>
+          <text x="90" y="56" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.5)">Benchmark defined</text>
+          <line x1="174" y1="46" x2="174" y2="65" stroke="rgba(232,98,42,.15)" stroke-width="1"/>
+          <text x="240" y="56" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.5)">Task type specified</text>
+          <line x1="306" y1="46" x2="306" y2="65" stroke="rgba(232,98,42,.15)" stroke-width="1"/>
+          <text x="390" y="56" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.5)">Quality threshold set</text>
+
+          <!-- Connector -->
+          <line x1="240" y1="72" x2="240" y2="92" stroke="rgba(74,158,232,.45)" stroke-width="2" stroke-dasharray="4,3"/>
+          <polygon points="236,90 244,90 240,96" fill="rgba(74,158,232,.45)"/>
+
+          <!-- SIGNAL LAYER -->
+          <rect x="16" y="100" width="448" height="120" rx="10" fill="rgba(74,158,232,.05)" stroke="rgba(74,158,232,.28)" stroke-width="1.5"/>
+          <rect x="16" y="100" width="448" height="4" rx="2" fill="url(#sig-g)"/>
+          <text x="32" y="124" font-family="JetBrains Mono" font-size="12" fill="rgba(74,158,232,.9)" letter-spacing=".8">REB∞8 SIGNAL</text>
+          <text x="32" y="142" font-family="DM Sans" font-size="14" fill="rgba(232,234,240,.5)">Score · Deploy · Track daily · Auto-throttle</text>
+          <!-- Engine pills -->
+          <rect x="32" y="152" width="88" height="26" rx="5" fill="rgba(74,158,232,.1)" stroke="rgba(74,158,232,.22)"/>
+          <text x="76" y="169" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.85)">ASSESS</text>
+          <rect x="130" y="152" width="88" height="26" rx="5" fill="rgba(74,158,232,.1)" stroke="rgba(74,158,232,.22)"/>
+          <text x="174" y="169" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.85)">SCORE</text>
+          <rect x="228" y="152" width="88" height="26" rx="5" fill="rgba(74,158,232,.1)" stroke="rgba(74,158,232,.22)"/>
+          <text x="272" y="169" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.85)">TRACK</text>
+          <rect x="326" y="152" width="122" height="26" rx="5" fill="rgba(74,158,232,.12)" stroke="rgba(74,158,232,.3)"/>
+          <text x="387" y="169" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.9)">AUTO-THROTTLE</text>
+          <!-- Badge Score strip -->
+          <rect x="32" y="190" width="430" height="22" rx="5" fill="rgba(0,0,0,.2)"/>
+          <text x="48" y="205" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.65)">Badge Score updated daily · Drops in accuracy → allocation drops automatically</text>
+
+          <!-- Connector -->
+          <line x1="240" y1="220" x2="240" y2="240" stroke="rgba(0,200,150,.45)" stroke-width="2"/>
+          <polygon points="236,238 244,238 240,244" fill="rgba(0,200,150,.45)"/>
+
+          <!-- CONTRIBUTOR NETWORK -->
+          <rect x="16" y="248" width="448" height="52" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.06)"/>
+          <circle cx="52" cy="274" r="14" fill="rgba(0,200,150,.12)" stroke="rgba(0,200,150,.28)"/>
+          <text x="52" y="279" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.85)">94</text>
+          <circle cx="90" cy="274" r="14" fill="rgba(0,200,150,.1)" stroke="rgba(0,200,150,.2)"/>
+          <text x="90" y="279" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.7)">88</text>
+          <circle cx="128" cy="274" r="14" fill="rgba(74,158,232,.1)" stroke="rgba(74,158,232,.2)"/>
+          <text x="128" y="279" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(74,158,232,.7)">82</text>
+          <circle cx="166" cy="274" r="14" fill="rgba(74,158,232,.1)" stroke="rgba(74,158,232,.18)"/>
+          <text x="166" y="279" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(74,158,232,.6)">76</text>
+          <circle cx="204" cy="274" r="14" fill="rgba(74,158,232,.07)" stroke="rgba(74,158,232,.14)"/>
+          <text x="204" y="279" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(74,158,232,.5)">71</text>
+          <text x="236" y="279" font-family="JetBrains Mono" font-size="14" fill="rgba(232,234,240,.2)">···</text>
+          <text x="388" y="270" text-anchor="middle" font-family="Cormorant Garant" font-size="30" font-weight="700" fill="rgba(232,234,240,.6)">5K<tspan font-size="16" fill="rgba(232,234,240,.3)">+</tspan></text>
+          <text x="388" y="288" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.38)">pre-scored contributors</text>
+
+          <!-- Connector -->
+          <line x1="240" y1="300" x2="240" y2="320" stroke="rgba(0,200,150,.45)" stroke-width="2"/>
+          <polygon points="236,318 244,318 240,324" fill="rgba(0,200,150,.45)"/>
+
+          <!-- TAG LAYER -->
+          <rect x="16" y="328" width="448" height="74" rx="10" fill="rgba(0,200,150,.05)" stroke="rgba(0,200,150,.28)" stroke-width="1.5"/>
+          <rect x="16" y="328" width="448" height="4" rx="2" fill="url(#tag-g)"/>
+          <text x="32" y="352" font-family="JetBrains Mono" font-size="12" fill="rgba(0,200,150,.9)" letter-spacing=".8">REB∞8 TAG</text>
+          <text x="32" y="370" font-family="DM Sans" font-size="14" fill="rgba(232,234,240,.5)">Label · Annotate · Quality-gate · Deliver</text>
+          <!-- Output pills -->
+          <rect x="32" y="378" width="100" height="18" rx="4" fill="rgba(0,200,150,.1)"/>
+          <text x="82" y="391" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(0,200,150,.8)">IAA verified</text>
+          <rect x="144" y="378" width="116" height="18" rx="4" fill="rgba(0,200,150,.1)"/>
+          <text x="202" y="391" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(0,200,150,.8)">Gold label checked</text>
+          <rect x="272" y="378" width="106" height="18" rx="4" fill="rgba(0,200,150,.1)"/>
+          <text x="325" y="391" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(0,200,150,.8)">Score report issued</text>
+          <rect x="390" y="372" width="74" height="26" rx="6" fill="rgba(0,200,150,.15)" stroke="rgba(0,200,150,.4)"/>
+          <text x="427" y="389" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#3ECF8E">→ Deliver</text>
+
+          <!-- Output caption -->
+          <text x="240" y="418" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.28)" letter-spacing=".5">VERIFIED OUTPUT · CLEAN · SCORED · FULLY TRACEABLE</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──────────────────────────────────────────────────────────
+  §3 — WHY THIS MATTERS / THE PROBLEM
+  Design: V5 pain cards + V5 before/after table
+──────────────────────────────────────────────────────────── -->
+<section class="sec">
+  <div class="w">
+    <div style="text-align:center;margin-bottom:52px">
+      <div class="ey ey-c">What measurement changes</div>
+      <h2 class="d" style="max-width:760px;margin:0 auto 16px">Four places quality breaks <em>when the workforce isn't scored.</em></h2>
+      <p class="lead" style="max-width:560px;margin:0 auto">The pipeline knows when the model fails. It rarely knows when the human is about to.</p>
+    </div>
+
+    <!-- Intro strip (V5 style) -->
+    <div class="prob-eyebrow-bar"><span></span>Where unmeasured workforces leak<span></span></div>
+
+    <!-- 4 pain cards -->
+    <div class="pain-grid">
+      <div class="pain-cell">
+        <div class="pc-n">LATENCY</div>
+        <div class="pc-ico">⚠️</div>
+        <div class="pc-t">By the time the benchmark drops, the bad batches are already in your training set</div>
+        <p class="pc-d">The training run reveals it. By then, the compute is spent. The data is already in the set.</p>
+      </div>
+      <div class="pain-cell">
+        <div class="pc-n">ALLOCATION</div>
+        <div class="pc-ico">🎲</div>
+        <div class="pc-t">High performers and low performers get the same tasks</div>
+        <p class="pc-d">Every contributor joins the same queue. Score doesn't determine access. Quality doesn't determine routing.</p>
+      </div>
+      <div class="pain-cell">
+        <div class="pc-n">DRIFT</div>
+        <div class="pc-ico">🔁</div>
+        <div class="pc-t">Annotator drift shows up in your model, not your QA</div>
+        <p class="pc-d">Accuracy erodes quietly. The benchmark drop is the last signal — not the first.</p>
+      </div>
+      <div class="pain-cell">
+        <div class="pc-n">ACCOUNTABILITY</div>
+        <div class="pc-ico">📋</div>
+        <div class="pc-t">No audit trail. No enforceable SLA.</div>
+        <p class="pc-d">Standards can be specified. Not enforced per contributor. Not traced when something fails.</p>
+      </div>
+    </div>
+
+    <p style="font-family:var(--f-m);font-size:11px;color:var(--teal);letter-spacing:.06em;margin-top:28px;text-align:center">Score tracks all four — in real time, on every contributor.</p>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──────────────────────────────────────────────────────────
+  §4 — HOW WE DO IT / 5-STEP FLOW
+──────────────────────────────────────────────────────────── -->
+<section class="sec" style="background:var(--ink2)">
+  <div class="w">
+    <div style="text-align:center;margin-bottom:60px">
+      <div class="ey ey-c">How it works</div>
+      <h2 class="d">Five steps. One continuous loop.</h2>
+      <p class="lead" style="max-width:480px;margin:0 auto">Nothing starts without a defined outcome. Nothing ships without a passing score. Every cycle makes the next one sharper.</p>
+    </div>
+
+    <svg viewBox="0 0 1100 210" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="fa" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="rgba(0,200,150,.5)"/></marker>
+      </defs>
+
+      <!-- Step 1 -->
+      <rect x="0" y="28" width="188" height="154" rx="10" fill="var(--card)" stroke="rgba(0,200,150,.2)" stroke-width="1.5"/>
+      <rect x="0" y="28" width="188" height="4" rx="2" fill="#00C896" opacity=".6"/>
+      <text x="94" y="57" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(0,200,150,.6)" letter-spacing=".5">01 · DEFINE</text>
+      <rect x="72" y="64" width="44" height="34" rx="6" fill="rgba(0,200,150,.08)" stroke="rgba(0,200,150,.2)"/>
+      <line x1="80" y1="76" x2="108" y2="76" stroke="rgba(0,200,150,.5)" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="80" y1="84" x2="108" y2="84" stroke="rgba(0,200,150,.28)" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="80" y1="91" x2="98" y2="91" stroke="rgba(0,200,150,.16)" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="94" y="120" text-anchor="middle" font-family="Cormorant Garant" font-size="17" font-weight="700" fill="#E8EAF0">Outcome Brief</text>
+      <text x="94" y="140" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.45)">You set the benchmark.</text>
+      <text x="94" y="156" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.45)">Both sides agree upfront.</text>
+      <text x="94" y="174" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.65)">Signal configured</text>
+
+      <line x1="196" y1="105" x2="224" y2="105" stroke="rgba(0,200,150,.4)" stroke-width="2" marker-end="url(#fa)"/>
+
+      <!-- Step 2 -->
+      <rect x="228" y="28" width="188" height="154" rx="10" fill="var(--card)" stroke="rgba(0,200,150,.2)" stroke-width="1.5"/>
+      <rect x="228" y="28" width="188" height="4" rx="2" fill="#00C896" opacity=".6"/>
+      <text x="322" y="57" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(0,200,150,.6)" letter-spacing=".5">02 · SCORE</text>
+      <path d="M 302 94 A 20 20 0 0 1 342 94" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M 302 94 A 20 20 0 0 1 338 83" fill="none" stroke="#00C896" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="322" cy="94" r="5" fill="#00C896"/>
+      <text x="322" y="120" text-anchor="middle" font-family="Cormorant Garant" font-size="17" font-weight="700" fill="#E8EAF0">Every Contributor</text>
+      <text x="322" y="140" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.45)">Pre-assessed on your</text>
+      <text x="322" y="156" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.45)">task-specific rubric.</text>
+      <text x="322" y="174" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.65)">Badge Score assigned</text>
+
+      <line x1="424" y1="105" x2="452" y2="105" stroke="rgba(0,200,150,.4)" stroke-width="2" marker-end="url(#fa)"/>
+
+      <!-- Step 3 -->
+      <rect x="456" y="28" width="188" height="154" rx="10" fill="var(--card)" stroke="rgba(0,200,150,.2)" stroke-width="1.5"/>
+      <rect x="456" y="28" width="188" height="4" rx="2" fill="#00C896" opacity=".6"/>
+      <text x="550" y="57" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.6)" letter-spacing=".5">03 · DEPLOY + TRACK</text>
+      <rect x="528" y="72" width="12" height="22" rx="2" fill="rgba(0,200,150,.4)"/>
+      <rect x="546" y="66" width="12" height="28" rx="2" fill="rgba(0,200,150,.6)"/>
+      <rect x="564" y="62" width="12" height="32" rx="2" fill="#00C896"/>
+      <text x="550" y="120" text-anchor="middle" font-family="Cormorant Garant" font-size="17" font-weight="700" fill="#E8EAF0">Work Begins</text>
+      <text x="550" y="140" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.45)">Score updated daily.</text>
+      <text x="550" y="156" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.45)">Drop → auto-throttle.</text>
+      <text x="550" y="174" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.65)">No dispatcher needed</text>
+
+      <line x1="652" y1="105" x2="680" y2="105" stroke="rgba(0,200,150,.4)" stroke-width="2" marker-end="url(#fa)"/>
+
+      <!-- Step 4 -->
+      <rect x="684" y="28" width="188" height="154" rx="10" fill="var(--card)" stroke="rgba(0,200,150,.2)" stroke-width="1.5"/>
+      <rect x="684" y="28" width="188" height="4" rx="2" fill="#00C896" opacity=".6"/>
+      <text x="778" y="57" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(0,200,150,.6)" letter-spacing=".5">04 · GATE</text>
+      <path d="M778 62 L796 70 L796 91 Q796 101 778 107 Q760 101 760 91 L760 70 Z" fill="rgba(0,200,150,.08)" stroke="rgba(0,200,150,.3)" stroke-width="1.5"/>
+      <text x="778" y="93" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="#3ECF8E">✓</text>
+      <text x="778" y="120" text-anchor="middle" font-family="Cormorant Garant" font-size="17" font-weight="700" fill="#E8EAF0">Every Batch</text>
+      <text x="778" y="140" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.45)">IAA checked.</text>
+      <text x="778" y="156" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.45)">Gold labels compared.</text>
+      <text x="778" y="174" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.65)">Tag verified</text>
+
+      <line x1="880" y1="105" x2="908" y2="105" stroke="rgba(0,200,150,.4)" stroke-width="2" marker-end="url(#fa)"/>
+
+      <!-- Step 5 -->
+      <rect x="912" y="28" width="188" height="154" rx="10" fill="rgba(0,200,150,.05)" stroke="rgba(0,200,150,.35)" stroke-width="2"/>
+      <rect x="912" y="28" width="188" height="4" rx="2" fill="#00C896"/>
+      <text x="1006" y="57" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(0,200,150,.8)" letter-spacing=".5">05 · DELIVER</text>
+      <rect x="982" y="62" width="48" height="36" rx="7" fill="rgba(0,200,150,.12)" stroke="rgba(0,200,150,.35)"/>
+      <text x="1006" y="87" text-anchor="middle" font-family="JetBrains Mono" font-size="18" fill="#3ECF8E">↗</text>
+      <text x="1006" y="120" text-anchor="middle" font-family="Cormorant Garant" font-size="17" font-weight="700" fill="#E8EAF0">Score Report</text>
+      <text x="1006" y="140" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.6)">Verified output +</text>
+      <text x="1006" y="156" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.6)">full quality picture.</text>
+      <text x="1006" y="174" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#00C896">14 days from brief</text>
+
+      <text x="550" y="202" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.35)" letter-spacing=".3">Outcome Brief → First verified batch  ·  14 days</text>
+    </svg>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──────────────────────────────────────────────────────────
+  §5 — THE SCORED PILOT
+──────────────────────────────────────────────────────────── -->
+<section class="sec">
+  <div class="w">
+    <div class="pilot-split">
+      <div>
+        <div class="pilot-tag"><span>The Offer</span></div>
+        <h2 class="d">The Scored Pilot</h2>
+        <p class="lead" style="margin-bottom:4px">4 weeks. Your task type. Your benchmark. Your quality threshold. At the end — a score report on every contributor who worked your data.</p>
+        <ul class="pilot-outcomes">
+          <li><div class="pdot"></div><div>Every contributor scored on <em>your</em> task benchmark before they start — built from your samples, not a generic test</div></li>
+          <li><div class="pdot"></div><div>Badge Score updated daily. If accuracy drops, allocation drops before your pipeline sees the output</div></li>
+          <li><div class="pdot"></div><div>Score report at the end — contributor distribution, IAA trend, throttle events, every batch traced to the person who produced it</div></li>
+          
+        </ul>
+        <div style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap">
+          <button class="bp" onclick="openM()">Request a pilot →</button>
+        </div>
+        <p style="margin-top:14px;font-family:var(--f-m);font-size:11px;color:var(--tx-dim)">Currently active: LLM / RLHF teams. Other domains available.</p>
+      </div>
+
+      <!-- Score report SVG -->
+      <div>
+        <svg viewBox="0 0 520 500" width="100%" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 20px 50px rgba(0,0,0,.5))">
+          <rect width="520" height="500" rx="14" fill="#0E1628" stroke="rgba(0,200,150,.18)" stroke-width="1.5"/>
+          <rect width="520" height="4" rx="2" fill="#00C896" opacity=".7"/>
+
+          <!-- Header -->
+          <text x="22" y="32" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.75)" letter-spacing="1">REB∞8 SCORE REPORT</text>
+          <rect x="22" y="40" width="476" height="1" fill="rgba(255,255,255,.06)"/>
+          <text x="22" y="62" font-family="Cormorant Garant" font-size="22" font-weight="700" fill="#E8EAF0">LLM Preference Ranking · 4-week Pilot</text>
+          <text x="22" y="80" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.4)">Project: PLT-2841  ·  Domain: Code reasoning  ·  RLHF annotation</text>
+
+          <!-- Stats row -->
+          <rect x="22" y="94" width="476" height="58" rx="8" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.06)"/>
+          <text x="52" y="116" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.45)">DEPLOYED</text>
+          <text x="52" y="138" font-family="Cormorant Garant" font-size="26" font-weight="700" fill="#E8EAF0">12</text>
+          <text x="170" y="116" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.45)">BATCHES</text>
+          <text x="170" y="138" font-family="Cormorant Garant" font-size="26" font-weight="700" fill="#E8EAF0">24</text>
+          <text x="286" y="116" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.45)">AVG SCORE</text>
+          <text x="286" y="138" font-family="Cormorant Garant" font-size="26" font-weight="700" fill="#3ECF8E">89/100</text>
+          <text x="420" y="116" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.45)">TASKS</text>
+          <text x="420" y="138" font-family="Cormorant Garant" font-size="26" font-weight="700" fill="#E8EAF0">8,400</text>
+
+          <!-- Score distribution -->
+          <text x="22" y="174" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.75)" letter-spacing="1">SCORE DISTRIBUTION</text>
+          <rect x="22" y="180" width="476" height="110" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.05)"/>
+
+          <text x="38" y="206" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.55)">90–100</text>
+          <rect x="110" y="196" width="260" height="18" rx="3" fill="#00C896" opacity=".7"/>
+          <text x="378" y="209" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.85)">7 contributors</text>
+
+          <text x="38" y="234" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.55)">80–89</text>
+          <rect x="110" y="224" width="148" height="18" rx="3" fill="rgba(0,200,150,.5)"/>
+          <text x="266" y="237" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.7)">3 contributors</text>
+
+          <text x="38" y="262" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.55)">&lt; 70</text>
+          <rect x="110" y="252" width="80" height="18" rx="3" fill="rgba(232,98,42,.5)"/>
+          <text x="198" y="265" font-family="JetBrains Mono" font-size="11" fill="rgba(232,98,42,.8)">2 throttled</text>
+
+          <!-- IAA Trend -->
+          <text x="22" y="308" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.75)" letter-spacing="1">IAA TREND — 4 WEEKS</text>
+          <rect x="22" y="314" width="476" height="110" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.05)"/>
+
+          <!-- Week labels -->
+          <text x="78"  y="408" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.45)">Week 1</text>
+          <text x="196" y="408" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.45)">Week 2</text>
+          <text x="314" y="408" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.45)">Week 3</text>
+          <text x="432" y="408" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.45)">Week 4</text>
+
+          <!-- Bars -->
+          <rect x="58"  y="358" width="40" height="38" rx="3" fill="rgba(0,200,150,.45)"/>
+          <text x="78"  y="354" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.75)">82%</text>
+          <rect x="176" y="348" width="40" height="48" rx="3" fill="rgba(0,200,150,.55)"/>
+          <text x="196" y="344" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.8)">86%</text>
+          <rect x="294" y="338" width="40" height="58" rx="3" fill="rgba(0,200,150,.65)"/>
+          <text x="314" y="334" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.85)">89%</text>
+          <rect x="412" y="325" width="40" height="71" rx="3" fill="#00C896" opacity=".75"/>
+          <text x="432" y="321" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#3ECF8E">92%</text>
+
+          <!-- Throttle events -->
+          <rect x="22" y="432" width="476" height="48" rx="8" fill="rgba(232,98,42,.06)" stroke="rgba(232,98,42,.15)"/>
+          <text x="38" y="452" font-family="JetBrains Mono" font-size="11" fill="rgba(232,98,42,.85)">⚡ THROTTLE EVENTS</text>
+          <text x="38" y="470" font-family="DM Sans" font-size="13" fill="rgba(232,234,240,.6)">2 contributors auto-removed (Day 11, Day 19)  ·  0 contaminated batches</text>
+
+          <!-- Footer -->
+          <text x="22" y="494" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.28)">Every contributor traceable to task, session, and batch</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──────────────────────────────────────────────────────────
+  §7 — THE EXPERIENCE BEHIND THIS
+──────────────────────────────────────────────────────────── -->
+<section class="sec">
+  <div class="w">
+    <div class="founder-split">
+
+      <!-- Left: single insight pull quote -->
+      <div>
+        <div class="ey">What this is built on</div>
+        <blockquote style="border-left:2px solid var(--teal);padding-left:28px;margin:0 0 32px">
+          <p style="font-family:var(--f-d);font-size:clamp(20px,2.2vw,30px);font-weight:400;font-style:italic;color:var(--tx-hi);line-height:1.5;margin-bottom:16px">"Quality drift is recognisable. It follows the same pattern every time — quiet accumulation, then a visible failure. That pattern is what Signal was built to catch."</p>
+          <cite style="font-family:var(--f-m);font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.12em;font-style:normal">Santosh — Founder</cite>
+        </blockquote>
+        <p class="body-sm" style="margin-bottom:28px">The scoring system, the contributor network, the 14-day deployment — all of it came from building operations where these things had to work first.</p>
+        <button class="bg-dk" onclick="go('about')">Read our story →</button>
+      </div>
+
+      <!-- Right: 4 credential stats -->
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="s-label">Experience</div>
+          <div class="s-num">20<span class="s-unit">+</span></div>
+          <div class="s-desc">Years operating workforce systems at scale across data operations</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-label">Network</div>
+          <div class="s-num">5<span class="s-unit">K</span></div>
+          <div class="s-desc">Pre-scored contributors ready before any project starts</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-label">Speed</div>
+          <div class="s-num">14<span class="s-unit">d</span></div>
+          <div class="s-desc">From signed Outcome Brief to first quality-verified batch</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-label">Domains</div>
+          <div class="s-num">6<span class="s-unit">+</span></div>
+          <div class="s-desc">LLM, AV, Robotics, Agri AI, Trust &amp; Safety, Manufacturing</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ──────────────────────────────────────────────────────────
+  §7b — WHAT THIS MEANS IN PRACTICE
+──────────────────────────────────────────────────────────── -->
+<section class="sec-sm" style="background:var(--ink2)">
+  <div class="w">
+    <div class="ey" style="margin-bottom:28px">What you get</div>
+    <div class="oc-grid">
+      <div class="oc">
+        <div class="oc-n">01 / Before anyone starts work</div>
+        <h3 class="oc-h">You know who's on your project — and why</h3>
+        <p class="oc-d">Every contributor scored on your task benchmark before they start. Built from your samples. The score determines access.</p>
+      </div>
+      <div class="oc">
+        <div class="oc-n">02 / While the work is running</div>
+        <h3 class="oc-h">Quality problems surface before they reach you</h3>
+        <p class="oc-d">Score updates daily. Accuracy drops → allocation drops automatically. You find out while there's still time to act.</p>
+      </div>
+      <div class="oc">
+        <div class="oc-n">03 / When we're done</div>
+        <h3 class="oc-h">A full quality picture at project close</h3>
+        <p class="oc-d">Score distribution by contributor. IAA trend by week. Every throttle event. Traced to person, session, and batch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──────────────────────────────────────────────────────────
+  §9 — CTA
+──────────────────────────────────────────────────────────── -->
+<div class="cta-sec">
+  <div class="w">
+    <div class="ey ey-c" style="margin-bottom:22px">Start with a pilot</div>
+    <h2 class="cta-h">Four weeks.<br/>Your data.<br/>A full quality picture.</h2>
+    <p class="cta-sub">Tell us your task type and what good looks like. We'll scope a 4-week pilot and send a score report when it's done.</p>
+    <button class="bp" onclick="openM()" style="font-size:14px;padding:16px 36px">Request a pilot →</button>
+    <span class="cta-em">Or email directly: <a href="mailto:hello@reboo8.com">hello@reboo8.com</a></span>
+  </div>
+</div>
+
+</div><!-- /pg-home -->
+
+<!-- ═══ ABOUT PAGE ═══════════════════════════════════════════ -->
+<div id="pg-about" class="page" style="display:none">
+<section class="depth-hero">
+  <div class="w">
+    <button class="back-btn" onclick="go('home')">← Back to home</button>
+    <div style="max-width:680px">
+      <div class="ey">Our story</div>
+      <h1 class="d">Twenty years on the <em>operations floor.</em></h1>
+      <p class="lead" style="margin-top:8px">Annotation, evaluation, quality review — different names, same workflow. reb<span class="inf-sym">∞</span><span class="logo-8">8</span> is what that workflow looks like when it ships as a product.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec-xs" style="background:var(--ink2)">
+  <div class="w">
+    <div class="about-stats">
+      <div class="as"><div class="as-n">20<span>+</span></div><div class="as-l">Years of workforce operations</div></div>
+      <div class="as"><div class="as-n">5<span>K</span></div><div class="as-l">Pre-scored contributors</div></div>
+      <div class="as"><div class="as-n">14<span>d</span></div><div class="as-l">Brief to first batch</div></div>
+      <div class="as"><div class="as-n">6<span>+</span></div><div class="as-l">AI verticals covered</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="w">
+    <div class="about-split">
+      <div>
+        <div class="ey">How this started</div>
+        <h2 class="d" style="font-size:clamp(24px,2.8vw,42px)">A pattern that kept<br/><em>showing up.</em></h2>
+        <p class="lead" style="margin-bottom:18px">Data operations at scale means thousands of contributors running simultaneously, quality degrading slowly until someone notices too late. The fix was always the same: track who's drifting before the output ships. That system got rebuilt by hand on every major project. Nothing existed that did it automatically.</p>
+        <p class="body-sm" style="margin-bottom:16px">Then AI training data became serious business. Same drift. Same missing layer.</p>
+        <p class="body-sm">Signal is what happens when that problem finally gets a product.</p>
+        <div class="mission-box">
+          <div class="mission-label">The mission</div>
+          <div class="mission-text">"The model is only as good as the data. The data is only as good as the people who built it. Nobody was measuring the people."</div>
+        </div>
+      </div>
+      <div>
+        <div class="ey">How we got here</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"><span>01</span></div>
+            <div>
+              <div class="tl-h">Twenty years on the operations floor</div>
+              <p class="tl-d">Data services at scale. Thousands of contributors. Quality tracking rebuilt from scratch on every major program — annotation, evaluation, moderation, customer support. The same workflow under different names.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><span>02</span></div>
+            <div>
+              <div class="tl-h">The same pattern, a different context</div>
+              <p class="tl-d">When attention turned to AI training pipelines, the same workflow showed up. Thousands of contributors. Quality drifting before the benchmark could see it. The same fix kept getting rebuilt by hand.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><span>03</span></div>
+            <div>
+              <div class="tl-h">Built the operation before the product</div>
+              <p class="tl-d">5,000 contributors assessed. Infrastructure running. 14-day deployment ready. None of it built for the pitch — built because the operation had to work before the product could.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><span>04</span></div>
+            <div>
+              <div class="tl-h">Bringing it to market</div>
+              <p class="tl-d">Signal and Tag. One loop. Score the contributor. Verify the output. The same workflow that ran every program, now available as a product.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="sec-sm" style="background:var(--ink2)">
+  <div class="w">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start">
+      <div>
+        <div class="ey">The founder</div>
+        <div style="font-family:var(--f-d);font-size:34px;font-weight:700;color:var(--tx-hi);margin-bottom:6px">Santosh</div>
+        <div style="font-family:var(--f-m);font-size:9.5px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">Founder · reb∞8</div>
+        <p class="lead" style="margin-bottom:18px">reb∞8 didn't start with a product roadmap. It started with a pattern recognised from years of running large-scale data operations — and the infrastructure that came from managing it.</p>
+        <p class="body-sm">The 5,000 contributors, the 14-day deployment, the quality reporting — none of that came from a spec. It came from building operations where those things had to actually work.</p>
+      </div>
+      <div>
+        <div style="background:var(--ink3);border:1px solid var(--bd);border-radius:var(--r2);padding:28px">
+          <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin-bottom:14px">Get in touch</h3>
+          <p class="body-sm" style="margin-bottom:22px">If you're running a post-training cycle and your data quality picture is a black box — let's talk.</p>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:24px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="font-family:var(--f-m);font-size:9px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;width:84px;flex-shrink:0">PILOTS</span>
+              <a href="mailto:hello@reboo8.com" style="font-size:14px;color:var(--tx-mid);text-decoration:none">hello@reboo8.com</a>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="font-family:var(--f-m);font-size:9px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;width:84px;flex-shrink:0">COMMUNITY</span>
+              <a href="mailto:community@reboo8.com" style="font-size:14px;color:var(--tx-mid);text-decoration:none">community@reboo8.com</a>
+            </div>
+          </div>
+          <button class="bp" onclick="openM()" style="width:100%;justify-content:center">Request a pilot →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /pg-about -->
+
+<!-- ═══ SIGNAL DEPTH PAGE ════════════════════════════════════ -->
+<div id="pg-signal" class="page" style="display:none">
+<section class="depth-hero">
+  <div class="w">
+    <button class="back-btn" onclick="go('home')">← Back</button>
+    <div class="depth-split">
+      <div>
+        <div class="ey">reb∞8 Signal</div>
+        <h1 class="d">The scoring engine that <em>runs every day.</em></h1>
+        <p class="lead" style="margin-bottom:32px">Signal evaluates contributors before they start and tracks their performance on every task. Every score is built on your task type, your benchmark, your rubric — calibrated to your work.</p>
+        <button class="bp" onclick="openM()">Request a pilot →</button>
+      </div>
+      <div>
+        <svg viewBox="0 0 460 260" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <rect width="460" height="260" rx="12" fill="var(--card)" stroke="rgba(74,158,232,.2)" stroke-width="1.5"/>
+          <rect width="460" height="4" rx="2" fill="#4A9EE8"/>
+          <text x="230" y="28" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(74,158,232,.7)" letter-spacing="1">SIGNAL · 6-ENGINE ARCHITECTURE</text>
+          <rect x="14" y="42" width="134" height="50" rx="7" fill="rgba(74,158,232,.06)" stroke="rgba(74,158,232,.2)"/>
+          <text x="81" y="62" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.7)">ASSESSMENT</text>
+          <text x="81" y="79" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.5)">3-layer eval</text>
+          <rect x="162" y="42" width="134" height="50" rx="7" fill="rgba(74,158,232,.06)" stroke="rgba(74,158,232,.2)"/>
+          <text x="229" y="62" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.7)">SCORING</text>
+          <text x="229" y="79" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.5)">Badge Score</text>
+          <rect x="310" y="42" width="136" height="50" rx="7" fill="rgba(74,158,232,.06)" stroke="rgba(74,158,232,.2)"/>
+          <text x="378" y="62" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.7)">PRIORITIZATION</text>
+          <text x="378" y="79" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.5)">Auto-queue</text>
+          <rect x="14" y="108" width="134" height="50" rx="7" fill="rgba(74,158,232,.06)" stroke="rgba(74,158,232,.2)"/>
+          <text x="81" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.7)">PERFORMANCE</text>
+          <text x="81" y="145" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.5)">Daily tracking</text>
+          <rect x="162" y="108" width="134" height="50" rx="7" fill="rgba(74,158,232,.06)" stroke="rgba(74,158,232,.2)"/>
+          <text x="229" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.7)">SCHEDULING</text>
+          <text x="229" y="145" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.5)">Score-controlled</text>
+          <rect x="310" y="108" width="136" height="50" rx="7" fill="rgba(74,158,232,.06)" stroke="rgba(74,158,232,.2)"/>
+          <text x="378" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.7)">SURCHARGE</text>
+          <text x="378" y="145" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.5)">Quality-linked pay</text>
+          <rect x="14" y="178" width="432" height="42" rx="8" fill="rgba(0,200,150,.06)" stroke="rgba(0,200,150,.2)"/>
+          <text x="230" y="195" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.7)" letter-spacing=".8">OUTPUT · Scored workforce, continuously tracked</text>
+          <text x="230" y="212" text-anchor="middle" font-family="DM Sans" font-size="12" fill="rgba(232,234,240,.5)">Score at entry · Score throughout · Score at every batch</text>
+          <text x="230" y="244" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.2)">Built on your rubric · Calibrated to your task</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec-sm">
+  <div class="w">
+    <div class="ey">The three questions Signal answers</div>
+    <div class="engine-grid">
+      <div class="eng"><div class="eng-n">Before deployment</div><div class="eng-h">Is this contributor good enough for this specific task?</div><p class="eng-d">Resume match, task benchmark, structured interview — calibrated to your rubric. Score determines who gets in.</p></div>
+      <div class="eng"><div class="eng-n">During engagement</div><div class="eng-h">Are they still performing at the level they scored?</div><p class="eng-d">Daily Badge Score updates on every contributor. Accuracy drop triggers automatic throttle — before the batch reaches your pipeline, not after the benchmark reveals it.</p></div>
+      <div class="eng"><div class="eng-n">At delivery</div><div class="eng-h">What drove quality across the full engagement?</div><p class="eng-d">Score report at project close. Distribution by contributor, trend by week, throttle events logged. Traced to person, session, and batch.</p></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<div class="cta-sec" style="padding:80px 0">
+  <div class="w">
+    <h2 class="cta-h" style="font-size:clamp(26px,3vw,44px)">See Signal running on your task type.</h2>
+    <p class="cta-sub">4-week pilot. Your benchmark. Score report included.</p>
+    <button class="bp" onclick="openM()">Request a pilot →</button>
+  </div>
+</div>
+</div><!-- /pg-signal -->
+
+<!-- ═══ TAG DEPTH PAGE ════════════════════════════════════════ -->
+<div id="pg-tag" class="page" style="display:none">
+<section class="depth-hero">
+  <div class="w">
+    <button class="back-btn" onclick="go('home')">← Back</button>
+    <div class="depth-split">
+      <div>
+        <div class="ey">reb∞8 Tag</div>
+        <h1 class="d">The output layer.<br/><em>Every batch verified<br/>before it leaves.</em></h1>
+        <p class="lead" style="margin-bottom:32px">Whatever your input modality — image, video, audio, text, sensor — Tag produces the labeled output your model trains from. Every contributor scored by Signal first. Quality enforced throughout, gated at every batch.</p>
+        <button class="bp" onclick="openM()">Request a pilot →</button>
+      </div>
+      <div>
+        <svg viewBox="0 0 460 260" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <rect width="460" height="260" rx="12" fill="var(--card)" stroke="rgba(62,207,142,.2)" stroke-width="1.5"/>
+          <rect width="460" height="4" rx="2" fill="#3ECF8E"/>
+          <text x="230" y="28" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.7)" letter-spacing="1">TAG · TASK COVERAGE</text>
+          <!-- Row 1 -->
+          <rect x="14" y="44" width="96" height="30" rx="7" fill="rgba(62,207,142,.07)" stroke="rgba(62,207,142,.2)"/>
+          <text x="62" y="63" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.8)">RLHF</text>
+          <rect x="120" y="44" width="124" height="30" rx="7" fill="rgba(62,207,142,.07)" stroke="rgba(62,207,142,.2)"/>
+          <text x="182" y="63" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.8)">Bounding Boxes</text>
+          <rect x="254" y="44" width="124" height="30" rx="7" fill="rgba(62,207,142,.07)" stroke="rgba(62,207,142,.2)"/>
+          <text x="316" y="63" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.8)">Segmentation</text>
+          <!-- Row 2 -->
+          <rect x="14" y="84" width="124" height="30" rx="7" fill="rgba(62,207,142,.06)" stroke="rgba(62,207,142,.15)"/>
+          <text x="76" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.7)">NER / NLP</text>
+          <rect x="148" y="84" width="124" height="30" rx="7" fill="rgba(62,207,142,.06)" stroke="rgba(62,207,142,.15)"/>
+          <text x="210" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.7)">Safety Eval</text>
+          <rect x="282" y="84" width="164" height="30" rx="7" fill="rgba(62,207,142,.06)" stroke="rgba(62,207,142,.15)"/>
+          <text x="364" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.7)">Defect Detection</text>
+          <!-- Row 3 -->
+          <rect x="14" y="124" width="124" height="30" rx="7" fill="rgba(62,207,142,.05)" stroke="rgba(62,207,142,.1)"/>
+          <text x="76" y="143" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.6)">Audio Tagging</text>
+          <rect x="148" y="124" width="124" height="30" rx="7" fill="rgba(62,207,142,.05)" stroke="rgba(62,207,142,.1)"/>
+          <text x="210" y="143" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.6)">Keypoints</text>
+          <rect x="282" y="124" width="164" height="30" rx="7" fill="rgba(62,207,142,.05)" stroke="rgba(62,207,142,.1)"/>
+          <text x="364" y="143" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.6)">LiDAR / Point Cloud</text>
+          <!-- Quality gate -->
+          <rect x="14" y="170" width="432" height="70" rx="8" fill="rgba(0,200,150,.06)" stroke="rgba(0,200,150,.2)"/>
+          <text x="230" y="191" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.8)" letter-spacing=".8">QUALITY GATE — EVERY BATCH</text>
+          <text x="230" y="212" text-anchor="middle" font-family="DM Sans" font-size="13" fill="rgba(232,234,240,.55)">IAA checked · Gold labels compared · Contributor score verified · Then delivered</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec-sm">
+  <div class="w">
+    <div class="ey">What Tag does</div>
+    <div class="cap-grid">
+      <div class="cap"><div class="cap-ico">📊</div><div><div class="cap-h">Every contributor Signal-scored first</div><p class="cap-d">Before anyone touches a Tag task, they've cleared a task-specific Signal assessment. The quality loop starts before the first label is placed.</p></div></div>
+      <div class="cap"><div class="cap-ico">🔄</div><div><div class="cap-h">Quality gates before delivery</div><p class="cap-d">IAA tracked per batch. Gold label comparison on every task type. If a batch doesn't clear the threshold, it doesn't leave. Verified output. Ready to train on.</p></div></div>
+      <div class="cap"><div class="cap-ico">📉</div><div><div class="cap-h">Declining accuracy auto-throttles volume</div><p class="cap-d">Badge Score drops mid-engagement → allocation drops automatically. Before the batch reaches your pipeline, while there's still time to correct it.</p></div></div>
+      <div class="cap"><div class="cap-ico">📋</div><div><div class="cap-h">Full traceability on every output</div><p class="cap-d">Every task, every contributor, every quality decision documented. When something fails downstream, you trace it to the exact person, the exact session, the exact batch.</p></div></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<div class="cta-sec" style="padding:80px 0">
+  <div class="w">
+    <h2 class="cta-h" style="font-size:clamp(26px,3vw,44px)">Start with one task type.</h2>
+    <p class="cta-sub">4-week pilot. Your task type, your benchmark. No commitment after.</p>
+    <button class="bp" onclick="openM()">Request a pilot →</button>
+  </div>
+</div>
+</div><!-- /pg-tag -->
+
+
+<!-- ═══ OPEN NETWORK PAGE ══════════════════════════════════════ -->
+<div id="pg-network" class="page" style="display:none">
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section style="padding:100px 0 72px;border-bottom:1px solid var(--bd);position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(0,200,150,.05) 0%,transparent 65%);pointer-events:none"></div>
+  <div class="w" style="position:relative;z-index:1">
+    <button class="back-btn" onclick="go('home')">← Back to home</button>
+
+    <!-- Eyebrow pill -->
+    <div style="display:inline-flex;align-items:center;gap:8px;background:var(--teal-a);border:1px solid var(--teal-b);border-radius:100px;padding:6px 16px;margin-bottom:28px">
+      <span style="font-family:var(--f-m);font-size:10px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase">Open Network · Now Accepting Contributors</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+      <div>
+        <h1 class="disp" style="font-family:var(--f-d);font-size:clamp(40px,4.8vw,68px);font-weight:700;line-height:1.06;letter-spacing:-2.5px;margin-bottom:26px">Where your judgment <em style="color:var(--teal);font-style:italic">becomes training data.</em></h1>
+        <p class="lead" style="max-width:440px;margin-bottom:36px">The models your phone, doctor, and bank rely on are shaped by human decisions — preference rankings, safety evaluations, precision annotations. <span class="reb8-mark">reb<span class="inf-sym">∞</span><span class="logo-8">8</span></span> connects people who make those decisions well with the AI teams who need them.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="bp" onclick="openNetwork()">Apply to join →</button>
+          <button class="bg-dk" onclick="document.getElementById('network-how').scrollIntoView({behavior:'smooth'})">See how it works</button>
+        </div>
+      </div>
+
+      <!-- Stats visual -->
+      <div>
+        <svg viewBox="0 0 480 360" width="100%" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 20px 50px rgba(0,0,0,.5))">
+          <defs>
+            <linearGradient id="ng" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0E1628"/>
+              <stop offset="100%" stop-color="#0E1628"/>
+            </linearGradient>
+          </defs>
+          <rect width="480" height="360" rx="16" fill="url(#ng)" stroke="rgba(0,200,150,.18)" stroke-width="1.5"/>
+          <rect width="480" height="4" rx="2" fill="#00C896" opacity=".7"/>
+
+          <!-- Header -->
+          <text x="24" y="30" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.65)" letter-spacing="1.2">REB∞8 OPEN NETWORK · CONTRIBUTOR STATS</text>
+          <rect x="24" y="38" width="432" height="1" fill="rgba(255,255,255,.06)"/>
+
+          <!-- 3 stat boxes -->
+          <rect x="24" y="52" width="130" height="80" rx="8" fill="rgba(0,200,150,.06)" stroke="rgba(0,200,150,.2)"/>
+          <text x="89" y="80" text-anchor="middle" font-family="Cormorant Garant" font-size="36" font-weight="700" fill="#E8EAF0">5K</text>
+          <text x="89" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.4)">Contributors</text>
+          <text x="89" y="116" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(0,200,150,.55)">pre-scored</text>
+
+          <rect x="170" y="52" width="130" height="80" rx="8" fill="rgba(74,158,232,.05)" stroke="rgba(74,158,232,.2)"/>
+          <text x="235" y="80" text-anchor="middle" font-family="Cormorant Garant" font-size="36" font-weight="700" fill="#E8EAF0">30+</text>
+          <text x="235" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.4)">Languages</text>
+          <text x="235" y="116" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(74,158,232,.55)">supported</text>
+
+          <rect x="316" y="52" width="140" height="80" rx="8" fill="rgba(212,168,67,.05)" stroke="rgba(212,168,67,.2)"/>
+          <text x="386" y="80" text-anchor="middle" font-family="Cormorant Garant" font-size="36" font-weight="700" fill="#E8EAF0">6+</text>
+          <text x="386" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.4)">AI Domains</text>
+          <text x="386" y="116" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(212,168,67,.55)">active</text>
+
+          <!-- Domain pills -->
+          <text x="24" y="160" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.6)" letter-spacing=".8">ACTIVE DOMAINS</text>
+
+          <rect x="24"  y="172" width="86"  height="24" rx="5" fill="rgba(0,200,150,.08)" stroke="rgba(0,200,150,.2)"/>
+          <text x="67"  y="188" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.8)">LLM / RLHF</text>
+
+          <rect x="120" y="172" width="90"  height="24" rx="5" fill="rgba(74,158,232,.07)" stroke="rgba(74,158,232,.18)"/>
+          <text x="165" y="188" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(74,158,232,.7)">Auto. Vehicle</text>
+
+          <rect x="220" y="172" width="76"  height="24" rx="5" fill="rgba(62,207,142,.07)" stroke="rgba(62,207,142,.18)"/>
+          <text x="258" y="188" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(62,207,142,.7)">Robotics</text>
+
+          <rect x="306" y="172" width="66"  height="24" rx="5" fill="rgba(212,168,67,.07)" stroke="rgba(212,168,67,.18)"/>
+          <text x="339" y="188" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(212,168,67,.7)">Agri AI</text>
+
+          <rect x="24"  y="206" width="96"  height="24" rx="5" fill="rgba(232,98,42,.07)" stroke="rgba(232,98,42,.18)"/>
+          <text x="72"  y="222" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,98,42,.7)">Trust &amp; Safety</text>
+
+          <rect x="130" y="206" width="110" height="24" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)"/>
+          <text x="185" y="222" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.5)">Manufacturing</text>
+
+          <!-- Badge Score visual -->
+          <rect x="24" y="250" width="432" height="90" rx="10" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.06)"/>
+          <text x="40" y="273" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.35)">YOUR BADGE SCORE</text>
+          <!-- Score bar -->
+          <rect x="40" y="284" width="380" height="10" rx="5" fill="rgba(255,255,255,.06)"/>
+          <rect x="40" y="284" width="305" height="10" rx="5" fill="rgba(0,200,150,.6)"/>
+          <circle cx="345" cy="289" r="8" fill="#00C896"/>
+          <text x="345" y="293" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#fff" font-weight="600">80</text>
+          <text x="40"  y="313" font-family="JetBrains Mono" font-size="11" fill="rgba(232,234,240,.3)">Score grows with every task</text>
+          <text x="400" y="313" font-family="JetBrains Mono" font-size="11" fill="rgba(0,200,150,.55)">+pay as score rises</text>
+
+          <!-- Footer caption -->
+          <text x="24" y="348" font-family="JetBrains Mono" font-size="10" fill="rgba(232,234,240,.18)">Higher score → more tasks → higher earnings · Quality is the only metric that matters</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE NARRATIVE ──────────────────────────────────────────── -->
+<section style="padding:100px 0;background:var(--ink2);border-bottom:1px solid var(--bd)">
+  <div class="w">
+    <div style="max-width:720px;margin:0 auto;text-align:center;margin-bottom:72px">
+      <div class="ey ey-c" style="font-family:var(--f-m);font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.14em;margin-bottom:22px;display:flex;align-items:center;justify-content:center;gap:10px">Why this work matters</div>
+      <h2 style="font-family:var(--f-d);font-size:clamp(28px,3.5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;margin-bottom:24px;color:var(--tx-hi)">What this work <em style="color:var(--teal);font-style:italic">actually is.</em></h2>
+      <p style="font-size:17px;color:var(--tx-mid);line-height:1.85">Every preference ranking tells a model which answer is more helpful, more honest, more safe. Every annotation teaches it what a stop sign looks like in fog, what a tumour looks like on a scan, what a dangerous instruction looks like in plain language. The training signal is human judgment, made explicit.</p>
+    </div>
+
+    <!-- 3 impact cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+
+      <div style="background:var(--ink3);border:1px solid var(--teal-b);border-top:3px solid var(--teal);border-radius:var(--r2);padding:32px">
+        <div style="font-family:var(--f-m);font-size:9px;color:var(--teal);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px">What you do</div>
+        <svg width="44" height="44" viewBox="0 0 44 44" style="margin-bottom:16px">
+          <circle cx="22" cy="22" r="21" fill="rgba(0,200,150,.08)" stroke="rgba(0,200,150,.25)" stroke-width="1.5"/>
+          <text x="22" y="28" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="#3ECF8E">✓</text>
+        </svg>
+        <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin-bottom:10px;line-height:1.2">Human judgment<br/>at the hardest tasks</h3>
+        <p style="font-size:14px;color:var(--tx-mid);line-height:1.7">Preference ranking. Safety evaluation. Domain annotation. The tasks where a model can't evaluate its own output — and a person's judgment is the signal the training run depends on.</p>
+      </div>
+
+      <div style="background:var(--ink3);border:1px solid var(--bd);border-top:3px solid var(--sig);border-radius:var(--r2);padding:32px">
+        <div style="font-family:var(--f-m);font-size:9px;color:var(--sig);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px">How you grow</div>
+        <svg width="44" height="44" viewBox="0 0 44 44" style="margin-bottom:16px">
+          <circle cx="22" cy="22" r="21" fill="rgba(74,158,232,.08)" stroke="rgba(74,158,232,.25)" stroke-width="1.5"/>
+          <polyline points="9,30 18,22 26,26 35,14" fill="none" stroke="#4A9EE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="35" cy="14" r="3" fill="#4A9EE8"/>
+        </svg>
+        <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin-bottom:10px;line-height:1.2">A score that<br/>follows your work</h3>
+        <p style="font-size:14px;color:var(--tx-mid);line-height:1.7">Every task you complete updates your Badge Score. It reflects how consistently accurate your work is — not how fast, not how many. As your score rises, you unlock more tasks, more domains, and higher pay. Quality is the only variable that matters.</p>
+      </div>
+
+      <div style="background:var(--ink3);border:1px solid var(--bd);border-top:3px solid var(--gold);border-radius:var(--r2);padding:32px">
+        <div style="font-family:var(--f-m);font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px">What you earn</div>
+        <svg width="44" height="44" viewBox="0 0 44 44" style="margin-bottom:16px">
+          <circle cx="22" cy="22" r="21" fill="rgba(212,168,67,.08)" stroke="rgba(212,168,67,.25)" stroke-width="1.5"/>
+          <text x="22" y="28" text-anchor="middle" font-family="Cormorant Garant" font-size="20" font-weight="700" fill="#D4A843">↑</text>
+        </svg>
+        <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin-bottom:10px;line-height:1.2">Pay that rises<br/>with your score</h3>
+        <p style="font-size:14px;color:var(--tx-mid);line-height:1.7">The Surcharge engine links earnings directly to your Badge Score. Improving accuracy increases what you earn — task by task, not by negotiation. Quality is the variable.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ───────────────────────────────────────────── -->
+<section id="network-how" style="padding:100px 0;border-bottom:1px solid var(--bd)">
+  <div class="w">
+    <div style="text-align:center;margin-bottom:64px">
+      <div class="ey ey-c" style="font-family:var(--f-m);font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.14em;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:10px">How it works</div>
+      <h2 style="font-family:var(--f-d);font-size:clamp(28px,3.2vw,48px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;color:var(--tx-hi)">Four steps from application<br/>to active contributor.</h2>
+    </div>
+
+    <!-- 4-step flow -->
+    <div style="display:flex;flex-direction:column;gap:0">
+
+      <div style="display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--bd)">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(0,200,150,.08);border:1px solid var(--teal-b);display:flex;align-items:center;justify-content:center;font-family:var(--f-m);font-size:11px;color:var(--teal);flex-shrink:0;font-weight:600">01</div>
+          <div style="width:1px;flex:1;background:rgba(0,200,150,.15);margin:4px 0"></div>
+        </div>
+        <div style="padding-top:8px;padding-bottom:20px">
+          <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin-bottom:8px">Apply and tell us what you know</h3>
+          <p style="font-size:15px;color:var(--tx-mid);line-height:1.7;max-width:600px">Share your background — domain expertise, languages, prior annotation or evaluation work. No CV required. We are looking for people with real-world knowledge of specific fields, not formal credentials.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--bd)">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(0,200,150,.08);border:1px solid var(--teal-b);display:flex;align-items:center;justify-content:center;font-family:var(--f-m);font-size:11px;color:var(--teal);flex-shrink:0;font-weight:600">02</div>
+          <div style="width:1px;flex:1;background:rgba(0,200,150,.15);margin:4px 0"></div>
+        </div>
+        <div style="padding-top:8px;padding-bottom:20px">
+          <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin-bottom:8px">Complete the Signal assessment</h3>
+          <p style="font-size:15px;color:var(--tx-mid);line-height:1.7;max-width:600px">A task-specific test built for your domain area. It is not a generic IQ test. The questions reflect the kind of judgment you would actually be making on the job — evaluating answers, ranking responses, identifying errors. Your result becomes your starting Badge Score.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--bd)">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(0,200,150,.08);border:1px solid var(--teal-b);display:flex;align-items:center;justify-content:center;font-family:var(--f-m);font-size:11px;color:var(--teal);flex-shrink:0;font-weight:600">03</div>
+          <div style="width:1px;flex:1;background:rgba(0,200,150,.15);margin:4px 0"></div>
+        </div>
+        <div style="padding-top:8px;padding-bottom:20px">
+          <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin-bottom:8px">Start working — at your own pace</h3>
+          <p style="font-size:15px;color:var(--tx-mid);line-height:1.7;max-width:600px">Tasks come to you based on your domain and Badge Score. You choose when you work. There are no minimums and no schedules. High-scoring contributors get first access to the most complex — and best-paying — tasks in the queue.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:20px;padding:24px 0">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(0,200,150,.12);border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;font-family:var(--f-m);font-size:11px;color:var(--teal);flex-shrink:0;font-weight:600">04</div>
+        </div>
+        <div style="padding-top:8px">
+          <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin-bottom:8px">Score improves. Pay improves.</h3>
+          <p style="font-size:15px;color:var(--tx-mid);line-height:1.7;max-width:600px">Every task updates your Badge Score. Consistent accuracy lifts it. The Surcharge engine means your pay rate rises directly with your score — no negotiation, no arbitrary raises. Your output quality is the only thing that determines what you earn.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── DOMAINS ────────────────────────────────────────────────── -->
+<section style="padding:80px 0;background:var(--ink2);border-bottom:1px solid var(--bd)">
+  <div class="w">
+    <div class="ey" style="font-family:var(--f-m);font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.14em;margin-bottom:32px;display:flex;align-items:center;gap:10px">
+      <span style="width:24px;height:1px;background:var(--teal);opacity:.5;flex-shrink:0"></span>
+      Work available across these domains
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+
+      <div style="background:var(--ink4);border:1px solid var(--bd);border-radius:var(--r2);padding:24px">
+        <div style="font-family:var(--f-m);font-size:9px;color:var(--teal);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">LLM / RLHF</div>
+        <h3 style="font-family:var(--f-d);font-size:20px;font-weight:700;color:var(--tx-hi);margin-bottom:10px">Language model training</h3>
+        <p style="font-size:13.5px;color:var(--tx-mid);line-height:1.65">Preference ranking, instruction following evaluation, response quality scoring, safety red-teaming. Your judgment directly influences how a language model ranks helpfulness, honesty, and safety.</p>
+      </div>
+
+      <div style="background:var(--ink4);border:1px solid var(--bd);border-radius:var(--r2);padding:24px">
+        <div style="font-family:var(--f-m);font-size:9px;color:rgba(74,158,232,.8);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Autonomous Vehicles</div>
+        <h3 style="font-family:var(--f-d);font-size:20px;font-weight:700;color:var(--tx-hi);margin-bottom:10px">Road scene annotation</h3>
+        <p style="font-size:13.5px;color:var(--tx-mid);line-height:1.65">Bounding boxes, segmentation, keypoints on edge-case road scenarios. The situations self-driving systems encounter least often are the ones they need the most help understanding. Your annotation accuracy is a safety input.</p>
+      </div>
+
+      <div style="background:var(--ink4);border:1px solid var(--bd);border-radius:var(--r2);padding:24px">
+        <div style="font-family:var(--f-m);font-size:9px;color:rgba(62,207,142,.8);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Robotics</div>
+        <h3 style="font-family:var(--f-d);font-size:20px;font-weight:700;color:var(--tx-hi);margin-bottom:10px">Manipulation &amp; environment data</h3>
+        <p style="font-size:13.5px;color:var(--tx-mid);line-height:1.65">Trajectory labeling, keypoint annotation, physical environment mapping. Robots learn how to pick up, place, and navigate from human-labeled spatial data. Your annotations teach a machine what a hand should do.</p>
+      </div>
+
+      <div style="background:var(--ink4);border:1px solid var(--bd);border-radius:var(--r2);padding:24px">
+        <div style="font-family:var(--f-m);font-size:9px;color:rgba(212,168,67,.8);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Agri AI</div>
+        <h3 style="font-family:var(--f-d);font-size:20px;font-weight:700;color:var(--tx-hi);margin-bottom:10px">Satellite &amp; field imagery</h3>
+        <p style="font-size:13.5px;color:var(--tx-mid);line-height:1.65">Crop health, field boundary detection, pest identification from aerial imagery. Agricultural AI systems that improve food yield depend on annotators who understand what healthy crops actually look like.</p>
+      </div>
+
+      <div style="background:var(--ink4);border:1px solid var(--bd);border-radius:var(--r2);padding:24px">
+        <div style="font-family:var(--f-m);font-size:9px;color:rgba(232,98,42,.8);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Trust &amp; Safety</div>
+        <h3 style="font-family:var(--f-d);font-size:20px;font-weight:700;color:var(--tx-hi);margin-bottom:10px">Content policy evaluation</h3>
+        <p style="font-size:13.5px;color:var(--tx-mid);line-height:1.65">Policy classification, harmful content evaluation, moderation quality review. The rules that protect people online are learned from human decisions. Consistent, careful judgment here has a direct impact on platform safety at scale.</p>
+      </div>
+
+      <div style="background:var(--ink4);border:1px solid var(--bd);border-radius:var(--r2);padding:24px">
+        <div style="font-family:var(--f-m);font-size:9px;color:rgba(232,234,240,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Manufacturing AI</div>
+        <h3 style="font-family:var(--f-d);font-size:20px;font-weight:700;color:var(--tx-hi);margin-bottom:10px">Defect &amp; quality inspection</h3>
+        <p style="font-size:13.5px;color:var(--tx-mid);line-height:1.65">Visual defect identification, quality classification, sensor data labeling on production line imagery. Precision matters here in a physical sense — annotation accuracy feeds directly into automated inspection systems that make pass/fail decisions.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── WHO WE'RE LOOKING FOR ──────────────────────────────────── -->
+<section style="padding:100px 0;border-bottom:1px solid var(--bd)">
+  <div class="w">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
+      <div>
+        <div class="ey" style="font-family:var(--f-m);font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.14em;margin-bottom:20px;display:flex;align-items:center;gap:10px">
+          <span style="width:24px;height:1px;background:var(--teal);opacity:.5;flex-shrink:0"></span>
+          Who we are looking for
+        </div>
+        <h2 style="font-family:var(--f-d);font-size:clamp(26px,3vw,44px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;color:var(--tx-hi);margin-bottom:20px">Built for <em style="color:var(--teal);font-style:italic">judgment work.</em></h2>
+        <p style="font-size:16px;color:var(--tx-mid);line-height:1.8;margin-bottom:20px">Accuracy holds when domain knowledge is real. We're looking for people who can evaluate AI output in fields they already know deeply — and who can hold that standard across task 5 and task 500.</p>
+        <p style="font-size:16px;color:var(--tx-mid);line-height:1.8">Speed comes after accuracy. The Badge Score reflects how consistently you get the call right, not how many calls you make.</p>
+      </div>
+      <div>
+        <div style="background:var(--ink3);border:1px solid var(--bd);border-radius:var(--r2);padding:32px">
+          <div style="font-family:var(--f-m);font-size:9.5px;color:var(--teal);text-transform:uppercase;letter-spacing:.12em;margin-bottom:20px">We particularly want to hear from</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:14px">
+            <li style="display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--tx-mid);line-height:1.65">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:8px"></span>
+              <div><strong style="color:var(--tx-hi);font-weight:500">Domain experts</strong> — researchers, clinicians, engineers, linguists, agronomists — who can evaluate AI output in fields they know deeply</div>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--tx-mid);line-height:1.65">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:8px"></span>
+              <div><strong style="color:var(--tx-hi);font-weight:500">Language specialists</strong> — native speakers who can evaluate model output for cultural accuracy, tone, and nuance that automatic evaluation misses</div>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--tx-mid);line-height:1.65">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:8px"></span>
+              <div><strong style="color:var(--tx-hi);font-weight:500">Technical practitioners</strong> — developers, data scientists, and engineers who can evaluate code quality, reasoning quality, and instruction following</div>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--tx-mid);line-height:1.65">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:8px"></span>
+              <div><strong style="color:var(--tx-hi);font-weight:500">Anyone with strong attention to detail</strong> — across any background — who can maintain consistent standards across sustained, complex work</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────── -->
+<div style="text-align:center;padding:120px 0;position:relative">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(0,200,150,.07) 0%,transparent 70%);pointer-events:none"></div>
+  <div class="w" style="position:relative;z-index:1">
+    <div class="ey ey-c" style="font-family:var(--f-m);font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.14em;margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:10px">Join the Open Network</div>
+    <h2 style="font-family:var(--f-d);font-size:clamp(30px,4vw,56px);font-weight:700;letter-spacing:-2px;margin-bottom:20px;line-height:1.1;color:var(--tx-hi)">Tell us your domain. <em style="color:var(--teal);font-style:italic">We'll send the assessment.</em></h2>
+    <p style="font-size:17px;color:var(--tx-mid);margin-bottom:44px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.75">Apply with your background and the domains you know. We review every application and reply within 48 hours with a task-specific Signal assessment.</p>
+    <button class="bp" onclick="openNetwork()" style="font-size:14px;padding:16px 36px">Apply to join the network →</button>
+    <span style="font-family:var(--f-m);font-size:12px;color:var(--tx-lo);margin-top:18px;display:block">Or reach us at <a href="mailto:community@reboo8.com" style="color:var(--teal);text-decoration:none">community@reboo8.com</a></span>
+  </div>
+</div>
+
+</div><!-- /pg-network -->
+
+<!-- ═══ NETWORK MODAL ════════════════════════════════════════════ -->
+<div class="modal-overlay" id="networkModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeNetwork()">×</button>
+    <div class="modal-h">Apply to join the Open Network</div>
+    <p class="modal-sub">Tell us about yourself. We'll review your application and send you the domain-specific Signal assessment within 48 hours.</p>
+    <div class="ff"><label>Full name</label><input type="text" placeholder="Your name"/></div>
+    <div class="ff"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
+    <div class="ff"><label>Primary domain</label>
+      <select>
+        <option value="">Select your primary area</option>
+        <option>LLM / RLHF — language model evaluation</option>
+        <option>Autonomous vehicles — road scene annotation</option>
+        <option>Robotics — manipulation &amp; spatial data</option>
+        <option>Agri AI — satellite &amp; field imagery</option>
+        <option>Trust &amp; Safety — content policy evaluation</option>
+        <option>Manufacturing — defect &amp; quality inspection</option>
+        <option>Other — I'll describe below</option>
+      </select>
+    </div>
+    <div class="ff"><label>Languages (spoken / written)</label><input type="text" placeholder="e.g. English, Hindi, Tamil — native or fluent"/></div>
+    <div class="ff"><label>Background &amp; relevant experience</label><textarea placeholder="What domain knowledge do you bring? Prior annotation, research, professional, or technical experience — anything relevant."></textarea></div>
+    <button class="bp" style="width:100%;justify-content:center" onclick="closeNetwork()">Submit application →</button>
+    <p class="modal-note">We review every application manually. You'll hear back within 48 hours.</p>
+  </div>
+</div>
+
+
+<!-- ═══ CAREERS PAGE ══════════════════════════════════════════ -->
+<div id="pg-careers" class="page" style="display:none">
+<section style="padding:100px 0 72px;border-bottom:1px solid var(--bd)">
+  <div class="w">
+    <button class="back-btn" onclick="go('home')">← Back to home</button>
+    <div style="max-width:680px">
+      <div class="ey">Careers</div>
+      <h1 class="d">Build the human layer<br/>of AI with us.</h1>
+      <p class="lead">reb∞8 is hiring across operations, engineering, and product. If you want to work on something that genuinely matters in how AI systems are trained — we'd like to hear from you.</p>
+    </div>
+  </div>
+</section>
+<section style="padding:80px 0">
+  <div class="w">
+    <!-- ─── JOB LISTINGS PLACEHOLDER ─────────────────────────
+         Add open roles here. Suggested format:
+         <div class="job-card"> role / team / location / type </div>
+    ─────────────────────────────────────────────────────────── -->
+    <div style="background:var(--ink2);border:1px solid var(--bd);border-radius:var(--r2);padding:60px;text-align:center">
+      <div style="font-family:var(--f-m);font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.14em;margin-bottom:20px">Open Roles</div>
+      <p style="font-family:var(--f-d);font-size:28px;font-weight:700;color:var(--tx-hi);margin-bottom:16px;line-height:1.3">Content coming soon.</p>
+      <p style="font-size:15px;color:var(--tx-mid);max-width:420px;margin:0 auto 32px;line-height:1.7">We'll be listing open roles here shortly. In the meantime, if you think you have something to contribute — reach out directly.</p>
+      <a href="mailto:hello@reboo8.com" style="display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#E8EAF0;border-radius:var(--r);padding:12px 24px;font-family:var(--f-m);font-size:12px;font-weight:600;text-decoration:none;letter-spacing:.04em">hello@reboo8.com</a>
+    </div>
+  </div>
+</section>
+</div><!-- /pg-careers -->
+
+<!-- ═══ PRIVACY POLICY ═════════════════════════════════════════ -->
+<div id="pg-privacy" class="page" style="display:none">
+<section style="padding:80px 0 56px;border-bottom:1px solid var(--bd)">
+  <div class="w" style="max-width:800px">
+    <button class="back-btn" onclick="go('home')">← Back to home</button>
+    <div class="ey">Legal</div>
+    <h1 class="d" style="font-size:clamp(32px,4vw,52px)">Privacy Policy</h1>
+    <p style="font-family:var(--f-m);font-size:11px;color:var(--tx-lo);margin-top:8px">Effective date: 1 January 2026 &nbsp;·&nbsp; Last updated: 1 January 2026</p>
+  </div>
+</section>
+<section style="padding:60px 0 80px">
+  <div class="w" style="max-width:800px">
+    <div style="font-size:15px;color:var(--tx-mid);line-height:1.85">
+
+    <p><strong style="color:var(--tx-hi)">reb∞8 Pvt Ltd</strong> ("reb∞8", "we", "us", or "our") operates the website reboo8.com and related services. This Privacy Policy explains how we collect, use, store, and protect your personal data. By using our services, you agree to the practices described here.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">1. Who We Are</h3>
+    <p>reb∞8 Pvt Ltd is a company incorporated in India. We are the data controller for personal data collected through our website and services. Contact us at: <a href="mailto:hello@reboo8.com" style="color:var(--teal)">hello@reboo8.com</a></p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">2. Data We Collect</h3>
+    <p><strong style="color:var(--tx-hi)">From clients and business contacts:</strong> name, business email address, company name, job title, and information provided through pilot engagement forms or direct correspondence.</p>
+    <p><strong style="color:var(--tx-hi)">From contributors (Open Network applicants):</strong> name, email address, languages spoken, domain expertise, professional background, and assessment results produced through the Signal evaluation system.</p>
+    <p><strong style="color:var(--tx-hi)">From website visitors:</strong> usage data, IP address, browser type, pages visited, and time spent — collected via standard server logs and analytics tools.</p>
+    <p><strong style="color:var(--tx-hi)">Communications:</strong> any information you provide when emailing us or completing forms on the site.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">3. How We Use Your Data</h3>
+    <p>We use your personal data to: (a) respond to enquiries and manage pilot engagement conversations; (b) evaluate contributor applications and administer assessments; (c) deliver and improve our services; (d) comply with legal obligations; (e) send service-related communications (not marketing without consent).</p>
+    <p>We do not sell your personal data to third parties. We do not use your data for automated decision-making that produces legal effects without human review.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">4. Legal Basis for Processing (GDPR)</h3>
+    <p>For users in the European Economic Area, our legal bases are: <strong style="color:var(--tx-hi)">Contract</strong> (processing necessary to perform services you have requested); <strong style="color:var(--tx-hi)">Legitimate Interests</strong> (operating and improving our services, preventing fraud); <strong style="color:var(--tx-hi)">Legal Obligation</strong> (compliance with applicable law); and <strong style="color:var(--tx-hi)">Consent</strong> (where you have provided it, e.g. for optional communications).</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">5. Compliance with Indian Law</h3>
+    <p>We comply with the Information Technology Act 2000, the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules 2011 ("SPDI Rules"), and the Digital Personal Data Protection Act 2023 ("DPDP Act") as it comes into force. We implement reasonable security practices to protect sensitive personal data, including access controls, encryption at rest and in transit, and periodic security reviews.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">6. Data Sharing</h3>
+    <p>We share data only with: (a) service providers who assist in operating our platform (hosting, analytics, email delivery) under data processing agreements; (b) clients, where contributor work product is delivered as part of an engagement — only to the extent necessary; (c) regulators or law enforcement where required by applicable law.</p>
+    <p>We do not transfer personal data to countries without adequate protection unless safeguards (such as standard contractual clauses) are in place.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">7. Data Retention</h3>
+    <p>We retain personal data for as long as necessary to deliver our services and meet legal obligations. Contributor assessment data is retained for the duration of an active contributor relationship and for a period of 3 years after the last engagement. Client contact data is retained for the duration of a business relationship and 5 years thereafter. You may request deletion at any time (subject to legal retention requirements).</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">8. Your Rights</h3>
+    <p>Depending on your jurisdiction, you have rights to: access the personal data we hold about you; request correction of inaccurate data; request deletion of your data; object to or restrict certain processing; receive your data in a portable format; withdraw consent at any time (where processing is based on consent).</p>
+    <p>To exercise any of these rights, contact us at <a href="mailto:hello@reboo8.com" style="color:var(--teal)">hello@reboo8.com</a>. We will respond within 30 days. You also have the right to lodge a complaint with the relevant supervisory authority (in India: the Data Protection Board; in the EU: your national data protection authority).</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">9. Cookies</h3>
+    <p>We use essential cookies required for the site to function and analytics cookies to understand how visitors use the site. We do not use advertising or tracking cookies. You can manage cookie preferences through your browser settings. Disabling cookies may affect site functionality.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">10. Security</h3>
+    <p>We implement technical and organisational measures to protect personal data against unauthorised access, alteration, disclosure, or destruction. These include encryption, access controls, and regular security reviews. No method of transmission over the internet is completely secure, and we cannot guarantee absolute security.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">11. Children</h3>
+    <p>Our services are not directed at persons under the age of 18. We do not knowingly collect personal data from minors. If we become aware that we have collected such data, we will delete it promptly.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">12. Changes to This Policy</h3>
+    <p>We may update this Privacy Policy from time to time. Material changes will be notified via email or a notice on our website. Continued use of our services after changes constitutes acceptance of the updated policy.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">13. Contact</h3>
+    <p>reb∞8 Pvt Ltd<br/>Email: <a href="mailto:hello@reboo8.com" style="color:var(--teal)">hello@reboo8.com</a></p>
+
+    </div>
+  </div>
+</section>
+</div><!-- /pg-privacy -->
+
+<!-- ═══ TERMS OF SERVICE ════════════════════════════════════════ -->
+<div id="pg-terms" class="page" style="display:none">
+<section style="padding:80px 0 56px;border-bottom:1px solid var(--bd)">
+  <div class="w" style="max-width:800px">
+    <button class="back-btn" onclick="go('home')">← Back to home</button>
+    <div class="ey">Legal</div>
+    <h1 class="d" style="font-size:clamp(32px,4vw,52px)">Terms of Service</h1>
+    <p style="font-family:var(--f-m);font-size:11px;color:var(--tx-lo);margin-top:8px">Effective date: 1 January 2026 &nbsp;·&nbsp; Last updated: 1 January 2026</p>
+  </div>
+</section>
+<section style="padding:60px 0 80px">
+  <div class="w" style="max-width:800px">
+    <div style="font-size:15px;color:var(--tx-mid);line-height:1.85">
+
+    <p>These Terms of Service ("Terms") govern your use of the website reboo8.com and the services provided by <strong style="color:var(--tx-hi)">reb∞8 Pvt Ltd</strong>, a company incorporated in India ("reb∞8", "we", "us", or "our"). By accessing our website or using our services, you agree to these Terms. If you do not agree, do not use our services.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">1. Services</h3>
+    <p>reb∞8 provides human-in-the-loop services for AI model training, including contributor evaluation (Signal), data annotation and labeling (Tag), and managed end-to-end data operations. Services are governed by the specific Outcome Brief or Statement of Work agreed between reb∞8 and the client prior to engagement commencement.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">2. Eligibility and Account</h3>
+    <p>You must be at least 18 years of age to use our services. If you are using our services on behalf of an organisation, you represent that you have authority to bind that organisation to these Terms. You are responsible for maintaining the confidentiality of any access credentials and for all activities conducted under your account.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">3. Acceptable Use</h3>
+    <p>You agree not to: (a) use our services for any unlawful purpose; (b) upload or transmit data that infringes third-party intellectual property rights; (c) attempt to circumvent security measures; (d) use automated tools to access our services in a manner that disrupts their operation; (e) misrepresent your identity, qualifications, or affiliation; or (f) use our services in connection with harmful, deceptive, or fraudulent activity.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">4. Intellectual Property</h3>
+    <p><strong style="color:var(--tx-hi)">Our IP:</strong> The reb∞8 name, logo, website content, Signal scoring system, and all related technology are owned by reb∞8 Pvt Ltd. Nothing in these Terms grants you any rights in our intellectual property.</p>
+    <p><strong style="color:var(--tx-hi)">Client data:</strong> Data and materials you provide for annotation or evaluation remain your property. You grant reb∞8 a limited licence to process such data solely for the purposes of the engagement.</p>
+    <p><strong style="color:var(--tx-hi)">Deliverables:</strong> Subject to full payment, ownership of annotated output produced under an engagement transfers to the client upon delivery, as specified in the applicable Outcome Brief.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">5. Payment</h3>
+    <p>Fees are specified in the applicable Outcome Brief or Statement of Work. Invoices are payable within 30 days of issue unless otherwise agreed. Late payments may attract interest at 1.5% per month. reb∞8 reserves the right to suspend services for accounts more than 45 days overdue.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">6. Confidentiality</h3>
+    <p>Each party agrees to keep confidential any non-public information received from the other party in connection with the services. This obligation does not apply to information that is publicly available, independently developed, or required to be disclosed by law. Confidentiality obligations survive termination of any engagement for a period of 3 years.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">7. Warranties and Disclaimers</h3>
+    <p>reb∞8 warrants that services will be performed with reasonable care and skill in accordance with the agreed Outcome Brief. THE WEBSITE AND ANY CONTENT THEREIN ARE PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND. WE DO NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED OR ERROR-FREE.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">8. Limitation of Liability</h3>
+    <p>To the maximum extent permitted by applicable law, reb∞8's aggregate liability for any claims arising out of or relating to these Terms or the services shall not exceed the fees paid by you to reb∞8 in the three months preceding the claim. We shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or goodwill, whether or not we have been advised of the possibility of such damages.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">9. Termination</h3>
+    <p>Either party may terminate an engagement on written notice if the other party materially breaches these Terms and fails to cure the breach within 15 days of notice. reb∞8 may suspend or terminate access to the website immediately if your use violates these Terms or applicable law. Upon termination, clauses relating to intellectual property, confidentiality, liability, and governing law survive.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">10. Governing Law and Dispute Resolution</h3>
+    <p>These Terms are governed by the laws of India. Any disputes arising out of or in connection with these Terms shall first be subject to good-faith negotiation between the parties. If unresolved within 30 days, disputes shall be referred to arbitration in accordance with the Arbitration and Conciliation Act 1996, with the seat of arbitration in Bengaluru, India. The language of arbitration shall be English. Subject to the foregoing, the courts of Bengaluru, India shall have exclusive jurisdiction.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">11. Changes to Terms</h3>
+    <p>We may update these Terms from time to time. Material changes will be communicated via email or notice on the website. Continued use of our services after the effective date of changes constitutes acceptance of the revised Terms.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">12. Contact</h3>
+    <p>reb∞8 Pvt Ltd<br/>Email: <a href="mailto:hello@reboo8.com" style="color:var(--teal)">hello@reboo8.com</a></p>
+
+    </div>
+  </div>
+</section>
+</div><!-- /pg-terms -->
+
+<!-- ═══ DATA PROCESSING AGREEMENT ══════════════════════════════ -->
+<div id="pg-dpa" class="page" style="display:none">
+<section style="padding:80px 0 56px;border-bottom:1px solid var(--bd)">
+  <div class="w" style="max-width:800px">
+    <button class="back-btn" onclick="go('home')">← Back to home</button>
+    <div class="ey">Legal</div>
+    <h1 class="d" style="font-size:clamp(32px,4vw,52px)">Data Processing Agreement</h1>
+    <p style="font-family:var(--f-m);font-size:11px;color:var(--tx-lo);margin-top:8px">Effective date: 1 January 2026 &nbsp;·&nbsp; Last updated: 1 January 2026</p>
+  </div>
+</section>
+<section style="padding:60px 0 80px">
+  <div class="w" style="max-width:800px">
+    <div style="font-size:15px;color:var(--tx-mid);line-height:1.85">
+
+    <p>This Data Processing Agreement ("DPA") is between you or the organisation you represent ("Controller" or "Client") and <strong style="color:var(--tx-hi)">reb∞8 Pvt Ltd</strong> ("Processor" or "reb∞8"). It forms part of, and is incorporated into, any agreement for services between the parties (the "Principal Agreement"). It applies where reb∞8 processes personal data on your behalf in connection with the services.</p>
+    <p>This DPA is intended to satisfy the requirements of Article 28 of the EU General Data Protection Regulation (GDPR), the UK GDPR, and equivalent provisions under Indian law including the DPDP Act 2023.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">1. Definitions</h3>
+    <p><strong style="color:var(--tx-hi)">"Personal Data"</strong> means any information relating to an identified or identifiable natural person processed by reb∞8 on behalf of the Client under the Principal Agreement.</p>
+    <p><strong style="color:var(--tx-hi)">"Processing"</strong> has the meaning given in the GDPR and includes any operation performed on personal data.</p>
+    <p><strong style="color:var(--tx-hi)">"Data Subject"</strong> means the individual whose personal data is being processed.</p>
+    <p><strong style="color:var(--tx-hi)">"Sub-processor"</strong> means any third party engaged by reb∞8 to process personal data on behalf of the Client.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">2. Subject Matter and Nature of Processing</h3>
+    <p>reb∞8 will process personal data as necessary to provide the services described in the Principal Agreement, including data annotation, labeling, evaluation, and managed data operations. Processing is carried out in accordance with the Client's documented instructions as set out in the Outcome Brief and this DPA.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">3. Types of Personal Data and Data Subjects</h3>
+    <p>The types of personal data processed may include: names, identifiers, images, voice recordings, text, behavioural data, and any other data included in the datasets provided by the Client for annotation or evaluation. Data subjects may include end users, customers, or other individuals whose data appears in Client-provided datasets. The specific categories will be defined in the applicable Outcome Brief.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">4. Obligations of reb∞8 as Processor</h3>
+    <p>reb∞8 shall: (a) process personal data only on documented instructions from the Client, unless required to do so by applicable law; (b) ensure that persons authorised to process personal data are bound by confidentiality obligations; (c) implement the technical and organisational security measures described in Clause 7; (d) assist the Client in responding to Data Subject rights requests, to the extent reasonably possible; (e) assist the Client in ensuring compliance with its obligations regarding security, breach notification, data protection impact assessments, and prior consultation; (f) at the Client's choice, delete or return all personal data after the end of the provision of services; and (g) make available to the Client all information necessary to demonstrate compliance with this DPA.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">5. Client Obligations</h3>
+    <p>The Client warrants that: (a) it has a lawful basis for providing personal data to reb∞8 for processing; (b) it has provided all required notices to, and obtained all required consents from, data subjects; (c) its instructions to reb∞8 comply with applicable data protection law; and (d) it will notify reb∞8 promptly of any changes to applicable law that affect the processing.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">6. Sub-processors</h3>
+    <p>The Client grants general authorisation for reb∞8 to engage sub-processors. reb∞8 will maintain a list of sub-processors and notify the Client of any intended changes (additions or replacements) with reasonable prior notice, giving the Client the opportunity to object. reb∞8 will impose data protection obligations on sub-processors equivalent to those in this DPA and remains liable to the Client for sub-processor performance.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">7. Technical and Organisational Security Measures</h3>
+    <p>reb∞8 implements appropriate technical and organisational measures to ensure a level of security appropriate to the risk, including: (a) encryption of personal data at rest and in transit; (b) access controls and role-based permissions limiting access to authorised personnel; (c) regular testing and evaluation of security measures; (d) procedures for restoring availability of personal data following a security incident; (e) staff training on data protection and security obligations.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">8. Data Breach Notification</h3>
+    <p>reb∞8 will notify the Client without undue delay, and in any event within 72 hours, of becoming aware of a personal data breach affecting Client data. Notification will include: (a) a description of the nature of the breach; (b) the categories and approximate number of data subjects and records affected; (c) likely consequences; and (d) measures taken or proposed to address the breach. Where complete information is not available within 72 hours, reb∞8 will provide information in phases.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">9. International Data Transfers</h3>
+    <p>Where personal data is transferred to a country outside the EEA, UK, or India that has not been determined to provide an adequate level of protection, such transfers will be made subject to appropriate safeguards, including (where applicable) Standard Contractual Clauses as approved by the European Commission. The Client may request a copy of applicable transfer mechanisms.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">10. Audit Rights</h3>
+    <p>reb∞8 will make available to the Client all information reasonably necessary to demonstrate compliance with this DPA and will allow for and contribute to audits and inspections, provided that: (a) the Client gives reasonable prior notice; (b) audits are conducted during normal business hours; (c) the Client bears the cost of any audit it initiates; and (d) audit frequency is limited to once per calendar year unless a specific breach or incident requires otherwise.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">11. Return and Deletion of Data</h3>
+    <p>Upon termination of the Principal Agreement or upon the Client's request, reb∞8 will, at the Client's election, return or securely delete all personal data processed on the Client's behalf, unless applicable law requires retention. reb∞8 will provide written confirmation of deletion upon request.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">12. Duration</h3>
+    <p>This DPA remains in effect for as long as reb∞8 processes personal data on behalf of the Client under the Principal Agreement. Obligations relating to confidentiality and security survive termination.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">13. Governing Law</h3>
+    <p>This DPA is governed by the laws of India. Any disputes shall be resolved in accordance with the dispute resolution provisions of the Principal Agreement.</p>
+
+    <h3 style="font-family:var(--f-d);font-size:22px;font-weight:700;color:var(--tx-hi);margin:36px 0 12px">14. Contact and Enquiries</h3>
+    <p>For questions about this DPA or to exercise rights under it, contact:<br/>reb∞8 Pvt Ltd<br/>Email: <a href="mailto:hello@reboo8.com" style="color:var(--teal)">hello@reboo8.com</a></p>
+
+    </div>
+  </div>
+</section>
+</div><!-- /pg-dpa -->
+
+<!-- ═══ FOOTER (V5) ════════════════════════════════════════════ -->
+<footer>
+  <div class="w">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <a class="ft-logo" onclick="go('home')">reb<span class="ft-logo-inf">∞</span><span class="ft-logo-dot">8</span></a>
+        <p>The Human-in-the-Loop Platform. Signal scores the workforce. Tag produces the output. Together — the infrastructure that manages the human layer in AI.</p>
+      </div>
+      <div>
+        <div class="ft-col-h">Products</div>
+        <ul class="ft-links">
+          <li><button onclick="go('signal')"><span class="reb8-mark">reb<span class="inf-sym">∞</span><span class="logo-8">8</span></span> Signal</button></li>
+          <li><button onclick="go('tag')"><span class="reb8-mark">reb<span class="inf-sym">∞</span><span class="logo-8">8</span></span> Tag</button></li>
+          <li><button onclick="openM()">Managed Services</button></li>
+          <li><button onclick="openM()" class="nv-cta" style="margin-top:4px">Request a Pilot →</button></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-h">Company</div>
+        <ul class="ft-links">
+          <li><button onclick="go('about')">About</button></li>
+          <li><a href="mailto:hello@reboo8.com">Contact</a></li>
+          <li><a href="https://github.com/reboo8" target="_blank" rel="noopener">Open Labs ↗</a></li>
+          <li><button onclick="go('network')">Join as Contributor</button></li>
+          <li><button onclick="go('careers')">Careers</button></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-h">Legal</div>
+        <ul class="ft-links">
+          <li><button onclick="go('privacy')">Privacy Policy</button></li>
+          <li><button onclick="go('terms')">Terms of Service</button></li>
+          <li><button onclick="go('dpa')">Data Processing</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span class="ft-copy">© 2026 <span class="reb8-mark">reb<span class="inf-sym">∞</span><span class="logo-8">8</span></span>. The Human-in-the-Loop Platform. India + Global.</span>
+      <div class="ft-socials">
+        <a href="#">LinkedIn</a>
+        <a href="#">Twitter / X</a>
+        <a href="mailto:hello@reboo8.com">hello@reboo8.com</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ MODAL ════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeM()">×</button>
+    <div class="modal-h">Start a pilot conversation</div>
+    <p class="modal-sub">Tell us your task type and what good looks like. We'll be in touch within 24 hours.</p>
+    <div class="ff"><label>Name</label><input type="text" placeholder="Your name"/></div>
+    <div class="ff"><label>Company</label><input type="text" placeholder="Company or team name"/></div>
+    <div class="ff"><label>Task type</label>
+      <select>
+        <option value="">Select your primary task type</option>
+        <option>LLM / RLHF preference ranking</option>
+        <option>Autonomous vehicle annotation</option>
+        <option>Robotics / manipulation data</option>
+        <option>Agri AI / satellite imagery</option>
+        <option>Trust &amp; Safety / content moderation</option>
+        <option>Manufacturing / defect detection</option>
+        <option>Other — I'll describe below</option>
+      </select>
+    </div>
+    <div class="ff"><label>What are you trying to solve?</label><textarea placeholder="Current volume, timeline, quality challenges — anything that helps us scope the pilot"></textarea></div>
+    <button class="bp" style="width:100%;justify-content:center;margin-top:4px" onclick="closeM()">Send →</button>
+    <p class="modal-note">Or email: <a href="mailto:hello@reboo8.com" style="color:var(--teal)">hello@reboo8.com</a></p>
+  </div>
+</div>
+
+<script>
+function openNetwork(){document.getElementById('networkModal').classList.add('open')}
+function closeNetwork(){document.getElementById('networkModal').classList.remove('open')}
+document.addEventListener('DOMContentLoaded',function(){var nm=document.getElementById('networkModal');if(nm)nm.addEventListener('click',function(e){if(e.target===this)closeNetwork()})});
+function go(p){document.querySelectorAll('.page').forEach(function(x){x.style.display='none'});var el=document.getElementById('pg-'+p);if(el){el.style.display='block'}window.scrollTo(0,0)}
+function openM(){document.getElementById('modal').classList.add('open')}
+function closeM(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeM()})
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()})
+</script>
+</body>
+</html>
+
+<!-- ═══ MODAL ════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeM()">×</button>
+    <div class="modal-h">Start a pilot conversation</div>
+    <p class="modal-sub">Tell us your task type and what good looks like. We'll be in touch within 24 hours.</p>
+    <div class="ff"><label>Name</label><input type="text" placeholder="Your name"/></div>
+    <div class="ff"><label>Company</label><input type="text" placeholder="Company or team name"/></div>
+    <div class="ff"><label>Task type</label>
+      <select>
+        <option value="">Select your primary task type</option>
+        <option>LLM / RLHF preference ranking</option>
+        <option>Autonomous vehicle annotation</option>
+        <option>Robotics / manipulation data</option>
+        <option>Agri AI / satellite imagery</option>
+        <option>Trust &amp; Safety / content moderation</option>
+        <option>Manufacturing / defect detection</option>
+        <option>Other — I'll describe below</option>
+      </select>
+    </div>
+    <div class="ff"><label>What are you trying to solve?</label><textarea placeholder="Current volume, timeline, quality challenges — anything that helps us scope the pilot"></textarea></div>
+    <button class="bp" style="width:100%;justify-content:center;margin-top:4px" onclick="closeM()">Send →</button>
+    <p class="modal-note">Or email: <a href="mailto:hello@reboo8.com" style="color:var(--teal)">hello@reboo8.com</a></p>
+  </div>
+</div>
+
+<script>
+function openNetwork(){document.getElementById('networkModal').classList.add('open')}
+function closeNetwork(){document.getElementById('networkModal').classList.remove('open')}
+document.addEventListener('DOMContentLoaded',function(){var nm=document.getElementById('networkModal');if(nm)nm.addEventListener('click',function(e){if(e.target===this)closeNetwork()})});
+function go(p){document.querySelectorAll('.page').forEach(function(x){x.style.display='none'});var el=document.getElementById('pg-'+p);if(el){el.style.display='block'}window.scrollTo(0,0)}
+function openM(){document.getElementById('modal').classList.add('open')}
+function closeM(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeM()})
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()})
+</script>
+</body>
+</html>
