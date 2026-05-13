@@ -176,7 +176,7 @@ function animateCountUp(el, target, duration = 1600) {
 
 // ─── Pilot form submit → Google Apps Script → Sheet ────────
 const PILOT_FORM_URL =
-  "https://script.google.com/a/macros/reboo8.com/s/AKfycbx_TkUpJqlRTt6YPgdiIPWr7Fw3qq_tll3wa1FSP1EKb-jOWGo3T2PHraI9ZlfaRMU_8Q/exec";
+  "https://script.google.com/macros/s/AKfycbx_TkUpJqlRTt6YPgdiIPWr7Fw3qq_tll3wa1FSP1EKb-jOWGo3T2PHraI9ZlfaRMU_8Q/exec";
 
 async function submitPilot(e) {
   e.preventDefault();
