@@ -2739,7 +2739,7 @@
                 <div class="as-l">Pre-scored contributors</div>
               </div>
               <div class="as">
-                <div class="as-n">7<span>d</span></div>
+                <div class="as-n">14<span>d</span></div>
                 <div class="as-l">Brief to first batch</div>
               </div>
               <div class="as">
@@ -5443,39 +5443,52 @@
           Tell us your task type and what good looks like. We'll be in touch
           within 24 hours.
         </p>
-        <div class="ff">
-          <label>Name</label><input type="text" placeholder="Your name" />
-        </div>
-        <div class="ff">
-          <label>Company</label
-          ><input type="text" placeholder="Company or team name" />
-        </div>
-        <div class="ff">
-          <label>Task type</label>
-          <select>
-            <option value="">Select your primary task type</option>
-            <option>LLM / RLHF preference ranking</option>
-            <option>Autonomous vehicle annotation</option>
-            <option>Robotics / manipulation data</option>
-            <option>Agri AI / satellite imagery</option>
-            <option>Trust &amp; Safety / content moderation</option>
-            <option>Manufacturing / defect detection</option>
-            <option>Other — I'll describe below</option>
-          </select>
-        </div>
-        <div class="ff">
-          <label>What are you trying to solve?</label
-          ><textarea
-            placeholder="Current volume, timeline, quality challenges — anything that helps us scope the pilot"
-          ></textarea>
-        </div>
-        <button
-          class="bp"
-          style="width: 100%; justify-content: center; margin-top: 4px"
-          onclick="closeM()"
-        >
-          Send →
-        </button>
+        <form id="pilotForm" onsubmit="submitPilot(event)">
+          <div class="ff">
+            <label>Name</label
+            ><input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              required
+            />
+          </div>
+          <div class="ff">
+            <label>Company</label
+            ><input
+              type="text"
+              name="company"
+              placeholder="Company or team name"
+            />
+          </div>
+          <div class="ff">
+            <label>Task type</label>
+            <select name="taskType">
+              <option value="">Select your primary task type</option>
+              <option>LLM / RLHF preference ranking</option>
+              <option>Autonomous vehicle annotation</option>
+              <option>Robotics / manipulation data</option>
+              <option>Agri AI / satellite imagery</option>
+              <option>Trust &amp; Safety / content moderation</option>
+              <option>Manufacturing / defect detection</option>
+              <option>Other — I'll describe below</option>
+            </select>
+          </div>
+          <div class="ff">
+            <label>What are you trying to solve?</label
+            ><textarea
+              name="message"
+              placeholder="Current volume, timeline, quality challenges — anything that helps us scope the pilot"
+            ></textarea>
+          </div>
+          <button
+            class="bp"
+            type="submit"
+            style="width: 100%; justify-content: center; margin-top: 4px"
+          >
+            Send →
+          </button>
+        </form>
         <p class="modal-note">
           Or email:
           <a href="mailto:hello@reboo8.com" style="color: var(--teal)"

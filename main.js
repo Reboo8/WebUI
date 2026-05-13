@@ -173,3 +173,39 @@ function animateCountUp(el, target, duration = 1600) {
   );
   obs.observe(stats);
 })();
+
+// ─── Pilot form submit → Google Apps Script → Sheet ────────
+const PILOT_FORM_URL =
+  "https://script.google.com/a/macros/reboo8.com/s/AKfycbx_TkUpJqlRTt6YPgdiIPWr7Fw3qq_tll3wa1FSP1EKb-jOWGo3T2PHraI9ZlfaRMU_8Q/exec";
+
+async function submitPilot(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+
+  const data = new FormData(form);
+  data.append("source", "pilot-modal");
+  data.append("page", window.location.pathname);
+
+  try {
+    await fetch(PILOT_FORM_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: data,
+    });
+    form.reset();
+    btn.textContent = "Thanks — we'll be in touch ✓";
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = original;
+      closeM();
+    }, 1800);
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = original;
+    alert("Send failed. Please email hello@reboo8.com directly.");
+  }
+}
